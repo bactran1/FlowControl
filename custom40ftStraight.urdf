@@ -112,12 +112,11 @@
       <inertia ixx="0.02" iyy="0.02" izz="0.02"/>
     </inertial>
   </link>
-  <joint name="Roller_1_joint" type="revolute">
+  <joint name="Roller_1_joint" type="continuous">
     <parent link="base_link"/>
     <child link="Roller_1"/>
     <origin rpy="1.570796 0 0" xyz="-0.047625 0 0.15"/>
     <axis xyz="0 0 1"/>
-    <limit effort="0.0" lower="-10.0" upper="10.0" velocity="10.0"/>
     <dynamics damping="0.1" friction="0.2"/>
   </joint>
   <!-- In between rollers, starting from #33->#64 -->
@@ -146,12 +145,11 @@
       <inertia ixx="0.02" iyy="0.02" izz="0.02"/>
     </inertial>
   </link>
-  <joint name="Roller_33_joint" type="revolute">
+  <joint name="Roller_33_joint" type="continuous">
     <parent link="base_link"/>
     <child link="Roller_33"/>
     <origin rpy="1.570796 0 0" xyz="-3.095625 0 0.15"/>
     <axis xyz="0 0 1"/>
-    <limit effort="0.0" lower="-10.0" upper="10.0" velocity="10.0"/>
     <dynamics damping="0.1" friction="0.2"/>
   </joint>
   <!-- In between rollders, starting from #65->#96 -->
@@ -180,12 +178,11 @@
       <inertia ixx="0.02" iyy="0.02" izz="0.02"/>
     </inertial>
   </link>
-  <joint name="Roller_65_joint" type="revolute">
+  <joint name="Roller_65_joint" type="continuous">
     <parent link="base_link"/>
     <child link="Roller_65"/>
     <origin rpy="1.570796 0 0" xyz="-6.143625 0 0.15"/>
     <axis xyz="0 0 1"/>
-    <limit effort="0.0" lower="-10.0" upper="10.0" velocity="10.0"/>
     <dynamics damping="0.1" friction="0.2"/>
   </joint>
   <!-- In between rollders, starting from #97->#128 -->
@@ -214,12 +211,11 @@
       <inertia ixx="0.02" iyy="0.02" izz="0.02"/>
     </inertial>
   </link>
-  <joint name="Roller_97_joint" type="revolute">
+  <joint name="Roller_97_joint" type="continuous">
     <parent link="base_link"/>
     <child link="Roller_97"/>
     <origin rpy="1.570796 0 0" xyz="-9.191625 0 0.15"/>
     <axis xyz="0 0 1"/>
-    <limit effort="0.0" lower="-10.0" upper="10.0" velocity="10.0"/>
     <dynamics damping="0.1" friction="0.2"/>
   </joint>
   <link name="Roller_2">

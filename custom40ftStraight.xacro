@@ -119,12 +119,11 @@
         </inertial>
     </link>
 
-    <joint name="Roller_1_joint" type="revolute">
+    <joint name="Roller_1_joint" type="continuous">
         <parent link="base_link"/>
         <child link="Roller_1"/>
         <origin xyz="-${roller_pitch/2} 0 0.15" rpy="1.570796 0 0"/>
         <axis xyz="0 0 1"/>
-        <limit lower="-10.0" upper="10.0" effort="0.0" velocity="10.0"/>
         <dynamics damping="0.1" friction="0.2"/>
     </joint>
 
@@ -182,12 +181,11 @@
         </inertial>
     </link>
 
-    <joint name="Roller_33_joint" type="revolute">
+    <joint name="Roller_33_joint" type="continuous">
         <parent link="base_link"/>
         <child link="Roller_33"/>
         <origin xyz="-${(32)*roller_pitch + roller_pitch/2} 0 0.15" rpy="1.570796 0 0"/>
         <axis xyz="0 0 1"/>
-        <limit lower="-10.0" upper="10.0" effort="0.0" velocity="10.0"/>
         <dynamics damping="0.1" friction="0.2"/>
     </joint>
 
@@ -245,12 +243,11 @@
         </inertial>
     </link>
 
-    <joint name="Roller_65_joint" type="revolute">
+    <joint name="Roller_65_joint" type="continuous">
         <parent link="base_link"/>
         <child link="Roller_65"/>
         <origin xyz="-${(64)*roller_pitch + roller_pitch/2} 0 0.15" rpy="1.570796 0 0"/>
         <axis xyz="0 0 1"/>
-        <limit lower="-10.0" upper="10.0" effort="0.0" velocity="10.0"/>
         <dynamics damping="0.1" friction="0.2"/>
     </joint>
 
@@ -308,12 +305,11 @@
         </inertial>
     </link>
 
-    <joint name="Roller_97_joint" type="revolute">
+    <joint name="Roller_97_joint" type="continuous">
         <parent link="base_link"/>
         <child link="Roller_97"/>
         <origin xyz="-${(96)*roller_pitch + roller_pitch/2} 0 0.15" rpy="1.570796 0 0"/>
         <axis xyz="0 0 1"/>
-        <limit lower="-10.0" upper="10.0" effort="0.0" velocity="10.0"/>
         <dynamics damping="0.1" friction="0.2"/>
     </joint>
 
