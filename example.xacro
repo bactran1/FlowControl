@@ -1,0 +1,80 @@
+<?xml version="1.0" ?>
+<robot name="roller_conveyor" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <!-- Parameters -->
+    <xacro:property name="roller_diameter" value="0.0508"/> <!-- 50.8mm -->
+    <xacro:property name="roller_length" value="1.219"/>   <!-- 4ft -->
+    <xacro:property name="conveyor_length" value="1.524"/> <!-- 5ft -->
+    <xacro:property name="conveyor_width" value="1.219"/>  <!-- 4ft -->
+    <xacro:property name="roller_count" value="14"/>
+    <xacro:property name="roller_spacing" value="${conveyor_length / (roller_count - 1)}"/>
+
+    <!-- Base Frame -->
+    <link name="base_link">
+        <visual>
+            <geometry>
+                <box size="${conveyor_length} ${conveyor_width} 0.1"/>
+            </geometry>
+            <material name="gray">
+                <color rgba="0.6 0.6 0.6 1.0"/>
+            </material>
+        </visual>
+        <collision>
+            <geometry>
+                <box size="${conveyor_length} ${conveyor_width} 0.1"/>
+            </geometry>
+        </collision>
+        <inertial>
+            <mass value="20.0"/>
+            <inertia ixx="0.2" iyy="0.2" izz="0.2"/>
+        </inertial>
+    </link>
+
+    <!-- Macro for Roller -->
+    <xacro:macro name="roller" params="index pos_y">
+        <link name="roller_${index}">
+            <visual>
+                <geometry>
+                    <cylinder radius="${roller_diameter / 2}" length="${roller_length}"/>
+                </geometry>
+                <material name="black">
+                    <color rgba="0.1 0.1 0.1 1.0"/>
+                </material>
+            </visual>
+            <collision>
+                <geometry>
+                    <cylinder radius="${roller_diameter / 2}" length="${roller_length}"/>
+                </geometry>
+            </collision>
+            <inertial>
+                <mass value="2.0"/>
+                <inertia ixx="0.02" iyy="0.02" izz="0.02"/>
+            </inertial>
+        </link>
+
+        <joint name="roller_${index}_joint" type="continuous">
+            <parent link="base_link"/>
+            <child link="roller_${index}"/>
+            <origin xyz="0 ${pos_y} 0.05" rpy="0 0 0"/>
+            <axis xyz="1 0 0"/>
+            <dynamics damping="0.1" friction="0.2"/>
+        </joint>
+    </xacro:macro>
+
+    <!-- Generate 14 Rollers -->
+    <xacro:roller index="1" pos_y="${-conveyor_width / 2 + 0 * roller_spacing}"/>
+    <xacro:roller index="2" pos_y="${-conveyor_width / 2 + 1 * roller_spacing}"/>
+    <xacro:roller index="3" pos_y="${-conveyor_width / 2 + 2 * roller_spacing}"/>
+    <xacro:roller index="4" pos_y="${-conveyor_width / 2 + 3 * roller_spacing}"/>
+    <xacro:roller index="5" pos_y="${-conveyor_width / 2 + 4 * roller_spacing}"/>
+    <xacro:roller index="6" pos_y="${-conveyor_width / 2 + 5 * roller_spacing}"/>
+    <xacro:roller index="7" pos_y="${-conveyor_width / 2 + 6 * roller_spacing}"/>
+    <xacro:roller index="8" pos_y="${-conveyor_width / 2 + 7 * roller_spacing}"/>
+    <xacro:roller index="9" pos_y="${-conveyor_width / 2 + 8 * roller_spacing}"/>
+    <xacro:roller index="10" pos_y="${-conveyor_width / 2 + 9 * roller_spacing}"/>
+    <xacro:roller index="11" pos_y="${-conveyor_width / 2 + 10 * roller_spacing}"/>
+    <xacro:roller index="12" pos_y="${-conveyor_width / 2 + 11 * roller_spacing}"/>
+    <xacro:roller index="13" pos_y="${-conveyor_width / 2 + 12 * roller_spacing}"/>
+    <xacro:roller index="14" pos_y="${-conveyor_width / 2 + 13 * roller_spacing}"/>
+
+</robot>

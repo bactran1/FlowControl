@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<robot name="roller_conveyor">
+<robot name="roller_conveyor_5ft">
 
     <!-- Base Frame -->
     <link name="base_link">
@@ -13,7 +13,7 @@
         </visual>
         <collision>
             <geometry>
-                <box size="1.524 1.219 0.1"/>
+                <box size="1.65 1.219 0.1"/>
             </geometry>
         </collision>
         <inertial>
@@ -34,7 +34,7 @@
         </visual>
         <collision>
             <geometry>
-                <box size="1.524 1.219 0.1"/>
+                <box size="1.65 0.05 0.5"/>
             </geometry>
         </collision>
         <inertial>
@@ -61,7 +61,7 @@
         </visual>
         <collision>
             <geometry>
-                <box size="1.524 1.219 0.1"/>
+                <box size="1.65 0.05 0.5"/>
             </geometry>
         </collision>
         <inertial>
@@ -95,6 +95,7 @@
     <!-- Define 14 rollers manually -->
 
     <!-- Start Roller Definitions -->
+    <!-- Roller 1 -->
     <link name="roller_1"><visual><geometry><cylinder radius="0.0254" length="1.219"/></geometry></visual>
         <collision>
             <geometry>
@@ -106,8 +107,15 @@
             <inertia ixx="0.02" iyy="0.02" izz="0.02"/>
         </inertial>
     </link>
-    <joint name="roller_1_joint" type="continuous"><parent link="base_link"/><child link="roller_1"/><origin xyz="-0.762 0 0.15" rpy="1.570796 0 0"/><axis xyz="0 0 1"/></joint>
+    <joint name="roller_1_joint" type="continuous">
+        <parent link="base_link"/>
+        <child link="roller_1"/>
+        <origin xyz="-0.762 0 0.15" rpy="1.570796 0 0"/>
+        <limit lower="-180.0" upper="180.0" effort="0.0" velocity="10.0"/>
+        <axis xyz="0 0 1"/>
+    </joint>
 
+    <!-- Roller 2 -->
     <link name="roller_2"><visual><geometry><cylinder radius="0.0254" length="1.219"/></geometry></visual>
         <collision>
             <geometry>
@@ -119,8 +127,15 @@
             <inertia ixx="0.02" iyy="0.02" izz="0.02"/>
         </inertial>
     </link>
-    <joint name="roller_2_joint" type="continuous"><parent link="base_link"/><child link="roller_2"/><origin xyz="-0.645 0 0.15" rpy="1.570796 0 0"/><axis xyz="0 0 1"/></joint>
+    <joint name="roller_2_joint" type="continuous">
+        <parent link="base_link"/>
+        <child link="roller_2"/>
+        <origin xyz="-0.645 0 0.15" rpy="1.570796 0 0"/>
+        <axis xyz="0 0 1"/>
+        <mimic joint="roller_1_joint" multiplier="1.0"/>
+    </joint>
 
+    <!-- Roller 3 -->
     <link name="roller_3"><visual><geometry><cylinder radius="0.0254" length="1.219"/></geometry></visual>
         <collision>
             <geometry>
@@ -132,8 +147,15 @@
             <inertia ixx="0.02" iyy="0.02" izz="0.02"/>
         </inertial>
     </link>
-    <joint name="roller_3_joint" type="continuous"><parent link="base_link"/><child link="roller_3"/><origin xyz="-0.528 0 0.15" rpy="1.570796 0 0"/><axis xyz="0 0 1"/></joint>
+    <joint name="roller_3_joint" type="continuous">
+        <parent link="base_link"/>
+        <child link="roller_3"/>
+        <origin xyz="-0.528 0 0.15" rpy="1.570796 0 0"/>
+        <axis xyz="0 0 1"/>
+        <mimic joint="roller_1_joint" multiplier="1.0"/>
+    </joint>
 
+    <!-- Roller 4 -->
     <link name="roller_4"><visual><geometry><cylinder radius="0.0254" length="1.219"/></geometry></visual>
         <collision>
             <geometry>
@@ -145,8 +167,15 @@
             <inertia ixx="0.02" iyy="0.02" izz="0.02"/>
         </inertial>
     </link>
-    <joint name="roller_4_joint" type="continuous"><parent link="base_link"/><child link="roller_4"/><origin xyz="-0.411 0 0.15" rpy="1.570796 0 0"/><axis xyz="0 0 1"/></joint>
+    <joint name="roller_4_joint" type="continuous">
+        <parent link="base_link"/>
+        <child link="roller_4"/>
+        <origin xyz="-0.411 0 0.15" rpy="1.570796 0 0"/>
+        <axis xyz="0 0 1"/>
+        <mimic joint="roller_1_joint" multiplier="1.0"/>
+    </joint>
 
+    <!-- Roller 5 -->
     <link name="roller_5"><visual><geometry><cylinder radius="0.0254" length="1.219"/></geometry></visual>
         <collision>
             <geometry>
@@ -158,8 +187,15 @@
             <inertia ixx="0.02" iyy="0.02" izz="0.02"/>
         </inertial>
     </link>
-    <joint name="roller_5_joint" type="continuous"><parent link="base_link"/><child link="roller_5"/><origin xyz="-0.294 0 0.15" rpy="1.570796 0 0"/><axis xyz="0 0 1"/></joint>
+    <joint name="roller_5_joint" type="continuous">
+        <parent link="base_link"/>
+        <child link="roller_5"/>
+        <origin xyz="-0.294 0 0.15" rpy="1.570796 0 0"/>
+        <axis xyz="0 0 1"/>
+        <mimic joint="roller_1_joint" multiplier="1.0"/>
+    </joint>
 
+    <!-- Roller 6 -->
     <link name="roller_6"><visual><geometry><cylinder radius="0.0254" length="1.219"/></geometry></visual>
         <collision>
             <geometry>
@@ -171,8 +207,15 @@
             <inertia ixx="0.02" iyy="0.02" izz="0.02"/>
         </inertial>
     </link>
-    <joint name="roller_6_joint" type="continuous"><parent link="base_link"/><child link="roller_6"/><origin xyz="-0.177 0 0.15" rpy="1.570796 0 0"/><axis xyz="0 0 1"/></joint>
+    <joint name="roller_6_joint" type="continuous">
+        <parent link="base_link"/>
+        <child link="roller_6"/>
+        <origin xyz="-0.177 0 0.15" rpy="1.570796 0 0"/>
+        <axis xyz="0 0 1"/>
+        <mimic joint="roller_1_joint" multiplier="1.0"/>
+    </joint>
 
+    <!-- Roller 7 -->
     <link name="roller_7"><visual><geometry><cylinder radius="0.0254" length="1.219"/></geometry></visual>
         <collision>
             <geometry>
@@ -184,8 +227,15 @@
             <inertia ixx="0.02" iyy="0.02" izz="0.02"/>
         </inertial>
     </link>
-    <joint name="roller_7_joint" type="continuous"><parent link="base_link"/><child link="roller_7"/><origin xyz="-0.06 0 0.15" rpy="1.570796 0 0"/><axis xyz="0 0 1"/></joint>
+    <joint name="roller_7_joint" type="continuous">
+        <parent link="base_link"/>
+        <child link="roller_7"/>
+        <origin xyz="-0.06 0 0.15" rpy="1.570796 0 0"/>
+        <axis xyz="0 0 1"/>
+        <mimic joint="roller_1_joint" multiplier="1.0"/>
+    </joint>
 
+    <!-- Roller 8 -->
     <link name="roller_8"><visual><geometry><cylinder radius="0.0254" length="1.219"/></geometry></visual>
         <collision>
             <geometry>
@@ -197,8 +247,15 @@
             <inertia ixx="0.02" iyy="0.02" izz="0.02"/>
         </inertial>
     </link>
-    <joint name="roller_8_joint" type="continuous"><parent link="base_link"/><child link="roller_8"/><origin xyz="0.057 0 0.15" rpy="1.570796 0 0"/><axis xyz="0 0 1"/></joint>
+    <joint name="roller_8_joint" type="continuous">
+        <parent link="base_link"/>
+        <child link="roller_8"/>
+        <origin xyz="0.057 0 0.15" rpy="1.570796 0 0"/>
+        <axis xyz="0 0 1"/>
+        <mimic joint="roller_1_joint" multiplier="1.0"/>
+    </joint>
 
+    <!-- Roller 9 -->
     <link name="roller_9"><visual><geometry><cylinder radius="0.0254" length="1.219"/></geometry></visual>
         <collision>
             <geometry>
@@ -210,8 +267,15 @@
             <inertia ixx="0.02" iyy="0.02" izz="0.02"/>
         </inertial>
     </link>
-    <joint name="roller_9_joint" type="continuous"><parent link="base_link"/><child link="roller_9"/><origin xyz="0.174 0 0.15" rpy="1.570796 0 0"/><axis xyz="0 0 1"/></joint>
+    <joint name="roller_9_joint" type="continuous">
+        <parent link="base_link"/>
+        <child link="roller_9"/>
+        <origin xyz="0.174 0 0.15" rpy="1.570796 0 0"/>
+        <axis xyz="0 0 1"/>
+        <mimic joint="roller_1_joint" multiplier="1.0"/>
+    </joint>
 
+    <!-- Roller 10 -->
     <link name="roller_10"><visual><geometry><cylinder radius="0.0254" length="1.219"/></geometry></visual>
         <collision>
             <geometry>
@@ -223,8 +287,15 @@
             <inertia ixx="0.02" iyy="0.02" izz="0.02"/>
         </inertial>
     </link>
-    <joint name="roller_10_joint" type="continuous"><parent link="base_link"/><child link="roller_10"/><origin xyz="0.291 0 0.15" rpy="1.570796 0 0"/><axis xyz="0 0 1"/></joint>
+    <joint name="roller_10_joint" type="continuous">
+        <parent link="base_link"/>
+        <child link="roller_10"/>
+        <origin xyz="0.291 0 0.15" rpy="1.570796 0 0"/>
+        <axis xyz="0 0 1"/>
+        <mimic joint="roller_1_joint" multiplier="1.0"/>
+    </joint>
 
+    <!-- Roller 11 -->
     <link name="roller_11"><visual><geometry><cylinder radius="0.0254" length="1.219"/></geometry></visual>
         <collision>
             <geometry>
@@ -236,8 +307,15 @@
             <inertia ixx="0.02" iyy="0.02" izz="0.02"/>
         </inertial>
     </link>
-    <joint name="roller_11_joint" type="continuous"><parent link="base_link"/><child link="roller_11"/><origin xyz="0.408 0 0.15" rpy="1.570796 0 0"/><axis xyz="0 0 1"/></joint>
+    <joint name="roller_11_joint" type="continuous">
+        <parent link="base_link"/>
+        <child link="roller_11"/>
+        <origin xyz="0.408 0 0.15" rpy="1.570796 0 0"/>
+        <axis xyz="0 0 1"/>
+        <mimic joint="roller_1_joint" multiplier="1.0"/>
+    </joint>
 
+    <!-- Roller 12 -->
     <link name="roller_12"><visual><geometry><cylinder radius="0.0254" length="1.219"/></geometry></visual>
         <collision>
             <geometry>
@@ -249,8 +327,15 @@
             <inertia ixx="0.02" iyy="0.02" izz="0.02"/>
         </inertial>
     </link>
-    <joint name="roller_12_joint" type="continuous"><parent link="base_link"/><child link="roller_12"/><origin xyz="0.525 0 0.15" rpy="1.570796 0 0"/><axis xyz="0 0 1"/></joint>
+    <joint name="roller_12_joint" type="continuous">
+        <parent link="base_link"/>
+        <child link="roller_12"/>
+        <origin xyz="0.525 0 0.15" rpy="1.570796 0 0"/>
+        <axis xyz="0 0 1"/>
+        <mimic joint="roller_1_joint" multiplier="1.0"/>
+    </joint>
 
+    <!-- Roller 13 -->
     <link name="roller_13"><visual><geometry><cylinder radius="0.0254" length="1.219"/></geometry></visual>
         <collision>
             <geometry>
@@ -262,8 +347,15 @@
             <inertia ixx="0.02" iyy="0.02" izz="0.02"/>
         </inertial>
     </link>
-    <joint name="roller_13_joint" type="continuous"><parent link="base_link"/><child link="roller_13"/><origin xyz="0.642 0 0.15" rpy="1.570796 0 0"/><axis xyz="0 0 1"/></joint>
+    <joint name="roller_13_joint" type="continuous">
+        <parent link="base_link"/>
+        <child link="roller_13"/>
+        <origin xyz="0.642 0 0.15" rpy="1.570796 0 0"/>
+        <axis xyz="0 0 1"/>
+        <mimic joint="roller_1_joint" multiplier="1.0"/>
+    </joint>
 
+    <!-- Roller 14 -->
     <link name="roller_14"><visual><geometry><cylinder radius="0.0254" length="1.219"/></geometry></visual>
         <collision>
             <geometry>
@@ -275,6 +367,12 @@
             <inertia ixx="0.02" iyy="0.02" izz="0.02"/>
         </inertial>
     </link>
-    <joint name="roller_14_joint" type="continuous"><parent link="base_link"/><child link="roller_14"/><origin xyz="0.759 0 0.15" rpy="1.570796 0 0"/><axis xyz="0 0 1"/></joint>
+    <joint name="roller_14_joint" type="continuous">
+        <parent link="base_link"/>
+        <child link="roller_14"/>
+        <origin xyz="0.759 0 0.15" rpy="1.570796 0 0"/>
+        <axis xyz="0 0 1"/>
+        <mimic joint="roller_1_joint" multiplier="1.0"/>
+    </joint>
 
 </robot>
