@@ -129,7 +129,7 @@
     </joint>
 
     <!-- Roller #2->#32 -->
-    <xacro:macro name="roller1st5ft" params="name rollerNum">
+    <xacro:macro name="roller1st5ft" params="rollerNum">
         <link name="Roller_${rollerNum}">
             <visual>
                 <geometry>
@@ -192,7 +192,7 @@
     </joint>
 
     <!-- Roller #34->#64 -->
-    <xacro:macro name="roller2nd5ft" params="name rollerNum">
+    <xacro:macro name="roller2nd5ft" params="rollerNum">
         <link name="Roller_${rollerNum}">
             <visual>
                 <geometry>
@@ -255,7 +255,7 @@
     </joint>
 
     <!-- Roller #66->#96 -->
-    <xacro:macro name="roller3rd5ft" params="name rollerNum">
+    <xacro:macro name="roller3rd5ft" params="rollerNum">
         <link name="Roller_${rollerNum}">
             <visual>
                 <geometry>
@@ -318,7 +318,7 @@
     </joint>
 
     <!-- Roller #98->#128 -->
-    <xacro:macro name="roller4th5ft" params="name rollerNum">
+    <xacro:macro name="roller4th5ft" params="rollerNum">
         <link name="Roller_${rollerNum}">
             <visual>
                 <geometry>
