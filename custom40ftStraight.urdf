@@ -109,7 +109,7 @@
     </collision>
     <inertial>
       <mass value="2.0"/>
-      <inertia ixx="0.02" iyy="0.02" izz="0.02"/>
+      <inertia ixx="0.02" iyy="0.02" izz="0.005"/>
     </inertial>
   </link>
   <joint name="Roller_1_joint" type="continuous">
@@ -234,13 +234,13 @@
     </collision>
     <inertial>
       <mass value="2.0"/>
-      <inertia ixx="0.02" iyy="0.02" izz="0.02"/>
+      <inertia ixx="0.02" iyy="0.02" izz="0.005"/>
     </inertial>
   </link>
   <joint name="Roller_2_joint" type="continuous">
     <parent link="base_link"/>
     <child link="Roller_2"/>
-    <origin rpy="1.5707963 0 0" xyz="-0.142875 0 0.15"/>
+    <origin rpy="1.570796 0 0" xyz="-0.142875 0 0.15"/>
     <axis xyz="0 0 1"/>
     <dynamics damping="0.1" friction="0.2"/>
     <mimic joint="Roller_1_joint" multiplier="1" offset="0"/>
