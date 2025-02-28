@@ -36,11 +36,14 @@ from isaaclab.managers import ObservationTermCfg as ObsTerm
 from isaaclab.managers import RewardTermCfg as RewTerm
 from isaaclab.managers import SceneEntityCfg
 from isaaclab.managers import TerminationTermCfg as DoneTerm
+from isaaclab.sim.converters.urdf_converter_cfg import UrdfConverterCfg
 from isaaclab.utils import configclass
 
 FC_CFG = ArticulationCfg(
-    spawn=sim_utils.UsdFileCfg(
-        usd_path="C:/Users/bactran/Documents/FlowControl/custom40ftStraight/custom40ftStraight.usd",
+    spawn=sim_utils.UrdfFileCfg(
+        asset_path="C:/Users/bactran/Documents/FlowControl/custom40ftStraight.urdf",
+        fix_base=True,
+        joint_drive=UrdfConverterCfg.JointDriveCfg(drive_type="force", gains=1.0),
         rigid_props=sim_utils.RigidBodyPropertiesCfg(
             rigid_body_enabled=True,
             max_linear_velocity=1000.0,
@@ -257,7 +260,7 @@ def main():
             # step the environment
             obs, rew, terminated, truncated, info = env.step(joint_vel)
             # print current orientation of pole
-            print("[Env 0]: Pole joint: ", obs["policy"][0][1].item())
+            print("[Env 0]:  Joint: ", obs["policy"][0][1].item())
             # update counter
             count += 1
 
