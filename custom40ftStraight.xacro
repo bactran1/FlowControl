@@ -124,7 +124,7 @@
         <child link="Roller_1"/>
         <origin xyz="-${roller_pitch/2} 0 0.15" rpy="1.570796 0 0"/>
         <axis xyz="0 0 1"/>
-        <dynamics damping="0.1" friction="0.2"/>
+        <dynamics damping="1.0" friction="0.0"/>
     </joint>
 
     <!-- Roller #2->#32 -->
@@ -154,8 +154,7 @@
             <child link="Roller_${rollerNum}"/>
             <origin xyz="-${(rollerNum-1)*roller_pitch + roller_pitch/2} 0 0.15" rpy="${pi/2} 0 0"/>
             <axis xyz="0 0 1"/>
-            <dynamics damping="0.1" friction="0.2"/>
-            <mimic joint="Roller_1_joint" multiplier="1" offset="0" />
+            <dynamics damping="1.0" friction="0.0"/>
         </joint>
     </xacro:macro>
 
@@ -186,7 +185,7 @@
         <child link="Roller_33"/>
         <origin xyz="-${(32)*roller_pitch + roller_pitch/2} 0 0.15" rpy="1.570796 0 0"/>
         <axis xyz="0 0 1"/>
-        <dynamics damping="0.1" friction="0.2"/>
+        <dynamics damping="1.0" friction="0.0"/>
     </joint>
 
     <!-- Roller #34->#64 -->
@@ -216,8 +215,7 @@
             <child link="Roller_${rollerNum}"/>
             <origin xyz="-${(rollerNum-1)*roller_pitch + roller_pitch/2} 0 0.15" rpy="${pi/2} 0 0"/>
             <axis xyz="0 0 1"/>
-            <dynamics damping="0.1" friction="0.2"/>
-            <mimic joint="Roller_33_joint" multiplier="1" offset="0" />
+            <dynamics damping="1.0" friction="0.0"/>
         </joint>
     </xacro:macro>
 
@@ -248,7 +246,7 @@
         <child link="Roller_65"/>
         <origin xyz="-${(64)*roller_pitch + roller_pitch/2} 0 0.15" rpy="1.570796 0 0"/>
         <axis xyz="0 0 1"/>
-        <dynamics damping="0.1" friction="0.2"/>
+        <dynamics damping="1.0" friction="0.0"/>
     </joint>
 
     <!-- Roller #66->#96 -->
@@ -278,8 +276,7 @@
             <child link="Roller_${rollerNum}"/>
             <origin xyz="-${(rollerNum-1)*roller_pitch + roller_pitch/2} 0 0.15" rpy="${pi/2} 0 0"/>
             <axis xyz="0 0 1"/>
-            <dynamics damping="0.1" friction="0.2"/>
-            <mimic joint="Roller_65_joint" multiplier="1" offset="0" />
+            <dynamics damping="1.0" friction="0.0"/>
         </joint>
     </xacro:macro>
 
@@ -310,7 +307,7 @@
         <child link="Roller_97"/>
         <origin xyz="-${(96)*roller_pitch + roller_pitch/2} 0 0.15" rpy="1.570796 0 0"/>
         <axis xyz="0 0 1"/>
-        <dynamics damping="0.1" friction="0.2"/>
+        <dynamics damping="1.0" friction="0.0"/>
     </joint>
 
     <!-- Roller #98->#128 -->
@@ -340,8 +337,7 @@
             <child link="Roller_${rollerNum}"/>
             <origin xyz="-${(rollerNum-1)*roller_pitch + roller_pitch/2} 0 0.15" rpy="${pi/2} 0 0"/>
             <axis xyz="0 0 1"/>
-            <dynamics damping="0.1" friction="0.2"/>
-            <mimic joint="Roller_97_joint" multiplier="1" offset="0" />
+            <dynamics damping="1.0" friction="0.0"/>
         </joint>
     </xacro:macro>
 
