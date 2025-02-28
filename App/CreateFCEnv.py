@@ -1,6 +1,7 @@
 import argparse
 
 from isaaclab.app import AppLauncher
+from typing import List
 
 # add argparse arguments
 parser = argparse.ArgumentParser(description="Training for Flow Control.")
@@ -86,13 +87,7 @@ FC_CFG = ArticulationCfg(
     ),
     actuators={
         "joint_1_actuator": ImplicitActuatorCfg(
-            joint_names_expr=['Roller_1_joint','Roller_2_joint','Roller_3_joint','Roller_4_joint','Roller_5_joint',
-                              'Roller_6_joint','Roller_7_joint','Roller_8_joint','Roller_9_joint',"Roller_10_joint",
-                              'Roller_11_joint','Roller_12_joint','Roller_13_joint','Roller_14_joint','Roller_15_joint',
-                              'Roller_16_joint','Roller_17_joint','Roller_18_joint','Roller_19_joint','Roller_20_joint',
-                              'Roller_21_joint','Roller_22_joint','Roller_23_joint','Roller_24_joint','Roller_25_joint',
-                              'Roller_26_joint','Roller_27_joint','Roller_28_joint','Roller_29_joint','Roller_30_joint',
-                              'Roller_31_joint','Roller_32_joint'],
+            joint_names_expr=['Roller_1_joint','Roller_2_joint','Roller_3_joint','Roller_4_joint','Roller_5_joint','Roller_6_joint','Roller_7_joint','Roller_8_joint','Roller_9_joint','Roller_10_joint','Roller_11_joint','Roller_12_joint','Roller_13_joint','Roller_14_joint','Roller_15_joint','Roller_16_joint','Roller_17_joint','Roller_18_joint','Roller_19_joint','Roller_20_joint','Roller_21_joint','Roller_22_joint','Roller_23_joint','Roller_24_joint','Roller_25_joint', 'Roller_26_joint','Roller_27_joint','Roller_28_joint','Roller_29_joint','Roller_30_joint','Roller_31_joint','Roller_32_joint'],
             effort_limit=40000.0,
             velocity_limit=100.0,
             stiffness=0.0,
