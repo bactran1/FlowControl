@@ -86,20 +86,20 @@ FC_CFG = ArticulationCfg(
     ),
     actuators={
         "joint_1_actuator": ImplicitActuatorCfg(
-            joint_names_expr=["Roller_1_joint","Roller_2_joint","Roller_3_joint","Roller_4_joint","Roller_5_joint",
-                              "Roller_6_joint","Roller_7_joint","Roller_8_joint","Roller_9_joint","Roller_10_joint",
-                              "Roller_11_joint","Roller_12_joint","Roller_13_joint","Roller_14_joint","Roller_15_joint",
-                              "Roller_16_joint","Roller_17_joint","Roller_18_joint","Roller_19_joint","Roller_20_joint",
-                              "Roller_21_joint","Roller_22_joint","Roller_23_joint","Roller_24_joint","Roller_25_joint",
-                              "Roller_26_joint","Roller_27_joint","Roller_28_joint","Roller_29_joint","Roller_30_joint",
-                              "Roller_31_joint","Roller_32_joint"],
+            joint_names_expr=['Roller_1_joint','Roller_2_joint','Roller_3_joint','Roller_4_joint','Roller_5_joint',
+                              'Roller_6_joint','Roller_7_joint','Roller_8_joint','Roller_9_joint',"Roller_10_joint",
+                              'Roller_11_joint','Roller_12_joint','Roller_13_joint','Roller_14_joint','Roller_15_joint',
+                              'Roller_16_joint','Roller_17_joint','Roller_18_joint','Roller_19_joint','Roller_20_joint',
+                              'Roller_21_joint','Roller_22_joint','Roller_23_joint','Roller_24_joint','Roller_25_joint',
+                              'Roller_26_joint','Roller_27_joint','Roller_28_joint','Roller_29_joint','Roller_30_joint',
+                              'Roller_31_joint','Roller_32_joint'],
             effort_limit=40000.0,
             velocity_limit=100.0,
             stiffness=0.0,
-            damping=10.0,
+            damping=10.0
         ),
         "joint_33_actuator": ImplicitActuatorCfg(
-            joint_names_expr=["Roller_33_joint","Roller_34_joint","Roller_35_joint","Roller_36_joint","Roller_37_joint",
+            joint_names_expr=['Roller_33_joint','Roller_34_joint','Roller_35_joint','Roller_36_joint','Roller_37_joint',
                               "Roller_38_joint","Roller_39_joint","Roller_40_joint","Roller_41_joint","Roller_42_joint",
                               "Roller_43_joint","Roller_44_joint","Roller_45_joint","Roller_46_joint","Roller_47_joint",
                               "Roller_48_joint","Roller_49_joint","Roller_50_joint","Roller_51_joint","Roller_52_joint",
@@ -109,7 +109,7 @@ FC_CFG = ArticulationCfg(
             effort_limit=40000.0,
             velocity_limit=100.0,
             stiffness=0.0,
-            damping=10.0,
+            damping=10.0
         ),
         "joint_65_actuator": ImplicitActuatorCfg(
             joint_names_expr=["Roller_65_joint","Roller_66_joint","Roller_67_joint","Roller_68_joint","Roller_69_joint",
@@ -122,7 +122,7 @@ FC_CFG = ArticulationCfg(
             effort_limit=40000.0,
             velocity_limit=100.0,
             stiffness=0.0,
-            damping=10.0,
+            damping=10.0
         ),
         "joint_97_actuator": ImplicitActuatorCfg(
             joint_names_expr=["Roller_97_joint","Roller_98_joint","Roller_99_joint","Roller_100_joint","Roller_101_joint",
@@ -135,7 +135,7 @@ FC_CFG = ArticulationCfg(
             effort_limit=40000.0,
             velocity_limit=100.0,
             stiffness=0.0,
-            damping=10.0,
+            damping=10.0
         )
     },
 )
@@ -168,7 +168,7 @@ class FlowControlSceneCfg(InteractiveSceneCfg):
 class ActionsCfg:
     """Action specifications for the environment."""
 
-    joint_velocities = mdp.JointVelocityActionCfg(asset_name="robot", joint_names=["joint_1_actuator", "joint_33_actuator","joint_65_actuator","joint_97_actuator"], scale=1.0)
+    joint_velocities = mdp.JointVelocityActionCfg(asset_name="FC", joint_names=["joint_1_actuator", "joint_33_actuator","joint_65_actuator","joint_97_actuator"], scale=1.0)
     
 
 @configclass
@@ -285,7 +285,7 @@ def main():
     """Main function."""
     # create environment configuration
     print("Main")
-    env_cfg = FlowControlSceneCfg()
+    env_cfg = FlowControlEnvCfg()
     env_cfg.scene.num_envs = args_cli.num_envs
     # setup RL environment
     env = ManagerBasedRLEnv(cfg=env_cfg)
