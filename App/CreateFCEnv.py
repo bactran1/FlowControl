@@ -40,10 +40,8 @@ from isaaclab.sim.converters.urdf_converter_cfg import UrdfConverterCfg
 from isaaclab.utils import configclass
 
 FC_CFG = ArticulationCfg(
-    spawn=sim_utils.UrdfFileCfg(
-        asset_path="C:/Users/bactran/Documents/FlowControl/custom40ftStraight.urdf",
-        fix_base=True,
-        joint_drive=UrdfConverterCfg.JointDriveCfg(drive_type="force", gains=1.0),
+    spawn=sim_utils.UsdFileCfg(
+        usd_path="C:/Users/bactran/Documents/FlowControl/custom40ftStraight/custom40ftStraight.usd",
         rigid_props=sim_utils.RigidBodyPropertiesCfg(
             rigid_body_enabled=True,
             max_linear_velocity=1000.0,
