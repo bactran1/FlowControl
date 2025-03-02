@@ -16,11 +16,14 @@ args_cli = parser.parse_args()
 app_launcher = AppLauncher(args_cli)
 simulation_app = app_launcher.app
 
-#import math
+import math
 import torch
 import math
 import os
-import re
+#import re
+
+import isaacsim.core.utils.prims as prim_utils
+import omni.replicator.core as rep
 
 from isaaclab.envs import ManagerBasedRLEnv
 import isaaclab.sim as sim_utils
@@ -39,7 +42,6 @@ from isaaclab.managers import SceneEntityCfg
 from isaaclab.managers import TerminationTermCfg as DoneTerm
 from isaaclab.sim.converters.urdf_converter_cfg import UrdfConverterCfg
 from isaaclab.utils import configclass
-import isaaclab.sim as sim_utils
 
 FC_CFG = ArticulationCfg(
     spawn=sim_utils.UsdFileCfg(
