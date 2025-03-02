@@ -24,8 +24,8 @@ import os
 from isaaclab.envs import ManagerBasedRLEnv
 import isaaclab.sim as sim_utils
 from isaaclab.actuators import ImplicitActuatorCfg
-from isaaclab.assets import ArticulationCfg
-from isaaclab.assets import AssetBaseCfg#, ArticulationCfg
+from isaaclab.assets import ArticulationCfg, Articulation
+from isaaclab.assets import AssetBaseCfg
 from isaaclab.envs import ManagerBasedRLEnvCfg
 import isaaclab.envs.mdp as mdp
 # 
@@ -59,7 +59,7 @@ FC_CFG = ArticulationCfg(
     ),
     init_state=ArticulationCfg.InitialStateCfg(
         pos=(0.0, 0.0, 0.0),
-        joint_pos={ "Roller_*": 0.0,}
+        joint_pos={ "Roller_1_1_joint": 0.0, "Roller_33_33_joint": 0.0, "Roller_65_65_joint": 0.0, "Roller_97_97_joint": 0.0,}
     ),
     actuators={
         "joint_1_actuator": ImplicitActuatorCfg(
@@ -108,6 +108,8 @@ class FlowControlSceneCfg(InteractiveSceneCfg):
     robot: ArticulationCfg = FC_CFG.replace(prim_path="{ENV_REGEX_NS}/FC")
     #FC: ArticulationCfg = FC_CFG.replace(prim_path="/World/FC")
     print("After------------------------------")
+
+
 
     # lights
     dome_light = AssetBaseCfg(
