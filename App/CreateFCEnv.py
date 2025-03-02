@@ -20,6 +20,7 @@ simulation_app = app_launcher.app
 import torch
 import math
 import os
+import re
 
 from isaaclab.envs import ManagerBasedRLEnv
 import isaaclab.sim as sim_utils
@@ -59,32 +60,32 @@ FC_CFG = ArticulationCfg(
     ),
     init_state=ArticulationCfg.InitialStateCfg(
         pos=(0.0, 0.0, 0.0),
-        joint_pos={ "Roller_1_1_joint": 0.0, "Roller_33_33_joint": 0.0, "Roller_65_65_joint": 0.0, "Roller_97_97_joint": 0.0,}
+        joint_pos={ "Roller_1_.*": 0.0, "Roller_33_.*": 0.0, "Roller_65_.*": 0.0, "Roller_97_.*": 0.0,}
     ),
     actuators={
         "joint_1_actuator": ImplicitActuatorCfg(
-            joint_names_expr=["Roller_1_1_joint"],
+            joint_names_expr=["Roller_1_.*"],
             effort_limit=40000.0,
             velocity_limit=100.0,
             stiffness=0.0,
             damping=1.0
         ),
         "joint_33_actuator": ImplicitActuatorCfg(
-            joint_names_expr=["Roller_33_33_joint"],
+            joint_names_expr=["Roller_33_.*"],
             effort_limit=40000.0,
             velocity_limit=100.0,
             stiffness=0.0,
             damping=1.0
         ),
         "joint_65_actuator": ImplicitActuatorCfg(
-            joint_names_expr=["Roller_65_65_joint"],
+            joint_names_expr=["Roller_65_.*"],
             effort_limit=40000.0,
             velocity_limit=100.0,
             stiffness=0.0,
             damping=1.0
         ),
         "joint_97_actuator": ImplicitActuatorCfg(
-            joint_names_expr=["Roller_97_97_joint"],
+            joint_names_expr=["Roller_97_.*"],
             effort_limit=40000.0,
             velocity_limit=100.0,
             stiffness=0.0,
@@ -100,7 +101,7 @@ class FlowControlSceneCfg(InteractiveSceneCfg):
     # ground plane
     ground = AssetBaseCfg(
         prim_path="/World/ground",
-        spawn=sim_utils.GroundPlaneCfg(size=(100.0, 100.0)),
+        spawn=sim_utils.GroundPlaneCfg(size=(200.0, 200.0))
     )
 
     # Flow Control section
@@ -114,19 +115,20 @@ class FlowControlSceneCfg(InteractiveSceneCfg):
     # lights
     dome_light = AssetBaseCfg(
         prim_path="/World/DomeLight",
-        spawn=sim_utils.DomeLightCfg(color=(0.9, 0.9, 0.9), intensity=500.0),
+        spawn=sim_utils.DomeLightCfg(color=(0.9, 0.9, 0.9), intensity=1000.0),
     )
     distant_light = AssetBaseCfg(
         prim_path="/World/DistantLight",
-        spawn=sim_utils.DistantLightCfg(color=(0.9, 0.9, 0.9), intensity=2500.0),
-        init_state=AssetBaseCfg.InitialStateCfg(rot=(0.738, 0.477, 0.477, 0.0)),
+        spawn=sim_utils.DistantLightCfg(color=(0.9, 0.9, 0.9), intensity=20000.0),
+        #init_state=AssetBaseCfg.InitialStateCfg(pos= (0,0,50),rot=(0.738, 0.477, 0.477, 0.0)),
+        init_state=AssetBaseCfg.InitialStateCfg(pos= (0,0,50),rot=(0.0, 0.0, 0.0, 50.0)),
     )
 
 @configclass
 class ActionsCfg:
     """Action specifications for the environment."""
 
-    joint_velocities = mdp.JointVelocityActionCfg(asset_name="robot", joint_names=["Roller_1_1_joint", "Roller_33_33_joint","Roller_65_65_joint","Roller_97_97_joint"], scale=1.0)
+    joint_velocities = mdp.JointVelocityActionCfg(asset_name="robot", joint_names=["Roller_1_.*", "Roller_33_.*","Roller_65_.*","Roller_97_.*"], scale=1.0)
     
 
 @configclass
@@ -213,7 +215,7 @@ class FlowControlEnvCfg(ManagerBasedRLEnvCfg):
     """Configuration for the wheeled quadruped environment."""
 
     # Scene settings
-    scene: FlowControlSceneCfg = FlowControlSceneCfg(num_envs=4096, env_spacing=4.0)
+    scene: FlowControlSceneCfg = FlowControlSceneCfg(num_envs=4096, env_spacing=16.0)
     # Basic settings
     observations: ObservationsCfg = ObservationsCfg()
     actions: ActionsCfg = ActionsCfg()
