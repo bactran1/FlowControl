@@ -39,6 +39,7 @@ from isaaclab.managers import SceneEntityCfg
 from isaaclab.managers import TerminationTermCfg as DoneTerm
 from isaaclab.sim.converters.urdf_converter_cfg import UrdfConverterCfg
 from isaaclab.utils import configclass
+import isaaclab.sim as sim_utils
 
 FC_CFG = ArticulationCfg(
     spawn=sim_utils.UsdFileCfg(
@@ -119,10 +120,12 @@ class FlowControlSceneCfg(InteractiveSceneCfg):
     )
     distant_light = AssetBaseCfg(
         prim_path="/World/DistantLight",
-        spawn=sim_utils.DistantLightCfg(color=(0.9, 0.9, 0.9), intensity=20000.0),
+        spawn=sim_utils.DistantLightCfg(color=(0.9, 0.9, 0.9), intensity=3000.0),
         #init_state=AssetBaseCfg.InitialStateCfg(pos= (0,0,50),rot=(0.738, 0.477, 0.477, 0.0)),
         init_state=AssetBaseCfg.InitialStateCfg(pos= (0,0,50),rot=(0.0, 0.0, 0.0, 50.0)),
     )
+
+
 
 @configclass
 class ActionsCfg:
