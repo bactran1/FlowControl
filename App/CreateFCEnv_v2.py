@@ -11,6 +11,7 @@ parser.add_argument("--num_envs", type=int, default=16, help="Number of environm
 AppLauncher.add_app_launcher_args(parser)
 # parse the arguments
 args_cli = parser.parse_args()
+args_cli. enable_cameras=True
 
 # launch omniverse app
 app_launcher = AppLauncher(args_cli)
@@ -27,10 +28,12 @@ import isaacsim.core.utils.prims as prim_utils
 import omni.replicator.core as rep
 from isaaclab.markers import VisualizationMarkers
 from isaaclab.markers.config import RAY_CASTER_MARKER_CFG
-from isaaclab.sensors import Camera, CameraCfg
+from isaaclab.sensors import Camera, CameraCfg, TiledCameraCfg
 from isaaclab.sensors import patterns
 from isaaclab.sensors.camera.utils import create_pointcloud_from_depth
 from isaaclab.utils import convert_dict_to_backend
+
+import isaaclab_tasks.manager_based.classic.cartpole.mdp as mdp
 
 from isaaclab.envs import ManagerBasedRLEnv
 import isaaclab.sim as sim_utils
@@ -38,9 +41,9 @@ from isaaclab.actuators import ImplicitActuatorCfg
 from isaaclab.assets import ArticulationCfg, Articulation
 from isaaclab.assets import AssetBaseCfg
 from isaaclab.envs import ManagerBasedRLEnvCfg
-import isaaclab.envs.mdp as mdp
+#import isaaclab.envs.mdp as mdp
 # 
-from isaaclab.scene import InteractiveSceneCfg, InteractiveScene
+from isaaclab.scene import InteractiveSceneCfg
 from isaaclab.managers import EventTermCfg as EventTerm
 from isaaclab.managers import ObservationGroupCfg as ObsGroup
 from isaaclab.managers import ObservationTermCfg as ObsTerm
@@ -50,46 +53,10 @@ from isaaclab.managers import TerminationTermCfg as DoneTerm
 from isaaclab.sim.converters.urdf_converter_cfg import UrdfConverterCfg
 from isaaclab.utils import configclass
 
-def define_sensor() -> Camera:
-    """Defines the camera sensor to add to the scene."""
-    # Setup camera sensor
-    # In contrast to the ray-cast camera, we spawn the prim at these locations.
-    # This means the camera sensor will be attached to these prims.
-    print("Test1")
-    prim_utils.create_prim("/World/Origin_00", "Xform")
-    print("Test2")
-    prim_utils.create_prim("/World/Origin_01", "Xform")
-    print("Test3")
-    camera_cfg = CameraCfg(
-        prim_path="/World/Origin_.*/CameraSensor",
-        update_period=0,
-        height=480,
-        width=640,
-        data_types=[
-            "rgb",
-            "distance_to_image_plane",
-            "normals",
-            "semantic_segmentation",
-            "instance_segmentation_fast",
-            "instance_id_segmentation_fast",
-        ],
-        colorize_semantic_segmentation=True,
-        colorize_instance_id_segmentation=True,
-        colorize_instance_segmentation=True,
-        spawn=sim_utils.PinholeCameraCfg(
-            focal_length=24.0, focus_distance=400.0, horizontal_aperture=20.955, clipping_range=(0.1, 1.0e5)
-        ),
-    )
-    print("Test4")
-    # Create camera
-    camera = Camera(cfg=camera_cfg)
-    print("Test5")
-
-    return camera
 
 FC_CFG = ArticulationCfg(
     spawn=sim_utils.UsdFileCfg(
-        usd_path="custom40ftStraight.usd",
+        usd_path="custom40ftStraight_v2.usd",
         rigid_props=sim_utils.RigidBodyPropertiesCfg(
             rigid_body_enabled=True,
             max_linear_velocity=1000.0,
@@ -107,11 +74,19 @@ FC_CFG = ArticulationCfg(
     ),
     init_state=ArticulationCfg.InitialStateCfg(
         pos=(0.0, 0.0, 0.0),
-        joint_pos={ "Roller_1_.*": 0.0, "Roller_33_.*": 0.0, "Roller_65_.*": 0.0, "Roller_97_.*": 0.0,}
+        joint_pos={"Roller_1_.*": 0.0, "Roller_17_.*": 0.0, "Roller_33_.*": 0.0, "Roller_49_.*": 0.0, 
+                   "Roller_65_.*": 0.0, "Roller_81_.*": 0.0, "Roller_97_.*": 0.0, "Roller_113_.*": 0.0}
     ),
     actuators={
         "joint_1_actuator": ImplicitActuatorCfg(
             joint_names_expr=["Roller_1_.*"],
+            effort_limit=40000.0,
+            velocity_limit=100.0,
+            stiffness=0.0,
+            damping=1.0
+        ),
+        "joint_17_actuator": ImplicitActuatorCfg(
+            joint_names_expr=["Roller_17_.*"],
             effort_limit=40000.0,
             velocity_limit=100.0,
             stiffness=0.0,
@@ -124,6 +99,13 @@ FC_CFG = ArticulationCfg(
             stiffness=0.0,
             damping=1.0
         ),
+        "joint_49_actuator": ImplicitActuatorCfg(
+            joint_names_expr=["Roller_49_.*"],
+            effort_limit=40000.0,
+            velocity_limit=100.0,
+            stiffness=0.0,
+            damping=1.0
+        ),
         "joint_65_actuator": ImplicitActuatorCfg(
             joint_names_expr=["Roller_65_.*"],
             effort_limit=40000.0,
@@ -131,8 +113,22 @@ FC_CFG = ArticulationCfg(
             stiffness=0.0,
             damping=1.0
         ),
+        "joint_81_actuator": ImplicitActuatorCfg(
+            joint_names_expr=["Roller_81_.*"],
+            effort_limit=40000.0,
+            velocity_limit=100.0,
+            stiffness=0.0,
+            damping=1.0
+        ),
         "joint_97_actuator": ImplicitActuatorCfg(
             joint_names_expr=["Roller_97_.*"],
+            effort_limit=40000.0,
+            velocity_limit=100.0,
+            stiffness=0.0,
+            damping=1.0
+        ),
+        "joint_113_actuator": ImplicitActuatorCfg(
+            joint_names_expr=["Roller_113_.*"],
             effort_limit=40000.0,
             velocity_limit=100.0,
             stiffness=0.0,
@@ -157,20 +153,86 @@ class FlowControlSceneCfg(InteractiveSceneCfg):
     #FC: ArticulationCfg = FC_CFG.replace(prim_path="/World/FC")
     print("After------------------------------")
 
-    #sensors
-    camera = CameraCfg(
-        prim_path="{ENV_REGEX_NS}/FC/front_cam",
-        update_period=0.1,
-        height=480,
-        width=640,
-        data_types=["rgb", "distance_to_image_plane","instance_id_segmentation_fast"],
+    tiled_camera1: TiledCameraCfg = TiledCameraCfg(
+        prim_path="{ENV_REGEX_NS}/Camera1",
+        offset=TiledCameraCfg.OffsetCfg(pos=(-0.76, 0.0, 1.9), rot=(0.0, 0.0, 0.0, 0.0), convention="world"),
+        data_types=["distance_to_camera"],
         spawn=sim_utils.PinholeCameraCfg(
-            focal_length=24.0, focus_distance=400.0, horizontal_aperture=20.955, clipping_range=(0.1, 1.0e5)
+            focal_length=2.0, focus_distance=1.65, horizontal_aperture=1.8, vertical_aperture=1.5, clipping_range=(0.1, 1.83)
         ),
-        offset=CameraCfg.OffsetCfg(pos=(0.510, 0.0, 0.015), rot=(0.5, -0.5, 0.5, -0.5), convention="ros"),
+        width=100,
+        height=100
     )
-
-
+    tiled_camera2: TiledCameraCfg = TiledCameraCfg(
+        prim_path="{ENV_REGEX_NS}/Camera2",
+        offset=TiledCameraCfg.OffsetCfg(pos=(-0.76-1.52*1, 0.0, 1.9), rot=(0.0, 0.0, 0.0, 0.0), convention="world"),
+        data_types=["distance_to_camera"],
+        spawn=sim_utils.PinholeCameraCfg(
+            focal_length=2.0, focus_distance=1.65, horizontal_aperture=1.8, vertical_aperture=1.5, clipping_range=(0.1, 1.83)
+        ),
+        width=100,
+        height=100
+    )
+    tiled_camera3: TiledCameraCfg = TiledCameraCfg(
+        prim_path="{ENV_REGEX_NS}/Camera3",
+        offset=TiledCameraCfg.OffsetCfg(pos=(-0.76-1.52*2, 0.0, 1.9), rot=(0.0, 0.0, 0.0, 0.0), convention="world"),
+        data_types=["distance_to_camera"],
+        spawn=sim_utils.PinholeCameraCfg(
+            focal_length=2.0, focus_distance=1.65, horizontal_aperture=1.8, vertical_aperture=1.5, clipping_range=(0.1, 1.83)
+        ),
+        width=100,
+        height=100
+    )
+    tiled_camera4: TiledCameraCfg = TiledCameraCfg(
+        prim_path="{ENV_REGEX_NS}/Camera4",
+        offset=TiledCameraCfg.OffsetCfg(pos=(-0.76-1.52*3, 0.0, 1.9), rot=(0.0, 0.0, 0.0, 0.0), convention="world"),
+        data_types=["distance_to_camera"],
+        spawn=sim_utils.PinholeCameraCfg(
+            focal_length=2.0, focus_distance=1.65, horizontal_aperture=1.8, vertical_aperture=1.5, clipping_range=(0.1, 1.83)
+        ),
+        width=100,
+        height=100
+    )
+    tiled_camera5: TiledCameraCfg = TiledCameraCfg(
+        prim_path="{ENV_REGEX_NS}/Camera5",
+        offset=TiledCameraCfg.OffsetCfg(pos=(-0.76-1.52*4, 0.0, 1.9), rot=(0.0, 0.0, 0.0, 0.0), convention="world"),
+        data_types=["distance_to_camera"],
+        spawn=sim_utils.PinholeCameraCfg(
+            focal_length=2.0, focus_distance=1.65, horizontal_aperture=1.8, vertical_aperture=1.5, clipping_range=(0.1, 1.83)
+        ),
+        width=100,
+        height=100
+    )
+    tiled_camera6: TiledCameraCfg = TiledCameraCfg(
+        prim_path="{ENV_REGEX_NS}/Camera6",
+        offset=TiledCameraCfg.OffsetCfg(pos=(-0.76-1.52*5, 0.0, 1.9), rot=(0.0, 0.0, 0.0, 0.0), convention="world"),
+        data_types=["distance_to_camera"],
+        spawn=sim_utils.PinholeCameraCfg(
+            focal_length=2.0, focus_distance=1.65, horizontal_aperture=1.8, vertical_aperture=1.5, clipping_range=(0.1, 1.83)
+        ),
+        width=100,
+        height=100
+    )
+    tiled_camera7: TiledCameraCfg = TiledCameraCfg(
+        prim_path="{ENV_REGEX_NS}/Camera7",
+        offset=TiledCameraCfg.OffsetCfg(pos=(-0.76-1.52*6, 0.0, 1.9), rot=(0.0, 0.0, 0.0, 0.0), convention="world"),
+        data_types=["distance_to_camera"],
+        spawn=sim_utils.PinholeCameraCfg(
+            focal_length=2.0, focus_distance=1.65, horizontal_aperture=1.8, vertical_aperture=1.5, clipping_range=(0.1, 1.83)
+        ),
+        width=100,
+        height=100
+    )
+    tiled_camera8: TiledCameraCfg = TiledCameraCfg(
+        prim_path="{ENV_REGEX_NS}/Camera8",
+        offset=TiledCameraCfg.OffsetCfg(pos=(-0.76-1.52*7, 0.0, 1.9), rot=(0.0, 0.0, 0.0, 0.0), convention="world"),
+        data_types=["distance_to_camera"],
+        spawn=sim_utils.PinholeCameraCfg(
+            focal_length=2.0, focus_distance=1.65, horizontal_aperture=1.8, vertical_aperture=1.5, clipping_range=(0.1, 1.83)
+        ),
+        width=100,
+        height=100
+    )
 
     # lights
     dome_light = AssetBaseCfg(
@@ -190,7 +252,8 @@ class FlowControlSceneCfg(InteractiveSceneCfg):
 class ActionsCfg:
     """Action specifications for the environment."""
 
-    joint_velocities = mdp.JointVelocityActionCfg(asset_name="robot", joint_names=["Roller_1_.*", "Roller_33_.*","Roller_65_.*","Roller_97_.*"], scale=1.0)
+    joint_velocities = mdp.JointVelocityActionCfg(asset_name="robot", joint_names=["Roller_1_.*", "Roller_17_.*", "Roller_33_.*", "Roller_49_.*", 
+                                                                                   "Roller_65_.*", "Roller_81_.*", "Roller_97_.*", "Roller_113_.*"], scale=1.0)
     
 
 @configclass
@@ -214,6 +277,41 @@ class ObservationsCfg:
     policy: PolicyCfg = PolicyCfg()
 
 @configclass
+class DepthObservationsCfg:
+    """Observation specifications for the MDP."""
+
+    @configclass
+    class DepthCameraPolicyCfg(ObsGroup):
+        """Observations for policy group with depth images."""
+
+        image1 = ObsTerm(
+            func=mdp.image, params={"sensor_cfg": SceneEntityCfg("tiled_camera1"), "data_type": "distance_to_camera"}
+        )
+        image2 = ObsTerm(
+            func=mdp.image, params={"sensor_cfg": SceneEntityCfg("tiled_camera2"), "data_type": "distance_to_camera"}
+        )
+        image3 = ObsTerm(
+            func=mdp.image, params={"sensor_cfg": SceneEntityCfg("tiled_camera3"), "data_type": "distance_to_camera"}
+        )
+        image4 = ObsTerm(
+            func=mdp.image, params={"sensor_cfg": SceneEntityCfg("tiled_camera4"), "data_type": "distance_to_camera"}
+        )
+        image5 = ObsTerm(
+            func=mdp.image, params={"sensor_cfg": SceneEntityCfg("tiled_camera5"), "data_type": "distance_to_camera"}
+        )
+        image6 = ObsTerm(
+            func=mdp.image, params={"sensor_cfg": SceneEntityCfg("tiled_camera6"), "data_type": "distance_to_camera"}
+        )
+        image7 = ObsTerm(
+            func=mdp.image, params={"sensor_cfg": SceneEntityCfg("tiled_camera7"), "data_type": "distance_to_camera"}
+        )
+        image8 = ObsTerm(
+            func=mdp.image, params={"sensor_cfg": SceneEntityCfg("tiled_camera8"), "data_type": "distance_to_camera"}
+        )
+
+    policy: ObsGroup = DepthCameraPolicyCfg()
+
+@configclass
 class EventCfg:
     """Configuration for events."""
 
@@ -235,7 +333,7 @@ class RewardsCfg:
         params={"asset_cfg": SceneEntityCfg("robot")},
         )
     # (4) Primary task: don't cross the speed limit
-    limitTorque = RewTerm(
+    limitVel = RewTerm(
         func=mdp.joint_vel_l2,
         weight=1.0,
         params={"asset_cfg": SceneEntityCfg("robot")},
@@ -280,6 +378,7 @@ class FlowControlEnvCfg(ManagerBasedRLEnvCfg):
     scene: FlowControlSceneCfg = FlowControlSceneCfg(num_envs=4096, env_spacing=16.0)
     # Basic settings
     observations: ObservationsCfg = ObservationsCfg()
+    #observations: DepthObservationsCfg = DepthObservationsCfg()
     actions: ActionsCfg = ActionsCfg()
     events: EventCfg = EventCfg()
     # MDP settings
@@ -292,69 +391,20 @@ class FlowControlEnvCfg(ManagerBasedRLEnvCfg):
     # Post initialization
     def __post_init__(self) -> None:
         """Post initialization."""
+        super().__post_init__()
         # general settings
         self.decimation = 2
         # simulation settings
-        self.sim.dt = 0.005  # simulation timestep -> 200 Hz physics
+        self.sim.dt = 0.05  # simulation timestep -> 200 Hz physics
         self.episode_length_s = 5
+
+        #self.scene.ground = None
         # viewer settings
         self.viewer.eye = (8.0, 0.0, 5.0)
+        self.viewer.lookat = (0.0, 0.0, 2.5)
         # simulation settings
         self.sim.render_interval = self.decimation
 
-
-def run_simulator(sim: sim_utils.SimulationContext, scene: InteractiveScene):
-    """Run the simulator."""
-    # Define simulation stepping
-    sim_dt = sim.get_physics_dt()
-    sim_time = 0.0
-    count = 0
-
-    # Simulate physics
-    while simulation_app.is_running():
-        # Reset
-        if count % 500 == 0:
-            # reset counter
-            count = 0
-            # reset the scene entities
-            # root state
-            # we offset the root state by the origin since the states are written in simulation world frame
-            # if this is not done, then the robots will be spawned at the (0, 0, 0) of the simulation world
-            root_state = scene["robot"].data.default_root_state.clone()
-            root_state[:, :3] += scene.env_origins
-            scene["robot"].write_root_pose_to_sim(root_state[:, :7])
-            scene["robot"].write_root_velocity_to_sim(root_state[:, 7:])
-            # set joint positions with some noise
-            joint_vel = (
-                scene["robot"].data.default_joint_vel.clone(),
-            )
-            #joint_pos += torch.rand_like(joint_pos) * 0.1
-            scene["robot"].write_joint_state_to_sim(joint_vel)
-            # clear internal buffers
-            scene.reset()
-            print("[INFO]: Resetting robot state...")
-        # Apply default actions to the robot
-        # -- generate actions/commands
-        targets = scene["robot"].data.default_joint_vel
-        # -- apply action to the robot
-        scene["robot"].set_joint_velocity_target(targets)
-        # -- write data to sim
-        scene.write_data_to_sim()
-        # perform step
-        sim.step()
-        # update sim-time
-        sim_time += sim_dt
-        count += 1
-        # update buffers
-        scene.update(sim_dt)
-
-        # print information from the sensors
-        print("-------------------------------")
-        print(scene["camera"])
-        print("Received shape of rgb   image: ", scene["camera"].data.output["rgb"].shape)
-        print("Received shape of depth image: ", scene["camera"].data.output["distance_to_image_plane"].shape)
-        print("Received id seg image: ", scene["camera"].data.output["instance_id_segmentation_fast"].shape)
-        print("-------------------------------")
 
 def main():
     """Main function."""
@@ -380,16 +430,10 @@ def main():
             # step the environment
             obs, rew, terminated, truncated, info = env.step(joint_vel)
             # print current orientation of pole
-            print("[Env 0]: Joint: ", obs["policy"][0][1].item())
+            #print("[Env 0]: Joint: ", obs["policy"][0][1].item())
             # update counter
             count += 1
-
-        # print information from the sensors
-        #print("-------------------------------")
-        #print(env["camera"])
-        print(env)
-        #print("Received shape of rgb   image: ", env["camera"].data.output["rgb"].shape)
-        #print("Received shape of depth image: ", env["camera"].data.output["distance_to_image_plane"].shape)
+            #print(env)
 
     # close the environment
     env.close()

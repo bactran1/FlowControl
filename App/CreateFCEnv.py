@@ -56,7 +56,7 @@ from isaaclab.utils import configclass
 
 FC_CFG = ArticulationCfg(
     spawn=sim_utils.UsdFileCfg(
-        usd_path="custom40ftStraight_v2.usd",
+        usd_path="custom40ftStraight.usd",
         rigid_props=sim_utils.RigidBodyPropertiesCfg(
             rigid_body_enabled=True,
             max_linear_velocity=1000.0,
@@ -74,20 +74,11 @@ FC_CFG = ArticulationCfg(
     ),
     init_state=ArticulationCfg.InitialStateCfg(
         pos=(0.0, 0.0, 0.0),
-        joint_pos={"Roller_1_.*": 0.0, "Roller_17_.*": 0.0, "Roller_33_.*": 0.0, "Roller_49_.*": 0.0, 
-                   "Roller_65_.*": 0.0, "Roller_81_.*": 0.0, "Roller_97_.*": 0.0, "Roller_113_.*": 0.0,
-                   }
+        joint_pos={"Roller_1_.*": 0.0, "Roller_33_.*": 0.0, "Roller_65_.*": 0.0, "Roller_97_.*": 0.0}
     ),
     actuators={
         "joint_1_actuator": ImplicitActuatorCfg(
             joint_names_expr=["Roller_1_.*"],
-            effort_limit=40000.0,
-            velocity_limit=100.0,
-            stiffness=0.0,
-            damping=1.0
-        ),
-        "joint_17_actuator": ImplicitActuatorCfg(
-            joint_names_expr=["Roller_17_.*"],
             effort_limit=40000.0,
             velocity_limit=100.0,
             stiffness=0.0,
@@ -100,13 +91,6 @@ FC_CFG = ArticulationCfg(
             stiffness=0.0,
             damping=1.0
         ),
-        "joint_49_actuator": ImplicitActuatorCfg(
-            joint_names_expr=["Roller_49_.*"],
-            effort_limit=40000.0,
-            velocity_limit=100.0,
-            stiffness=0.0,
-            damping=1.0
-        ),
         "joint_65_actuator": ImplicitActuatorCfg(
             joint_names_expr=["Roller_65_.*"],
             effort_limit=40000.0,
@@ -114,22 +98,8 @@ FC_CFG = ArticulationCfg(
             stiffness=0.0,
             damping=1.0
         ),
-        "joint_81_actuator": ImplicitActuatorCfg(
-            joint_names_expr=["Roller_81_.*"],
-            effort_limit=40000.0,
-            velocity_limit=100.0,
-            stiffness=0.0,
-            damping=1.0
-        ),
         "joint_97_actuator": ImplicitActuatorCfg(
             joint_names_expr=["Roller_97_.*"],
-            effort_limit=40000.0,
-            velocity_limit=100.0,
-            stiffness=0.0,
-            damping=1.0
-        ),
-        "joint_113_actuator": ImplicitActuatorCfg(
-            joint_names_expr=["Roller_113_.*"],
             effort_limit=40000.0,
             velocity_limit=100.0,
             stiffness=0.0,
@@ -253,8 +223,7 @@ class FlowControlSceneCfg(InteractiveSceneCfg):
 class ActionsCfg:
     """Action specifications for the environment."""
 
-    joint_velocities = mdp.JointVelocityActionCfg(asset_name="robot", joint_names=["Roller_1_.*", "Roller_17_.*", "Roller_33_.*", "Roller_49_.*", 
-                                                                                   "Roller_65_.*", "Roller_81_.*", "Roller_97_.*", "Roller_113_.*"], scale=1.0)
+    joint_velocities = mdp.JointVelocityActionCfg(asset_name="robot", joint_names=["Roller_1_.*", "Roller_33_.*", "Roller_65_.*", "Roller_97_.*"], scale=1.0)
     
 
 @configclass
@@ -378,8 +347,8 @@ class FlowControlEnvCfg(ManagerBasedRLEnvCfg):
     # Scene settings
     scene: FlowControlSceneCfg = FlowControlSceneCfg(num_envs=4096, env_spacing=16.0)
     # Basic settings
-    observations: ObservationsCfg = ObservationsCfg()
-    #observations: DepthObservationsCfg = DepthObservationsCfg()
+    #observations: ObservationsCfg = ObservationsCfg()
+    observations: DepthObservationsCfg = DepthObservationsCfg()
     actions: ActionsCfg = ActionsCfg()
     events: EventCfg = EventCfg()
     # MDP settings
@@ -431,7 +400,7 @@ def main():
             # step the environment
             obs, rew, terminated, truncated, info = env.step(joint_vel)
             # print current orientation of pole
-            print("[Env 0]: Joint: ", obs["policy"][0][1].item())
+            # print("[Env 0]: Joint: ", obs["policy"][0][1].item())
             # update counter
             count += 1
             #print(env)
