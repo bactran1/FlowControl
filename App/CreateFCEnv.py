@@ -42,7 +42,7 @@ from isaaclab.utils import configclass
 
 FC_CFG = ArticulationCfg(
     spawn=sim_utils.UsdFileCfg(
-        usd_path="C:/Users/bactran/Documents/FlowControl/custom40ftStraight.usd",
+        usd_path="custom40ftStraight.usd",
         rigid_props=sim_utils.RigidBodyPropertiesCfg(
             rigid_body_enabled=True,
             max_linear_velocity=1000.0,
