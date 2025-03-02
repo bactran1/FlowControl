@@ -11,6 +11,7 @@ parser.add_argument("--num_envs", type=int, default=16, help="Number of environm
 AppLauncher.add_app_launcher_args(parser)
 # parse the arguments
 args_cli = parser.parse_args()
+args_cli. enable_cameras=True
 
 # launch omniverse app
 app_launcher = AppLauncher(args_cli)
@@ -123,15 +124,25 @@ class FlowControlSceneCfg(InteractiveSceneCfg):
     #FC: ArticulationCfg = FC_CFG.replace(prim_path="/World/FC")
     print("After------------------------------")
 
-    tiled_camera: TiledCameraCfg = TiledCameraCfg(
-        prim_path="{ENV_REGEX_NS}/Camera",
-        offset=TiledCameraCfg.OffsetCfg(pos=(-7.0, 0.0, 3.0), rot=(0.9945, 0.0, 0.1045, 0.0), convention="world"),
+    tiled_camera1: TiledCameraCfg = TiledCameraCfg(
+        prim_path="{ENV_REGEX_NS}/Camera1",
+        offset=TiledCameraCfg.OffsetCfg(pos=(-0.76, 0.0, 1.9), rot=(0.0, 0.0, 0.0, 0.0), convention="world"),
         data_types=["distance_to_camera"],
         spawn=sim_utils.PinholeCameraCfg(
-            focal_length=24.0, focus_distance=400.0, horizontal_aperture=20.955, clipping_range=(0.1, 20.0)
+            focal_length=2.0, focus_distance=1.65, horizontal_aperture=1.8, vertical_aperture=1.5, clipping_range=(0.1, 1.83)
         ),
         width=100,
-        height=100,
+        height=100
+    )
+    tiled_camera2: TiledCameraCfg = TiledCameraCfg(
+        prim_path="{ENV_REGEX_NS}/Camera2",
+        offset=TiledCameraCfg.OffsetCfg(pos=(-2.28, 0.0, 1.9), rot=(0.0, 0.0, 1.0, 0.0), convention="world"),
+        data_types=["distance_to_camera"],
+        spawn=sim_utils.PinholeCameraCfg(
+            focal_length=2.0, focus_distance=1.65, horizontal_aperture=1.8, vertical_aperture=1.5, clipping_range=(0.1, 1.83)
+        ),
+        width=100,
+        height=100
     )
 
     # lights
@@ -183,8 +194,11 @@ class DepthObservationsCfg:
     class DepthCameraPolicyCfg(ObsGroup):
         """Observations for policy group with depth images."""
 
-        image = ObsTerm(
-            func=mdp.image, params={"sensor_cfg": SceneEntityCfg("tiled_camera"), "data_type": "distance_to_camera"}
+        image1 = ObsTerm(
+            func=mdp.image, params={"sensor_cfg": SceneEntityCfg("tiled_camera1"), "data_type": "distance_to_camera"}
+        )
+        image2 = ObsTerm(
+            func=mdp.image, params={"sensor_cfg": SceneEntityCfg("tiled_camera2"), "data_type": "distance_to_camera"}
         )
 
     policy: ObsGroup = DepthCameraPolicyCfg()
@@ -255,8 +269,8 @@ class FlowControlEnvCfg(ManagerBasedRLEnvCfg):
     # Scene settings
     scene: FlowControlSceneCfg = FlowControlSceneCfg(num_envs=4096, env_spacing=16.0)
     # Basic settings
-    #observations: ObservationsCfg = ObservationsCfg()
-    observations: DepthObservationsCfg = DepthObservationsCfg()
+    observations: ObservationsCfg = ObservationsCfg()
+    #observations: DepthObservationsCfg = DepthObservationsCfg()
     actions: ActionsCfg = ActionsCfg()
     events: EventCfg = EventCfg()
     # MDP settings
@@ -276,7 +290,7 @@ class FlowControlEnvCfg(ManagerBasedRLEnvCfg):
         self.sim.dt = 0.05  # simulation timestep -> 200 Hz physics
         self.episode_length_s = 5
 
-        self.scene.ground = None
+        #self.scene.ground = None
         # viewer settings
         self.viewer.eye = (8.0, 0.0, 5.0)
         self.viewer.lookat = (0.0, 0.0, 2.5)

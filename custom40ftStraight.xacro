@@ -11,6 +11,12 @@
     <xacro:property name="pi" value="3.1415926"/>
     <xacro:property name="roller_spacing" value="${conveyor_length / (roller_count)}"/>
 
+    <link name="base_footprint"/>
+    <joint name="base_link" type="fixed">
+        <origin rpy="0 0 0" xyz="0 0 0"/>
+        <parent link="base_footprint"/>
+        <child link="base_link"/>
+    </joint>
     <!-- Base Frame -->
     <link name="base_link">
         <visual>
