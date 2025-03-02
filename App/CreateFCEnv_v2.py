@@ -27,12 +27,10 @@ import isaacsim.core.utils.prims as prim_utils
 import omni.replicator.core as rep
 from isaaclab.markers import VisualizationMarkers
 from isaaclab.markers.config import RAY_CASTER_MARKER_CFG
-from isaaclab.sensors import Camera, CameraCfg, TiledCameraCfg
+from isaaclab.sensors import Camera, CameraCfg
 from isaaclab.sensors import patterns
 from isaaclab.sensors.camera.utils import create_pointcloud_from_depth
 from isaaclab.utils import convert_dict_to_backend
-
-import isaaclab_tasks.manager_based.classic.cartpole.mdp as mdp
 
 from isaaclab.envs import ManagerBasedRLEnv
 import isaaclab.sim as sim_utils
@@ -40,9 +38,9 @@ from isaaclab.actuators import ImplicitActuatorCfg
 from isaaclab.assets import ArticulationCfg, Articulation
 from isaaclab.assets import AssetBaseCfg
 from isaaclab.envs import ManagerBasedRLEnvCfg
-#import isaaclab.envs.mdp as mdp
+import isaaclab.envs.mdp as mdp
 # 
-from isaaclab.scene import InteractiveSceneCfg
+from isaaclab.scene import InteractiveSceneCfg, InteractiveScene
 from isaaclab.managers import EventTermCfg as EventTerm
 from isaaclab.managers import ObservationGroupCfg as ObsGroup
 from isaaclab.managers import ObservationTermCfg as ObsTerm
@@ -52,6 +50,42 @@ from isaaclab.managers import TerminationTermCfg as DoneTerm
 from isaaclab.sim.converters.urdf_converter_cfg import UrdfConverterCfg
 from isaaclab.utils import configclass
 
+def define_sensor() -> Camera:
+    """Defines the camera sensor to add to the scene."""
+    # Setup camera sensor
+    # In contrast to the ray-cast camera, we spawn the prim at these locations.
+    # This means the camera sensor will be attached to these prims.
+    print("Test1")
+    prim_utils.create_prim("/World/Origin_00", "Xform")
+    print("Test2")
+    prim_utils.create_prim("/World/Origin_01", "Xform")
+    print("Test3")
+    camera_cfg = CameraCfg(
+        prim_path="/World/Origin_.*/CameraSensor",
+        update_period=0,
+        height=480,
+        width=640,
+        data_types=[
+            "rgb",
+            "distance_to_image_plane",
+            "normals",
+            "semantic_segmentation",
+            "instance_segmentation_fast",
+            "instance_id_segmentation_fast",
+        ],
+        colorize_semantic_segmentation=True,
+        colorize_instance_id_segmentation=True,
+        colorize_instance_segmentation=True,
+        spawn=sim_utils.PinholeCameraCfg(
+            focal_length=24.0, focus_distance=400.0, horizontal_aperture=20.955, clipping_range=(0.1, 1.0e5)
+        ),
+    )
+    print("Test4")
+    # Create camera
+    camera = Camera(cfg=camera_cfg)
+    print("Test5")
+
+    return camera
 
 FC_CFG = ArticulationCfg(
     spawn=sim_utils.UsdFileCfg(
@@ -123,16 +157,20 @@ class FlowControlSceneCfg(InteractiveSceneCfg):
     #FC: ArticulationCfg = FC_CFG.replace(prim_path="/World/FC")
     print("After------------------------------")
 
-    tiled_camera: TiledCameraCfg = TiledCameraCfg(
-        prim_path="{ENV_REGEX_NS}/Camera",
-        offset=TiledCameraCfg.OffsetCfg(pos=(-7.0, 0.0, 3.0), rot=(0.9945, 0.0, 0.1045, 0.0), convention="world"),
-        data_types=["distance_to_camera"],
+    #sensors
+    camera = CameraCfg(
+        prim_path="{ENV_REGEX_NS}/FC/front_cam",
+        update_period=0.1,
+        height=480,
+        width=640,
+        data_types=["rgb", "distance_to_image_plane","instance_id_segmentation_fast"],
         spawn=sim_utils.PinholeCameraCfg(
-            focal_length=24.0, focus_distance=400.0, horizontal_aperture=20.955, clipping_range=(0.1, 20.0)
+            focal_length=24.0, focus_distance=400.0, horizontal_aperture=20.955, clipping_range=(0.1, 1.0e5)
         ),
-        width=100,
-        height=100,
+        offset=CameraCfg.OffsetCfg(pos=(0.510, 0.0, 0.015), rot=(0.5, -0.5, 0.5, -0.5), convention="ros"),
     )
+
+
 
     # lights
     dome_light = AssetBaseCfg(
@@ -174,20 +212,6 @@ class ObservationsCfg:
 
     # observation groups
     policy: PolicyCfg = PolicyCfg()
-
-@configclass
-class DepthObservationsCfg:
-    """Observation specifications for the MDP."""
-
-    @configclass
-    class DepthCameraPolicyCfg(ObsGroup):
-        """Observations for policy group with depth images."""
-
-        image = ObsTerm(
-            func=mdp.image, params={"sensor_cfg": SceneEntityCfg("tiled_camera"), "data_type": "distance_to_camera"}
-        )
-
-    policy: ObsGroup = DepthCameraPolicyCfg()
 
 @configclass
 class EventCfg:
@@ -255,8 +279,7 @@ class FlowControlEnvCfg(ManagerBasedRLEnvCfg):
     # Scene settings
     scene: FlowControlSceneCfg = FlowControlSceneCfg(num_envs=4096, env_spacing=16.0)
     # Basic settings
-    #observations: ObservationsCfg = ObservationsCfg()
-    observations: DepthObservationsCfg = DepthObservationsCfg()
+    observations: ObservationsCfg = ObservationsCfg()
     actions: ActionsCfg = ActionsCfg()
     events: EventCfg = EventCfg()
     # MDP settings
@@ -269,20 +292,69 @@ class FlowControlEnvCfg(ManagerBasedRLEnvCfg):
     # Post initialization
     def __post_init__(self) -> None:
         """Post initialization."""
-        super().__post_init__()
         # general settings
         self.decimation = 2
         # simulation settings
-        self.sim.dt = 0.05  # simulation timestep -> 200 Hz physics
+        self.sim.dt = 0.005  # simulation timestep -> 200 Hz physics
         self.episode_length_s = 5
-
-        self.scene.ground = None
         # viewer settings
         self.viewer.eye = (8.0, 0.0, 5.0)
-        self.viewer.lookat = (0.0, 0.0, 2.5)
         # simulation settings
         self.sim.render_interval = self.decimation
 
+
+def run_simulator(sim: sim_utils.SimulationContext, scene: InteractiveScene):
+    """Run the simulator."""
+    # Define simulation stepping
+    sim_dt = sim.get_physics_dt()
+    sim_time = 0.0
+    count = 0
+
+    # Simulate physics
+    while simulation_app.is_running():
+        # Reset
+        if count % 500 == 0:
+            # reset counter
+            count = 0
+            # reset the scene entities
+            # root state
+            # we offset the root state by the origin since the states are written in simulation world frame
+            # if this is not done, then the robots will be spawned at the (0, 0, 0) of the simulation world
+            root_state = scene["robot"].data.default_root_state.clone()
+            root_state[:, :3] += scene.env_origins
+            scene["robot"].write_root_pose_to_sim(root_state[:, :7])
+            scene["robot"].write_root_velocity_to_sim(root_state[:, 7:])
+            # set joint positions with some noise
+            joint_vel = (
+                scene["robot"].data.default_joint_vel.clone(),
+            )
+            #joint_pos += torch.rand_like(joint_pos) * 0.1
+            scene["robot"].write_joint_state_to_sim(joint_vel)
+            # clear internal buffers
+            scene.reset()
+            print("[INFO]: Resetting robot state...")
+        # Apply default actions to the robot
+        # -- generate actions/commands
+        targets = scene["robot"].data.default_joint_vel
+        # -- apply action to the robot
+        scene["robot"].set_joint_velocity_target(targets)
+        # -- write data to sim
+        scene.write_data_to_sim()
+        # perform step
+        sim.step()
+        # update sim-time
+        sim_time += sim_dt
+        count += 1
+        # update buffers
+        scene.update(sim_dt)
+
+        # print information from the sensors
+        print("-------------------------------")
+        print(scene["camera"])
+        print("Received shape of rgb   image: ", scene["camera"].data.output["rgb"].shape)
+        print("Received shape of depth image: ", scene["camera"].data.output["distance_to_image_plane"].shape)
+        print("Received id seg image: ", scene["camera"].data.output["instance_id_segmentation_fast"].shape)
+        print("-------------------------------")
 
 def main():
     """Main function."""
@@ -311,7 +383,13 @@ def main():
             print("[Env 0]: Joint: ", obs["policy"][0][1].item())
             # update counter
             count += 1
-            #print(env)
+
+        # print information from the sensors
+        #print("-------------------------------")
+        #print(env["camera"])
+        print(env)
+        #print("Received shape of rgb   image: ", env["camera"].data.output["rgb"].shape)
+        #print("Received shape of depth image: ", env["camera"].data.output["distance_to_image_plane"].shape)
 
     # close the environment
     env.close()
