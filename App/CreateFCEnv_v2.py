@@ -53,6 +53,9 @@ from isaaclab.managers import TerminationTermCfg as DoneTerm
 from isaaclab.sim.converters.urdf_converter_cfg import UrdfConverterCfg
 from isaaclab.utils import configclass
 
+#Feature Extractor
+from .feature_extractor import FeatureExtractor, FeatureExtractorCfg
+
 
 FC_CFG = ArticulationCfg(
     spawn=sim_utils.UsdFileCfg(
