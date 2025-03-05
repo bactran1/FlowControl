@@ -261,7 +261,7 @@ class FlowControlSceneCfg(InteractiveSceneCfg):
         offset=TiledCameraCfg.OffsetCfg(pos=(-0.76-1.52*1, 0.0, 1.9), rot=(0.0, 0.0, 0.0, 0.0), convention="world"),
         data_types=["distance_to_camera"],
         spawn=sim_utils.PinholeCameraCfg(
-            focal_length=2.0, focus_distance=1.65, horizontal_aperture=1.8, vertical_aperture=1.5, clipping_range=(0.1, 1.83)
+            focal_length=2.1, focus_distance=1.62, horizontal_aperture=1.8, vertical_aperture=1.5, clipping_range=(1.79, 1.80)
         ),
         width=100,
         height=100
@@ -271,7 +271,7 @@ class FlowControlSceneCfg(InteractiveSceneCfg):
         offset=TiledCameraCfg.OffsetCfg(pos=(-0.76-1.52*2, 0.0, 1.9), rot=(0.0, 0.0, 0.0, 0.0), convention="world"),
         data_types=["distance_to_camera"],
         spawn=sim_utils.PinholeCameraCfg(
-            focal_length=2.0, focus_distance=1.65, horizontal_aperture=1.8, vertical_aperture=1.5, clipping_range=(0.1, 1.83)
+            focal_length=2.1, focus_distance=1.62, horizontal_aperture=1.8, vertical_aperture=1.5, clipping_range=(1.79, 1.80)
         ),
         width=100,
         height=100
@@ -281,7 +281,7 @@ class FlowControlSceneCfg(InteractiveSceneCfg):
         offset=TiledCameraCfg.OffsetCfg(pos=(-0.76-1.52*3, 0.0, 1.9), rot=(0.0, 0.0, 0.0, 0.0), convention="world"),
         data_types=["distance_to_camera"],
         spawn=sim_utils.PinholeCameraCfg(
-            focal_length=2.0, focus_distance=1.65, horizontal_aperture=1.8, vertical_aperture=1.5, clipping_range=(0.1, 1.83)
+            focal_length=2.1, focus_distance=1.62, horizontal_aperture=1.8, vertical_aperture=1.5, clipping_range=(1.79, 1.80)
         ),
         width=100,
         height=100
@@ -291,7 +291,7 @@ class FlowControlSceneCfg(InteractiveSceneCfg):
         offset=TiledCameraCfg.OffsetCfg(pos=(-0.76-1.52*4, 0.0, 1.9), rot=(0.0, 0.0, 0.0, 0.0), convention="world"),
         data_types=["distance_to_camera"],
         spawn=sim_utils.PinholeCameraCfg(
-            focal_length=2.0, focus_distance=1.65, horizontal_aperture=1.8, vertical_aperture=1.5, clipping_range=(0.1, 1.83)
+            focal_length=2.1, focus_distance=1.62, horizontal_aperture=1.8, vertical_aperture=1.5, clipping_range=(1.79, 1.80)
         ),
         width=100,
         height=100
@@ -301,7 +301,7 @@ class FlowControlSceneCfg(InteractiveSceneCfg):
         offset=TiledCameraCfg.OffsetCfg(pos=(-0.76-1.52*5, 0.0, 1.9), rot=(0.0, 0.0, 0.0, 0.0), convention="world"),
         data_types=["distance_to_camera"],
         spawn=sim_utils.PinholeCameraCfg(
-            focal_length=2.0, focus_distance=1.65, horizontal_aperture=1.8, vertical_aperture=1.5, clipping_range=(0.1, 1.83)
+            focal_length=2.1, focus_distance=1.62, horizontal_aperture=1.8, vertical_aperture=1.5, clipping_range=(1.79, 1.80)
         ),
         width=100,
         height=100
@@ -311,7 +311,7 @@ class FlowControlSceneCfg(InteractiveSceneCfg):
         offset=TiledCameraCfg.OffsetCfg(pos=(-0.76-1.52*6, 0.0, 1.9), rot=(0.0, 0.0, 0.0, 0.0), convention="world"),
         data_types=["distance_to_camera"],
         spawn=sim_utils.PinholeCameraCfg(
-            focal_length=2.0, focus_distance=1.65, horizontal_aperture=1.8, vertical_aperture=1.5, clipping_range=(0.1, 1.83)
+            focal_length=2.1, focus_distance=1.62, horizontal_aperture=1.8, vertical_aperture=1.5, clipping_range=(1.79, 1.80)
         ),
         width=100,
         height=100
@@ -321,7 +321,7 @@ class FlowControlSceneCfg(InteractiveSceneCfg):
         offset=TiledCameraCfg.OffsetCfg(pos=(-0.76-1.52*7, 0.0, 1.9), rot=(0.0, 0.0, 0.0, 0.0), convention="world"),
         data_types=["distance_to_camera"],
         spawn=sim_utils.PinholeCameraCfg(
-            focal_length=2.0, focus_distance=1.65, horizontal_aperture=1.8, vertical_aperture=1.5, clipping_range=(0.1, 1.83)
+            focal_length=2.1, focus_distance=1.62, horizontal_aperture=1.8, vertical_aperture=1.5, clipping_range=(1.79, 1.80)
         ),
         width=100,
         height=100
@@ -470,8 +470,8 @@ class FlowControlEnvCfg(ManagerBasedRLEnvCfg):
     # Scene settings
     scene: FlowControlSceneCfg = FlowControlSceneCfg(num_envs=4096, env_spacing=16.0)
     # Basic settings
-    observations: ObservationsCfg = ObservationsCfg()
-    #observations: DepthObservationsCfg = DepthObservationsCfg()
+    #observations: ObservationsCfg = ObservationsCfg()
+    observations: DepthObservationsCfg = DepthObservationsCfg()
     actions: ActionsCfg = ActionsCfg()
     events: EventCfg = EventCfg()
     # MDP settings
@@ -548,12 +548,14 @@ def main():
             if count % 300 == 0:
                 count = 0
                 
+                # Work in Progress - randommize MTBHs positions every reset
                 #print(env.scene.rigid_objects['BoxS1'].data.default_root_state)
-                BoxS1_rootState = env.scene.rigid_objects['BoxS1'].data.default_root_state.clone()
-                BoxS1_rootState[:,:3] = torch.tensor([uniform(-5, 0), uniform(-0.5,0.5), 1.0])
-                env.scene.rigid_objects['BoxS1'].write_root_pose_to_sim(BoxS1_rootState[:, :7])
-                env.scene.rigid_objects['BoxS1'].write_root_velocity_to_sim(BoxS1_rootState[:, :6])
-                env.scene.rigid_objects['BoxS1'].reset()
+                #BoxS1_rootState = env.scene.rigid_objects['BoxS1'].data.default_root_state.clone()
+                #BoxS1_rootState[:,:3] = torch.tensor([uniform(-5, 0), uniform(-0.5,0.5), 1.0])
+                #env.scene.rigid_objects['BoxS1'].write_root_pose_to_sim(BoxS1_rootState[:, :7])
+                #env.scene.rigid_objects['BoxS1'].write_root_velocity_to_sim(BoxS1_rootState[:, :6])
+                #env.scene.rigid_objects['BoxS1'].reset()
+                
                 
                 env.reset()
                 print("-" * 80)
@@ -562,9 +564,11 @@ def main():
             env.scene.rigid_objects['BoxS1'].write_data_to_sim()
             # sample random actions
             joint_vel = torch.randn_like(env.action_manager.action)
-            print(joint_vel)
             # step the environment
             obs, rew, terminated, truncated, info = env.step(joint_vel)
+            
+            print(obs)
+            print(env.scene)
             # print current orientation of pole
             #print("[Env 0]: Joint: ", obs["policy"][0][1].item())
             
