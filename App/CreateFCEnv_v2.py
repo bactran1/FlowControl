@@ -259,7 +259,7 @@ class FlowControlSceneCfg(InteractiveSceneCfg):
     tiled_camera2: TiledCameraCfg = TiledCameraCfg(
         prim_path="{ENV_REGEX_NS}/Camera2",
         offset=TiledCameraCfg.OffsetCfg(pos=(-0.76-1.52*1, 0.0, 1.9), rot=(0.0, 0.0, 0.0, 0.0), convention="world"),
-        data_types=["distance_to_camera"],
+        data_types=["distance_to_image_plane"],
         spawn=sim_utils.PinholeCameraCfg(
             focal_length=2.1, focus_distance=1.62, horizontal_aperture=1.8, vertical_aperture=1.5, clipping_range=(1.79, 1.80)
         ),
@@ -269,7 +269,7 @@ class FlowControlSceneCfg(InteractiveSceneCfg):
     tiled_camera3: TiledCameraCfg = TiledCameraCfg(
         prim_path="{ENV_REGEX_NS}/Camera3",
         offset=TiledCameraCfg.OffsetCfg(pos=(-0.76-1.52*2, 0.0, 1.9), rot=(0.0, 0.0, 0.0, 0.0), convention="world"),
-        data_types=["distance_to_camera"],
+        data_types=["distance_to_image_plane"],
         spawn=sim_utils.PinholeCameraCfg(
             focal_length=2.1, focus_distance=1.62, horizontal_aperture=1.8, vertical_aperture=1.5, clipping_range=(1.79, 1.80)
         ),
@@ -279,7 +279,7 @@ class FlowControlSceneCfg(InteractiveSceneCfg):
     tiled_camera4: TiledCameraCfg = TiledCameraCfg(
         prim_path="{ENV_REGEX_NS}/Camera4",
         offset=TiledCameraCfg.OffsetCfg(pos=(-0.76-1.52*3, 0.0, 1.9), rot=(0.0, 0.0, 0.0, 0.0), convention="world"),
-        data_types=["distance_to_camera"],
+        data_types=["distance_to_image_plane"],
         spawn=sim_utils.PinholeCameraCfg(
             focal_length=2.1, focus_distance=1.62, horizontal_aperture=1.8, vertical_aperture=1.5, clipping_range=(1.79, 1.80)
         ),
@@ -289,7 +289,7 @@ class FlowControlSceneCfg(InteractiveSceneCfg):
     tiled_camera5: TiledCameraCfg = TiledCameraCfg(
         prim_path="{ENV_REGEX_NS}/Camera5",
         offset=TiledCameraCfg.OffsetCfg(pos=(-0.76-1.52*4, 0.0, 1.9), rot=(0.0, 0.0, 0.0, 0.0), convention="world"),
-        data_types=["distance_to_camera"],
+        data_types=["distance_to_image_plane"],
         spawn=sim_utils.PinholeCameraCfg(
             focal_length=2.1, focus_distance=1.62, horizontal_aperture=1.8, vertical_aperture=1.5, clipping_range=(1.79, 1.80)
         ),
@@ -299,7 +299,7 @@ class FlowControlSceneCfg(InteractiveSceneCfg):
     tiled_camera6: TiledCameraCfg = TiledCameraCfg(
         prim_path="{ENV_REGEX_NS}/Camera6",
         offset=TiledCameraCfg.OffsetCfg(pos=(-0.76-1.52*5, 0.0, 1.9), rot=(0.0, 0.0, 0.0, 0.0), convention="world"),
-        data_types=["distance_to_camera"],
+        data_types=["distance_to_image_plane"],
         spawn=sim_utils.PinholeCameraCfg(
             focal_length=2.1, focus_distance=1.62, horizontal_aperture=1.8, vertical_aperture=1.5, clipping_range=(1.79, 1.80)
         ),
@@ -309,7 +309,7 @@ class FlowControlSceneCfg(InteractiveSceneCfg):
     tiled_camera7: TiledCameraCfg = TiledCameraCfg(
         prim_path="{ENV_REGEX_NS}/Camera7",
         offset=TiledCameraCfg.OffsetCfg(pos=(-0.76-1.52*6, 0.0, 1.9), rot=(0.0, 0.0, 0.0, 0.0), convention="world"),
-        data_types=["distance_to_camera"],
+        data_types=["distance_to_image_plane"],
         spawn=sim_utils.PinholeCameraCfg(
             focal_length=2.1, focus_distance=1.62, horizontal_aperture=1.8, vertical_aperture=1.5, clipping_range=(1.79, 1.80)
         ),
@@ -319,7 +319,7 @@ class FlowControlSceneCfg(InteractiveSceneCfg):
     tiled_camera8: TiledCameraCfg = TiledCameraCfg(
         prim_path="{ENV_REGEX_NS}/Camera8",
         offset=TiledCameraCfg.OffsetCfg(pos=(-0.76-1.52*7, 0.0, 1.9), rot=(0.0, 0.0, 0.0, 0.0), convention="world"),
-        data_types=["distance_to_camera"],
+        data_types=["distance_to_image_plane"],
         spawn=sim_utils.PinholeCameraCfg(
             focal_length=2.1, focus_distance=1.62, horizontal_aperture=1.8, vertical_aperture=1.5, clipping_range=(1.79, 1.80)
         ),
@@ -378,28 +378,28 @@ class DepthObservationsCfg:
         """Observations for policy group with depth images."""
 
         image1 = ObsTerm(
-            func=mdp.image, params={"sensor_cfg": SceneEntityCfg("tiled_camera1"), "data_type": "distance_to_camera"}
+            func=mdp.image, params={"sensor_cfg": SceneEntityCfg("tiled_camera1"), "data_type": "distance_to_image_plane"}
         )
         image2 = ObsTerm(
-            func=mdp.image, params={"sensor_cfg": SceneEntityCfg("tiled_camera2"), "data_type": "distance_to_camera"}
+            func=mdp.image, params={"sensor_cfg": SceneEntityCfg("tiled_camera2"), "data_type": "distance_to_image_plane"}
         )
         image3 = ObsTerm(
-            func=mdp.image, params={"sensor_cfg": SceneEntityCfg("tiled_camera3"), "data_type": "distance_to_camera"}
+            func=mdp.image, params={"sensor_cfg": SceneEntityCfg("tiled_camera3"), "data_type": "distance_to_image_plane"}
         )
         image4 = ObsTerm(
-            func=mdp.image, params={"sensor_cfg": SceneEntityCfg("tiled_camera4"), "data_type": "distance_to_camera"}
+            func=mdp.image, params={"sensor_cfg": SceneEntityCfg("tiled_camera4"), "data_type": "distance_to_image_plane"}
         )
         image5 = ObsTerm(
-            func=mdp.image, params={"sensor_cfg": SceneEntityCfg("tiled_camera5"), "data_type": "distance_to_camera"}
+            func=mdp.image, params={"sensor_cfg": SceneEntityCfg("tiled_camera5"), "data_type": "distance_to_image_plane"}
         )
         image6 = ObsTerm(
-            func=mdp.image, params={"sensor_cfg": SceneEntityCfg("tiled_camera6"), "data_type": "distance_to_camera"}
+            func=mdp.image, params={"sensor_cfg": SceneEntityCfg("tiled_camera6"), "data_type": "distance_to_image_plane"}
         )
         image7 = ObsTerm(
-            func=mdp.image, params={"sensor_cfg": SceneEntityCfg("tiled_camera7"), "data_type": "distance_to_camera"}
+            func=mdp.image, params={"sensor_cfg": SceneEntityCfg("tiled_camera7"), "data_type": "distance_to_image_plane"}
         )
         image8 = ObsTerm(
-            func=mdp.image, params={"sensor_cfg": SceneEntityCfg("tiled_camera8"), "data_type": "distance_to_camera"}
+            func=mdp.image, params={"sensor_cfg": SceneEntityCfg("tiled_camera8"), "data_type": "distance_to_image_plane"}
         )
 
     policy: ObsGroup = DepthCameraPolicyCfg()
