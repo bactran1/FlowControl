@@ -22,6 +22,7 @@ import torch
 import math
 import os
 #import re
+from random import randrange, uniform
 
 # For Camera
 import isaacsim.core.utils.prims as prim_utils
@@ -39,7 +40,7 @@ from isaaclab.envs import ManagerBasedRLEnv
 import isaaclab.sim as sim_utils
 from isaaclab.actuators import ImplicitActuatorCfg
 from isaaclab.assets import ArticulationCfg, Articulation
-from isaaclab.assets import AssetBaseCfg
+from isaaclab.assets import AssetBaseCfg, RigidObjectCfg, RigidObject
 from isaaclab.envs import ManagerBasedRLEnvCfg
 #import isaaclab.envs.mdp as mdp
 # 
@@ -53,8 +54,11 @@ from isaaclab.managers import TerminationTermCfg as DoneTerm
 from isaaclab.sim.converters.urdf_converter_cfg import UrdfConverterCfg
 from isaaclab.utils import configclass
 
-#Feature Extractor
-from .feature_extractor import FeatureExtractor, FeatureExtractorCfg
+#Feature Extractor - needed to import a py file
+#from .feature_extractor import FeatureExtractor, FeatureExtractorCfg
+
+#Occupancy Mapping - needed to import a py file
+#from omni.isaac.occupancy_map.bindings import _occupancy_map
 
 
 FC_CFG = ArticulationCfg(
@@ -140,6 +144,8 @@ FC_CFG = ArticulationCfg(
     },
 )
 
+
+
 @configclass
 class FlowControlSceneCfg(InteractiveSceneCfg):
     """Configuration for a Flow Control Conveyor robot scene."""
@@ -149,23 +155,107 @@ class FlowControlSceneCfg(InteractiveSceneCfg):
         prim_path="/World/ground",
         spawn=sim_utils.GroundPlaneCfg(size=(200.0, 200.0))
     )
-
+    
+    # rigid objects
+    BoxS1: RigidObjectCfg = RigidObjectCfg(
+        prim_path="/World/envs/env_.*/BoxS1",
+        spawn=sim_utils.MultiAssetSpawnerCfg(
+            assets_cfg=[
+                sim_utils.CuboidCfg(
+                    size=(0.3, 0.3, 0.3),
+                    visual_material=sim_utils.PreviewSurfaceCfg(diffuse_color=(1.0, 0.0, 0.0), metallic=0.2),
+                ),
+                sim_utils.CuboidCfg(
+                    size=(0.3, 0.5, 0.3),
+                    visual_material=sim_utils.PreviewSurfaceCfg(diffuse_color=(0.0, 1.0, 0.0), metallic=0.2),
+                ),
+                sim_utils.CuboidCfg(
+                    size=(0.3, 0.3, 0.5),
+                    visual_material=sim_utils.PreviewSurfaceCfg(diffuse_color=(0.0, 0.0, 1.0), metallic=0.2),
+                ),
+            ],
+            random_choice=True,
+            rigid_props=sim_utils.RigidBodyPropertiesCfg(
+                solver_position_iteration_count=4, solver_velocity_iteration_count=0
+            ),
+            mass_props=sim_utils.MassPropertiesCfg(mass=2.0),
+            collision_props=sim_utils.CollisionPropertiesCfg(),
+        ),
+        init_state=RigidObjectCfg.InitialStateCfg(pos=(uniform(-5, 0), uniform(-0.5,0.5), 1.0))
+    )
+    
+    BoxS2: RigidObjectCfg = RigidObjectCfg(
+        prim_path="/World/envs/env_.*/BoxS2",
+        spawn=sim_utils.MultiAssetSpawnerCfg(
+            assets_cfg=[
+                sim_utils.CuboidCfg(
+                    size=(0.3, 0.3, 0.3),
+                    visual_material=sim_utils.PreviewSurfaceCfg(diffuse_color=(1.0, 0.0, 0.0), metallic=0.2),
+                ),
+                sim_utils.CuboidCfg(
+                    size=(0.3, 0.5, 0.3),
+                    visual_material=sim_utils.PreviewSurfaceCfg(diffuse_color=(0.0, 1.0, 0.0), metallic=0.2),
+                ),
+                sim_utils.CuboidCfg(
+                    size=(0.3, 0.3, 0.5),
+                    visual_material=sim_utils.PreviewSurfaceCfg(diffuse_color=(0.0, 0.0, 1.0), metallic=0.2),
+                ),
+            ],
+            random_choice=True,
+            rigid_props=sim_utils.RigidBodyPropertiesCfg(
+                solver_position_iteration_count=4, solver_velocity_iteration_count=0
+            ),
+            mass_props=sim_utils.MassPropertiesCfg(mass=2.0),
+            collision_props=sim_utils.CollisionPropertiesCfg(),
+        ),
+        init_state=RigidObjectCfg.InitialStateCfg(pos=(uniform(-5, 0), uniform(-0.5,0.5), 1.0))
+    )
+    
+    BoxS3: RigidObjectCfg = RigidObjectCfg(
+        prim_path="/World/envs/env_.*/BoxS3",
+        spawn=sim_utils.MultiAssetSpawnerCfg(
+            assets_cfg=[
+                sim_utils.CuboidCfg(
+                    size=(0.3, 0.3, 0.3),
+                    visual_material=sim_utils.PreviewSurfaceCfg(diffuse_color=(1.0, 0.0, 0.0), metallic=0.2),
+                ),
+                sim_utils.CuboidCfg(
+                    size=(0.3, 0.5, 0.3),
+                    visual_material=sim_utils.PreviewSurfaceCfg(diffuse_color=(0.0, 1.0, 0.0), metallic=0.2),
+                ),
+                sim_utils.CuboidCfg(
+                    size=(0.3, 0.3, 0.5),
+                    visual_material=sim_utils.PreviewSurfaceCfg(diffuse_color=(0.0, 0.0, 1.0), metallic=0.2),
+                ),
+            ],
+            random_choice=True,
+            rigid_props=sim_utils.RigidBodyPropertiesCfg(
+                solver_position_iteration_count=4, solver_velocity_iteration_count=0
+            ),
+            mass_props=sim_utils.MassPropertiesCfg(mass=2.0),
+            collision_props=sim_utils.CollisionPropertiesCfg(),
+        ),
+        init_state=RigidObjectCfg.InitialStateCfg(pos=(uniform(-5, 0), uniform(-0.5,0.5), 1.0))
+    )
+    
+        
     # Flow Control section
     print("Before-----------------------------")
     robot: ArticulationCfg = FC_CFG.replace(prim_path="{ENV_REGEX_NS}/FC")
     #FC: ArticulationCfg = FC_CFG.replace(prim_path="/World/FC")
     print("After------------------------------")
-
+    
     tiled_camera1: TiledCameraCfg = TiledCameraCfg(
         prim_path="{ENV_REGEX_NS}/Camera1",
-        offset=TiledCameraCfg.OffsetCfg(pos=(-0.76, 0.0, 1.9), rot=(0.0, 0.0, 0.0, 0.0), convention="world"),
-        data_types=["distance_to_camera"],
+        offset=TiledCameraCfg.OffsetCfg(pos=(-0.76, 0.0, 1.85), rot=(0.0, 0.0, 0.0, 0.0), convention="world"),
+        data_types=["distance_to_image_plane"],
         spawn=sim_utils.PinholeCameraCfg(
-            focal_length=2.0, focus_distance=1.65, horizontal_aperture=1.8, vertical_aperture=1.5, clipping_range=(0.1, 1.83)
+            focal_length=2.1, focus_distance=1.62, horizontal_aperture=1.8, vertical_aperture=1.5, clipping_range=(1.79, 1.80)
         ),
         width=100,
         height=100
     )
+    
     tiled_camera2: TiledCameraCfg = TiledCameraCfg(
         prim_path="{ENV_REGEX_NS}/Camera2",
         offset=TiledCameraCfg.OffsetCfg(pos=(-0.76-1.52*1, 0.0, 1.9), rot=(0.0, 0.0, 0.0, 0.0), convention="world"),
@@ -417,6 +507,37 @@ def main():
     env_cfg.scene.num_envs = args_cli.num_envs
     # setup RL environment
     env = ManagerBasedRLEnv(cfg=env_cfg)
+    
+    
+    
+    
+    
+    # physx = omni.physx.acquire_physx_interface()
+    # stage_id = omni.usd.get_context().get_stage_id()
+
+    # generator = _occupancy_map.Generator(physx, stage_id)
+    # # 0.05m cell size, output buffer will have 4 for occupied cells, 5 for unoccupied, and 6 for cells that cannot be seen
+    # # this assumes your usd stage units are in m, and not cm
+    # generator.update_settings(.05, 4, 5, 6)
+    # # Set location to map from and the min and max bounds to map to
+    # generator.set_transform((1, 1, 0.15), (-1, -1, 0.15), (0.5, 0.5, 0.05))
+    # generator.generate2d()
+    # # Get locations of the occupied cells in the stage
+    # occupied_points = generator.get_occupied_positions()
+    # # Get locations of the unoccupied cells in the stage
+    # free_points = generator.get_free_positions()
+    # # Get computed 2d occupancy buffer
+    # buffer = generator.get_buffer()
+    # # Get dimensions for 2d buffer
+    # dims = generator.get_dimensions()
+    # print('occupied', occupied_points)
+    # print('free', free_points)
+    # # print('buffer', buffer)
+    # print('dims', dims)
+    
+    
+    
+    
 
     # simulate physics
     count = 0
