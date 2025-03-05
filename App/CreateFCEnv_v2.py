@@ -537,27 +537,42 @@ def main():
     
     
     
-    
+    import random
 
     # simulate physics
     count = 0
     while simulation_app.is_running():
         with torch.inference_mode():
+            
             # reset
             if count % 300 == 0:
                 count = 0
+                
+                #print(env.scene.rigid_objects['BoxS1'].data.default_root_state)
+                BoxS1_rootState = env.scene.rigid_objects['BoxS1'].data.default_root_state.clone()
+                BoxS1_rootState[:,:3] = torch.tensor([uniform(-5, 0), uniform(-0.5,0.5), 1.0])
+                env.scene.rigid_objects['BoxS1'].write_root_pose_to_sim(BoxS1_rootState[:, :7])
+                env.scene.rigid_objects['BoxS1'].write_root_velocity_to_sim(BoxS1_rootState[:, :6])
+                env.scene.rigid_objects['BoxS1'].reset()
+                
                 env.reset()
                 print("-" * 80)
                 print("[INFO]: Resetting environment...")
+                
+            env.scene.rigid_objects['BoxS1'].write_data_to_sim()
             # sample random actions
             joint_vel = torch.randn_like(env.action_manager.action)
             # step the environment
             obs, rew, terminated, truncated, info = env.step(joint_vel)
             # print current orientation of pole
             #print("[Env 0]: Joint: ", obs["policy"][0][1].item())
+            
+            env.scene.rigid_objects['BoxS1'].update(0.05)
+            
             # update counter
             count += 1
-            #print(env)
+            if count % 50 == 0:
+                print(f"Root position (in world): {env.scene.rigid_objects['BoxS1'].data.root_state_w[:, :3]}")
 
     # close the environment
     env.close()
