@@ -181,7 +181,7 @@ class FlowControlSceneCfg(InteractiveSceneCfg):
             mass_props=sim_utils.MassPropertiesCfg(mass=2.0),
             collision_props=sim_utils.CollisionPropertiesCfg(),
         ),
-        init_state=RigidObjectCfg.InitialStateCfg(pos=(uniform(-5, 0), uniform(-0.5,0.5), 1.0))
+        init_state=RigidObjectCfg.InitialStateCfg(pos=(uniform(-5, -0.5), uniform(-0.5,0.5), 1.5),ang_vel=(uniform(15,20), uniform(15,20), uniform(15,20)))
     )
     
     BoxS2: RigidObjectCfg = RigidObjectCfg(
@@ -208,7 +208,7 @@ class FlowControlSceneCfg(InteractiveSceneCfg):
             mass_props=sim_utils.MassPropertiesCfg(mass=2.0),
             collision_props=sim_utils.CollisionPropertiesCfg(),
         ),
-        init_state=RigidObjectCfg.InitialStateCfg(pos=(uniform(-5, 0), uniform(-0.5,0.5), 1.0))
+        init_state=RigidObjectCfg.InitialStateCfg(pos=(uniform(-5, -0.5), uniform(-0.5,0.5), 1.5),ang_vel=(uniform(15,20), uniform(15,20), uniform(15,20)))
     )
     
     BoxS3: RigidObjectCfg = RigidObjectCfg(
@@ -235,7 +235,7 @@ class FlowControlSceneCfg(InteractiveSceneCfg):
             mass_props=sim_utils.MassPropertiesCfg(mass=2.0),
             collision_props=sim_utils.CollisionPropertiesCfg(),
         ),
-        init_state=RigidObjectCfg.InitialStateCfg(pos=(uniform(-5, 0), uniform(-0.5,0.5), 1.0))
+        init_state=RigidObjectCfg.InitialStateCfg(pos=(uniform(-5, -0.5), uniform(-0.5,0.5), 1.5),ang_vel=(uniform(15,20), uniform(15,20), uniform(15,20)))
     )
     
         
@@ -562,12 +562,13 @@ def main():
             env.scene.rigid_objects['BoxS1'].write_data_to_sim()
             # sample random actions
             joint_vel = torch.randn_like(env.action_manager.action)
+            print(joint_vel)
             # step the environment
             obs, rew, terminated, truncated, info = env.step(joint_vel)
             # print current orientation of pole
             #print("[Env 0]: Joint: ", obs["policy"][0][1].item())
             
-            env.scene.rigid_objects['BoxS1'].update(0.05)
+            #env.scene.rigid_objects.update(0.05)
             
             # update counter
             count += 1
