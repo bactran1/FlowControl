@@ -289,7 +289,7 @@ class FlowControlSceneCfg(InteractiveSceneCfg):
             mass_props=sim_utils.MassPropertiesCfg(mass=2.0),
             collision_props=sim_utils.CollisionPropertiesCfg(),
         ),
-        init_state=RigidObjectCfg.InitialStateCfg(pos=(uniform(-5, -0.5), uniform(-0.5,0.5), 1.5),ang_vel=(uniform(15,20), uniform(15,20), uniform(15,20)))
+        init_state=RigidObjectCfg.InitialStateCfg(pos=(uniform(-10, -5), uniform(-0.5,0.5), 1.5),ang_vel=(uniform(15,20), uniform(15,20), uniform(15,20)))
     )
     
     BoxS6: RigidObjectCfg = RigidObjectCfg(
@@ -316,7 +316,7 @@ class FlowControlSceneCfg(InteractiveSceneCfg):
             mass_props=sim_utils.MassPropertiesCfg(mass=2.0),
             collision_props=sim_utils.CollisionPropertiesCfg(),
         ),
-        init_state=RigidObjectCfg.InitialStateCfg(pos=(uniform(-5, -0.5), uniform(-0.5,0.5), 1.5),ang_vel=(uniform(15,20), uniform(15,20), uniform(15,20)))
+        init_state=RigidObjectCfg.InitialStateCfg(pos=(uniform(-10, -5), uniform(-0.5,0.5), 1.5),ang_vel=(uniform(15,20), uniform(15,20), uniform(15,20)))
     )
     
     BoxS7: RigidObjectCfg = RigidObjectCfg(
@@ -343,7 +343,7 @@ class FlowControlSceneCfg(InteractiveSceneCfg):
             mass_props=sim_utils.MassPropertiesCfg(mass=2.0),
             collision_props=sim_utils.CollisionPropertiesCfg(),
         ),
-        init_state=RigidObjectCfg.InitialStateCfg(pos=(uniform(-5, -0.5), uniform(-0.5,0.5), 1.5),ang_vel=(uniform(15,20), uniform(15,20), uniform(15,20)))
+        init_state=RigidObjectCfg.InitialStateCfg(pos=(uniform(-10, -5), uniform(-0.5,0.5), 1.5),ang_vel=(uniform(15,20), uniform(15,20), uniform(15,20)))
     )
     
         

@@ -145,7 +145,8 @@ FC_CFG = ArticulationCfg(
     },
 )
 
-
+vertPix = 10
+horzPix = 10
 
 @configclass
 class FlowControlSceneCfg(InteractiveSceneCfg):
@@ -354,6 +355,7 @@ class FlowControlSceneCfg(InteractiveSceneCfg):
     #FC: ArticulationCfg = FC_CFG.replace(prim_path="/World/FC")
     print("After------------------------------")
     
+    
     tiled_camera1: TiledCameraCfg = TiledCameraCfg(
         prim_path="{ENV_REGEX_NS}/Camera1",
         offset=TiledCameraCfg.OffsetCfg(pos=(-0.76, 0.0, 1.85), rot=(0.0, 0.0, 0.0, 0.0), convention="world"),
@@ -361,8 +363,8 @@ class FlowControlSceneCfg(InteractiveSceneCfg):
         spawn=sim_utils.PinholeCameraCfg(
             focal_length=2.1, focus_distance=1.62, horizontal_aperture=1.8, vertical_aperture=1.5, clipping_range=(1.79, 1.80)
         ),
-        width=100,
-        height=100
+        width=vertPix,
+        height=horzPix
     )
     
     tiled_camera2: TiledCameraCfg = TiledCameraCfg(
@@ -372,8 +374,8 @@ class FlowControlSceneCfg(InteractiveSceneCfg):
         spawn=sim_utils.PinholeCameraCfg(
             focal_length=2.1, focus_distance=1.62, horizontal_aperture=1.8, vertical_aperture=1.5, clipping_range=(1.79, 1.80)
         ),
-        width=100,
-        height=100
+        width=vertPix,
+        height=horzPix
     )
     tiled_camera3: TiledCameraCfg = TiledCameraCfg(
         prim_path="{ENV_REGEX_NS}/Camera3",
@@ -382,8 +384,8 @@ class FlowControlSceneCfg(InteractiveSceneCfg):
         spawn=sim_utils.PinholeCameraCfg(
             focal_length=2.1, focus_distance=1.62, horizontal_aperture=1.8, vertical_aperture=1.5, clipping_range=(1.79, 1.80)
         ),
-        width=100,
-        height=100
+        width=vertPix,
+        height=horzPix
     )
     tiled_camera4: TiledCameraCfg = TiledCameraCfg(
         prim_path="{ENV_REGEX_NS}/Camera4",
@@ -392,8 +394,8 @@ class FlowControlSceneCfg(InteractiveSceneCfg):
         spawn=sim_utils.PinholeCameraCfg(
             focal_length=2.1, focus_distance=1.62, horizontal_aperture=1.8, vertical_aperture=1.5, clipping_range=(1.79, 1.80)
         ),
-        width=100,
-        height=100
+        width=vertPix,
+        height=horzPix
     )
     tiled_camera5: TiledCameraCfg = TiledCameraCfg(
         prim_path="{ENV_REGEX_NS}/Camera5",
@@ -402,8 +404,8 @@ class FlowControlSceneCfg(InteractiveSceneCfg):
         spawn=sim_utils.PinholeCameraCfg(
             focal_length=2.1, focus_distance=1.62, horizontal_aperture=1.8, vertical_aperture=1.5, clipping_range=(1.79, 1.80)
         ),
-        width=100,
-        height=100
+        width=vertPix,
+        height=horzPix
     )
     tiled_camera6: TiledCameraCfg = TiledCameraCfg(
         prim_path="{ENV_REGEX_NS}/Camera6",
@@ -412,8 +414,8 @@ class FlowControlSceneCfg(InteractiveSceneCfg):
         spawn=sim_utils.PinholeCameraCfg(
             focal_length=2.1, focus_distance=1.62, horizontal_aperture=1.8, vertical_aperture=1.5, clipping_range=(1.79, 1.80)
         ),
-        width=100,
-        height=100
+        width=vertPix,
+        height=horzPix
     )
     tiled_camera7: TiledCameraCfg = TiledCameraCfg(
         prim_path="{ENV_REGEX_NS}/Camera7",
@@ -422,8 +424,8 @@ class FlowControlSceneCfg(InteractiveSceneCfg):
         spawn=sim_utils.PinholeCameraCfg(
             focal_length=2.1, focus_distance=1.62, horizontal_aperture=1.8, vertical_aperture=1.5, clipping_range=(1.79, 1.80)
         ),
-        width=100,
-        height=100
+        width=vertPix,
+        height=horzPix
     )
     tiled_camera8: TiledCameraCfg = TiledCameraCfg(
         prim_path="{ENV_REGEX_NS}/Camera8",
@@ -432,8 +434,8 @@ class FlowControlSceneCfg(InteractiveSceneCfg):
         spawn=sim_utils.PinholeCameraCfg(
             focal_length=2.1, focus_distance=1.62, horizontal_aperture=1.8, vertical_aperture=1.5, clipping_range=(1.79, 1.80)
         ),
-        width=100,
-        height=100
+        width=vertPix,
+        height=horzPix
     )
 
     # lights
