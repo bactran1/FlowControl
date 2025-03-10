@@ -79,59 +79,59 @@ FC_CFG = ArticulationCfg(
     actuators={
         "joint_1_actuator": ImplicitActuatorCfg(
             joint_names_expr=["Roller_1_.*"],
-            effort_limit=40000.0,
-            velocity_limit=10000.0,
+            effort_limit=7000000.0,
+            velocity_limit=[0.0, 10000.0],
             stiffness=0.0,
-            damping=1.0
+            damping=5.0
         ),
         "joint_17_actuator": ImplicitActuatorCfg(
             joint_names_expr=["Roller_17_.*"],
-            effort_limit=40000.0,
+            effort_limit=7000000.0,
             velocity_limit=10000.0,
             stiffness=0.0,
-            damping=1.0
+            damping=5.0
         ),
         "joint_33_actuator": ImplicitActuatorCfg(
             joint_names_expr=["Roller_33_.*"],
-            effort_limit=40000.0,
+            effort_limit=7000000.0,
             velocity_limit=10000.0,
             stiffness=0.0,
-            damping=1.0
+            damping=5.0
         ),
         "joint_49_actuator": ImplicitActuatorCfg(
             joint_names_expr=["Roller_49_.*"],
-            effort_limit=40000.0,
+            effort_limit=7000000.0,
             velocity_limit=10000.0,
             stiffness=0.0,
-            damping=1.0
+            damping=5.0
         ),
         "joint_65_actuator": ImplicitActuatorCfg(
             joint_names_expr=["Roller_65_.*"],
-            effort_limit=40000.0,
+            effort_limit=7000000.0,
             velocity_limit=10000.0,
             stiffness=0.0,
-            damping=1.0
+            damping=5.0
         ),
         "joint_81_actuator": ImplicitActuatorCfg(
             joint_names_expr=["Roller_81_.*"],
-            effort_limit=40000.0,
+            effort_limit=7000000.0,
             velocity_limit=10000.0,
             stiffness=0.0,
-            damping=1.0
+            damping=5.0
         ),
         "joint_97_actuator": ImplicitActuatorCfg(
             joint_names_expr=["Roller_97_.*"],
-            effort_limit=40000.0,
+            effort_limit=7000000.0,
             velocity_limit=10000.0,
             stiffness=0.0,
-            damping=1.0
+            damping=5.0
         ),
         "joint_113_actuator": ImplicitActuatorCfg(
             joint_names_expr=["Roller_113_.*"],
-            effort_limit=40000.0,
+            effort_limit=7000000.0,
             velocity_limit=10000.0,
             stiffness=0.0,
-            damping=1.0
+            damping=5.0
         )
     },
 )
@@ -550,7 +550,7 @@ class RewardsCfg:
     terminating = RewTerm(func=mdp.is_terminated, weight=-2.0)
     # (3) Primary task: don't cross the torque limit
     limitTorque = RewTerm(
-        func=mdp.joint_torques_l1,
+        func=mdp.joint_torques_l2,
         weight=1.0,
         params={"asset_cfg": SceneEntityCfg("robot")},
     )
