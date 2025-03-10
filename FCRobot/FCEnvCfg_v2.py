@@ -447,10 +447,10 @@ class ActionsCfg:
     #joint_velocities1 = mdp.JointVelocityActionCfg(asset_name="robot", joint_names=["Roller_1_.*", "Roller_17_.*", "Roller_33_.*", "Roller_49_.*", 
     #                                                                              "Roller_65_.*", "Roller_81_.*", "Roller_97_.*", "Roller_113_.*"], scale=1.0)
     
-    joint_velocities1 = mdp.JointVelocityActionCfg(asset_name="robot", joint_names=["Roller_1_.*", "Roller_17_.*"], scale=5.0)
-    joint_velocities2 = mdp.JointVelocityActionCfg(asset_name="robot", joint_names=["Roller_33_.*", "Roller_49_.*"], scale=5.0)
-    joint_velocities3 = mdp.JointVelocityActionCfg(asset_name="robot", joint_names=["Roller_65_.*", "Roller_81_.*"], scale=5.0)
-    joint_velocities4 = mdp.JointVelocityActionCfg(asset_name="robot", joint_names=["Roller_97_.*", "Roller_113_.*"], scale=5.0)
+    joint_velocities1 = mdp.JointVelocityActionCfg(asset_name="robot", joint_names=["Roller_1_.*", "Roller_17_.*"], scale=20.0)
+    joint_velocities2 = mdp.JointVelocityActionCfg(asset_name="robot", joint_names=["Roller_33_.*", "Roller_49_.*"], scale=20.0)
+    joint_velocities3 = mdp.JointVelocityActionCfg(asset_name="robot", joint_names=["Roller_65_.*", "Roller_81_.*"], scale=20.0)
+    joint_velocities4 = mdp.JointVelocityActionCfg(asset_name="robot", joint_names=["Roller_97_.*", "Roller_113_.*"], scale=20.0)
     
 @configclass
 class ObservationsCfg:
@@ -550,20 +550,20 @@ class RewardsCfg:
     terminating = RewTerm(func=mdp.is_terminated, weight=-2.0)
     # (3) Primary task: don't cross the torque limit
     limitTorque = RewTerm(
-        func=mdp.joint_torques_l2,
+        func=mdp.joint_torques_l1,
         weight=1.0,
         params={"asset_cfg": SceneEntityCfg("robot")},
     )
     # (4) Primary task: don't cross the speed limit
     limitVel = RewTerm(
-        func=mdp.joint_vel_l2,
+        func=mdp.joint_vel_l1,
         weight=1.0,
         params={"asset_cfg": SceneEntityCfg("robot")},
         )
     # (5) Primary task: Keep coverage area below 80%
     Cam8CoverageBelow80 = RewTerm(
         func = mdp.targetedCoverage,
-        weight = 1.0,
+        weight = 2.0,
         params = {"asset_cfg" : SceneEntityCfg('tiled_camera1'), "target" : 80.0}
     )
 
