@@ -43,5 +43,7 @@ def targetedCoverage(env: ManagerBasedRLEnv, target: float, asset_cfg: SceneEnti
     thr, img_th = cv2.threshold(img_gray, 100, 255, cv2.THRESH_BINARY)
     white_pix = cv2.countNonZero(img_th)
     coverage = ((100*100 - white_pix)/(100*100))
+    
     normalized_coverage = 1 - sqrt((coverage - target)**2)
-    return normalized_coverage 
+    
+    return normalized_coverage
