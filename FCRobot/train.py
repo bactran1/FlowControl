@@ -72,7 +72,7 @@ import torch
 import torch.nn as nn
 from stable_baselines3.common.torch_layers import BaseFeaturesExtractor
 
-
+#fix this CNN
 class CustomCNN(BaseFeaturesExtractor):
     def __init__(self, observation_space, features_dim=128):
         super(CustomCNN, self).__init__(observation_space, features_dim)
