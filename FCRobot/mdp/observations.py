@@ -41,6 +41,7 @@ def percentageArea_occupied(env: ManagerBasedRLEnv, asset_cfg: SceneEntityCfg) -
     thr, img_th = cv2.threshold(img_gray, 100, 255, cv2.THRESH_BINARY)
     white_pix = cv2.countNonZero(img_th)
     ratio = ((100*100 - white_pix)/(100*100)) *100
+    print(ratio)
 
     return torch.tensor(ratio, dtype=torch.float32) 
     

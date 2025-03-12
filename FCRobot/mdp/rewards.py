@@ -14,6 +14,8 @@ from isaaclab.managers import SceneEntityCfg
 from isaaclab.utils.math import wrap_to_pi
 
 import cv2
+import numpy as np
+from numpy import inf
 from math import sqrt
 from isaaclab.utils import convert_dict_to_backend
 
@@ -31,19 +33,36 @@ if TYPE_CHECKING:
 #     return torch.sum(torch.square(joint_pos - target), dim=1)
 
 
-def targetedCoverage(env: ManagerBasedRLEnv, target: float, asset_cfg: SceneEntityCfg) -> torch.Tensor:
+def targetedCoverage(env: ManagerBasedRLEnv, heightThreshold: float, asset_cfg: SceneEntityCfg) -> torch.Tensor:
     
 
     asset: Articulation = env.scene[asset_cfg.name]
 
+    # env.render(recompute=True)
+    
     single_cam_data = convert_dict_to_backend(
                 {k: v[0] for k, v in asset.data.output.items()}, backend="numpy")
 
-    img_gray = cv2.cvtColor(single_cam_data['rgb'], cv2.COLOR_BGR2GRAY)
-    thr, img_th = cv2.threshold(img_gray, 100, 255, cv2.THRESH_BINARY)
-    white_pix = cv2.countNonZero(img_th)
-    coverage = ((100*100 - white_pix)/(100*100))
+    # img_gray = cv2.cvtColor(single_cam_data['rgb'], cv2.COLOR_BGR2GRAY)
+    # thr, img_th = cv2.threshold(img_gray, 160, 255, cv2.THRESH_BINARY)
+    # white_pix = cv2.countNonZero(img_th)
+    # coverage = ((100*100 - white_pix)/(100*100))*100
     
-    normalized_coverage = 1 - sqrt((coverage - target)**2)
+    depthImgData = single_cam_data["distance_to_image_plane"]
+    depthImgData[depthImgData == inf]= 0
     
-    return normalized_coverage
+    
+    # normalized_coverage = 1 - sqrt((coverage - target)**2)/100
+    # print(img_gray)
+    # print(depthImgData)
+    # print(white_pix)
+    # print(white_pix, type(white_pix), normalized_coverage, type(normalized_coverage), type(single_cam_data))
+    # print(depthImgData[0], type(depthImgData))
+    
+    # print(np.max(depthImgData))
+    
+    # print(np.mean(depthImgData > 1.40)*100)
+    if heightThreshold is None:
+        heightThreshold = 1.4 # 1.5m from the camera down to the conveyor
+        
+    return np.mean(depthImgData > heightThreshold)*100
