@@ -136,8 +136,11 @@ FC_CFG = ArticulationCfg(
     },
 )
 
+
+#GlobalVars
 camWidtPix = 100
 camHorzPix = 100
+GVL_restitution = 0.1
 
 @configclass
 class FlowControlSceneCfg(InteractiveSceneCfg):
@@ -157,14 +160,17 @@ class FlowControlSceneCfg(InteractiveSceneCfg):
                 sim_utils.CuboidCfg(
                     size=(0.3, 0.3, 0.3),
                     visual_material=sim_utils.PreviewSurfaceCfg(diffuse_color=(1.0, 0.0, 0.0), metallic=0.2),
+                    physics_material=sim_utils.RigidBodyMaterialCfg(restitution=GVL_restitution)
                 ),
                 sim_utils.CuboidCfg(
                     size=(0.3, 0.5, 0.3),
                     visual_material=sim_utils.PreviewSurfaceCfg(diffuse_color=(0.0, 1.0, 0.0), metallic=0.2),
+                    physics_material=sim_utils.RigidBodyMaterialCfg(restitution=GVL_restitution)
                 ),
                 sim_utils.CuboidCfg(
                     size=(0.3, 0.3, 0.5),
                     visual_material=sim_utils.PreviewSurfaceCfg(diffuse_color=(0.0, 0.0, 1.0), metallic=0.2),
+                    physics_material=sim_utils.RigidBodyMaterialCfg(restitution=GVL_restitution)
                 ),
             ],
             random_choice=True,
@@ -184,14 +190,17 @@ class FlowControlSceneCfg(InteractiveSceneCfg):
                 sim_utils.CuboidCfg(
                     size=(0.3, 0.3, 0.3),
                     visual_material=sim_utils.PreviewSurfaceCfg(diffuse_color=(1.0, 0.0, 0.0), metallic=0.2),
+                    physics_material=sim_utils.RigidBodyMaterialCfg(restitution=GVL_restitution)
                 ),
                 sim_utils.CuboidCfg(
                     size=(0.3, 0.5, 0.3),
                     visual_material=sim_utils.PreviewSurfaceCfg(diffuse_color=(0.0, 1.0, 0.0), metallic=0.2),
+                    physics_material=sim_utils.RigidBodyMaterialCfg(restitution=GVL_restitution)
                 ),
                 sim_utils.CuboidCfg(
                     size=(0.3, 0.3, 0.5),
                     visual_material=sim_utils.PreviewSurfaceCfg(diffuse_color=(0.0, 0.0, 1.0), metallic=0.2),
+                    physics_material=sim_utils.RigidBodyMaterialCfg(restitution=GVL_restitution)
                 ),
             ],
             random_choice=True,
@@ -211,14 +220,17 @@ class FlowControlSceneCfg(InteractiveSceneCfg):
                 sim_utils.CuboidCfg(
                     size=(0.3, 0.3, 0.3),
                     visual_material=sim_utils.PreviewSurfaceCfg(diffuse_color=(1.0, 0.0, 0.0), metallic=0.2),
+                    physics_material=sim_utils.RigidBodyMaterialCfg(restitution=GVL_restitution)
                 ),
                 sim_utils.CuboidCfg(
                     size=(0.3, 0.5, 0.3),
                     visual_material=sim_utils.PreviewSurfaceCfg(diffuse_color=(0.0, 1.0, 0.0), metallic=0.2),
+                    physics_material=sim_utils.RigidBodyMaterialCfg(restitution=GVL_restitution)
                 ),
                 sim_utils.CuboidCfg(
                     size=(0.3, 0.3, 0.5),
                     visual_material=sim_utils.PreviewSurfaceCfg(diffuse_color=(0.0, 0.0, 1.0), metallic=0.2),
+                    physics_material=sim_utils.RigidBodyMaterialCfg(restitution=GVL_restitution)
                 ),
             ],
             random_choice=True,
@@ -238,14 +250,17 @@ class FlowControlSceneCfg(InteractiveSceneCfg):
                 sim_utils.CuboidCfg(
                     size=(0.3, 0.3, 0.3),
                     visual_material=sim_utils.PreviewSurfaceCfg(diffuse_color=(1.0, 0.0, 0.0), metallic=0.2),
+                    physics_material=sim_utils.RigidBodyMaterialCfg(restitution=GVL_restitution)
                 ),
                 sim_utils.CuboidCfg(
                     size=(0.3, 0.5, 0.3),
                     visual_material=sim_utils.PreviewSurfaceCfg(diffuse_color=(0.0, 1.0, 0.0), metallic=0.2),
+                    physics_material=sim_utils.RigidBodyMaterialCfg(restitution=GVL_restitution)
                 ),
                 sim_utils.CuboidCfg(
                     size=(0.3, 0.3, 0.5),
                     visual_material=sim_utils.PreviewSurfaceCfg(diffuse_color=(0.0, 0.0, 1.0), metallic=0.2),
+                    physics_material=sim_utils.RigidBodyMaterialCfg(restitution=GVL_restitution)
                 ),
             ],
             random_choice=True,
@@ -265,14 +280,17 @@ class FlowControlSceneCfg(InteractiveSceneCfg):
                 sim_utils.CuboidCfg(
                     size=(0.3, 0.3, 0.3),
                     visual_material=sim_utils.PreviewSurfaceCfg(diffuse_color=(1.0, 0.0, 0.0), metallic=0.2),
+                    physics_material=sim_utils.RigidBodyMaterialCfg(restitution=GVL_restitution)
                 ),
                 sim_utils.CuboidCfg(
                     size=(0.3, 0.5, 0.3),
                     visual_material=sim_utils.PreviewSurfaceCfg(diffuse_color=(0.0, 1.0, 0.0), metallic=0.2),
+                    physics_material=sim_utils.RigidBodyMaterialCfg(restitution=GVL_restitution)
                 ),
                 sim_utils.CuboidCfg(
                     size=(0.3, 0.3, 0.5),
                     visual_material=sim_utils.PreviewSurfaceCfg(diffuse_color=(0.0, 0.0, 1.0), metallic=0.2),
+                    physics_material=sim_utils.RigidBodyMaterialCfg(restitution=GVL_restitution)
                 ),
             ],
             random_choice=True,
@@ -282,7 +300,7 @@ class FlowControlSceneCfg(InteractiveSceneCfg):
             mass_props=sim_utils.MassPropertiesCfg(mass=2.0),
             collision_props=sim_utils.CollisionPropertiesCfg(),
         ),
-        init_state=RigidObjectCfg.InitialStateCfg(pos=(uniform(-10, -5), uniform(-0.5,0.5), 0.5),ang_vel=(uniform(15,20), uniform(15,20), uniform(15,20)))
+        init_state=RigidObjectCfg.InitialStateCfg(pos=(uniform(-6, -5), uniform(-0.5,0.5), 0.5),ang_vel=(uniform(15,20), uniform(15,20), uniform(15,20)))
     )
     
     BoxS6: RigidObjectCfg = RigidObjectCfg(
@@ -292,14 +310,17 @@ class FlowControlSceneCfg(InteractiveSceneCfg):
                 sim_utils.CuboidCfg(
                     size=(0.3, 0.3, 0.3),
                     visual_material=sim_utils.PreviewSurfaceCfg(diffuse_color=(1.0, 0.0, 0.0), metallic=0.2),
+                    physics_material=sim_utils.RigidBodyMaterialCfg(restitution=GVL_restitution)
                 ),
                 sim_utils.CuboidCfg(
                     size=(0.3, 0.5, 0.3),
                     visual_material=sim_utils.PreviewSurfaceCfg(diffuse_color=(0.0, 1.0, 0.0), metallic=0.2),
+                    physics_material=sim_utils.RigidBodyMaterialCfg(restitution=GVL_restitution)
                 ),
                 sim_utils.CuboidCfg(
                     size=(0.3, 0.3, 0.5),
                     visual_material=sim_utils.PreviewSurfaceCfg(diffuse_color=(0.0, 0.0, 1.0), metallic=0.2),
+                    physics_material=sim_utils.RigidBodyMaterialCfg(restitution=GVL_restitution)
                 ),
             ],
             random_choice=True,
@@ -309,7 +330,7 @@ class FlowControlSceneCfg(InteractiveSceneCfg):
             mass_props=sim_utils.MassPropertiesCfg(mass=2.0),
             collision_props=sim_utils.CollisionPropertiesCfg(),
         ),
-        init_state=RigidObjectCfg.InitialStateCfg(pos=(uniform(-10, -5), uniform(-0.5,0.5), 0.5),ang_vel=(uniform(15,20), uniform(15,20), uniform(15,20)))
+        init_state=RigidObjectCfg.InitialStateCfg(pos=(uniform(-6, -5), uniform(-0.5,0.5), 0.5),ang_vel=(uniform(15,20), uniform(15,20), uniform(15,20)))
     )
     
     BoxS7: RigidObjectCfg = RigidObjectCfg(
@@ -319,14 +340,17 @@ class FlowControlSceneCfg(InteractiveSceneCfg):
                 sim_utils.CuboidCfg(
                     size=(0.3, 0.3, 0.3),
                     visual_material=sim_utils.PreviewSurfaceCfg(diffuse_color=(1.0, 0.0, 0.0), metallic=0.2),
+                    physics_material=sim_utils.RigidBodyMaterialCfg(restitution=GVL_restitution)
                 ),
                 sim_utils.CuboidCfg(
                     size=(0.3, 0.5, 0.3),
                     visual_material=sim_utils.PreviewSurfaceCfg(diffuse_color=(0.0, 1.0, 0.0), metallic=0.2),
+                    physics_material=sim_utils.RigidBodyMaterialCfg(restitution=GVL_restitution)
                 ),
                 sim_utils.CuboidCfg(
                     size=(0.3, 0.3, 0.5),
                     visual_material=sim_utils.PreviewSurfaceCfg(diffuse_color=(0.0, 0.0, 1.0), metallic=0.2),
+                    physics_material=sim_utils.RigidBodyMaterialCfg(restitution=GVL_restitution)
                 ),
             ],
             random_choice=True,
@@ -336,7 +360,7 @@ class FlowControlSceneCfg(InteractiveSceneCfg):
             mass_props=sim_utils.MassPropertiesCfg(mass=2.0),
             collision_props=sim_utils.CollisionPropertiesCfg(),
         ),
-        init_state=RigidObjectCfg.InitialStateCfg(pos=(uniform(-10, -5), uniform(-0.5,0.5), 0.5),ang_vel=(uniform(15,20), uniform(15,20), uniform(15,20)))
+        init_state=RigidObjectCfg.InitialStateCfg(pos=(uniform(-6, -5), uniform(-0.5,0.5), 0.5),ang_vel=(uniform(15,20), uniform(15,20), uniform(15,20)))
     )
     
         
@@ -346,10 +370,11 @@ class FlowControlSceneCfg(InteractiveSceneCfg):
     # Cameras
     tiled_camera1: TiledCameraCfg = TiledCameraCfg(
         prim_path="{ENV_REGEX_NS}/Camera1",
-        offset=TiledCameraCfg.OffsetCfg(pos=(-0.76, 0.0, 1.85), rot=(0.0, 0.0, 0.0, 0.0), convention="world"),
+        offset=TiledCameraCfg.OffsetCfg(pos=(-0.76, 0.0, 1.9), rot=(0.0, 0.0, 0.0, 0.0), convention="opengl"),
         data_types=["rgb","distance_to_image_plane"],
+        update_period=0.05,
         spawn=sim_utils.PinholeCameraCfg(
-            focal_length=2.1, focus_distance=1.62, horizontal_aperture=1.8, vertical_aperture=1.5, clipping_range=(0.2, 1.6)
+            focal_length=2.4, focus_distance=1.60, horizontal_aperture=1.6, vertical_aperture=1.5
         ),
         width=camWidtPix,
         height=camHorzPix
@@ -357,70 +382,77 @@ class FlowControlSceneCfg(InteractiveSceneCfg):
     
     tiled_camera2: TiledCameraCfg = TiledCameraCfg(
         prim_path="{ENV_REGEX_NS}/Camera2",
-        offset=TiledCameraCfg.OffsetCfg(pos=(-0.76-1.52*1, 0.0, 1.85), rot=(0.0, 0.0, 0.0, 0.0), convention="world"),
+        offset=TiledCameraCfg.OffsetCfg(pos=(-0.76-1.52*1, 0.0, 1.9), rot=(0.0, 0.0, 0.0, 0.0), convention="opengl"),
         data_types=["rgb","distance_to_image_plane"],
+        update_period=0.05,
         spawn=sim_utils.PinholeCameraCfg(
-            focal_length=2.1, focus_distance=1.62, horizontal_aperture=1.8, vertical_aperture=1.5, clipping_range=(0.2, 1.6)
+            focal_length=2.4, focus_distance=1.60, horizontal_aperture=1.6, vertical_aperture=1.5
         ),
         width=camWidtPix,
         height=camHorzPix
     )
     tiled_camera3: TiledCameraCfg = TiledCameraCfg(
         prim_path="{ENV_REGEX_NS}/Camera3",
-        offset=TiledCameraCfg.OffsetCfg(pos=(-0.76-1.52*2, 0.0, 1.85), rot=(0.0, 0.0, 0.0, 0.0), convention="world"),
+        offset=TiledCameraCfg.OffsetCfg(pos=(-0.76-1.52*2, 0.0, 1.9), rot=(0.0, 0.0, 0.0, 0.0), convention="opengl"),
         data_types=["rgb","distance_to_image_plane"],
+        update_period=0.05,
         spawn=sim_utils.PinholeCameraCfg(
-            focal_length=2.1, focus_distance=1.62, horizontal_aperture=1.8, vertical_aperture=1.5, clipping_range=(0.2, 1.6)
+            focal_length=2.4, focus_distance=1.60, horizontal_aperture=1.6, vertical_aperture=1.5
         ),
         width=camWidtPix,
         height=camHorzPix
     )
     tiled_camera4: TiledCameraCfg = TiledCameraCfg(
         prim_path="{ENV_REGEX_NS}/Camera4",
-        offset=TiledCameraCfg.OffsetCfg(pos=(-0.76-1.52*3, 0.0, 1.85), rot=(0.0, 0.0, 0.0, 0.0), convention="world"),
+        offset=TiledCameraCfg.OffsetCfg(pos=(-0.76-1.52*3, 0.0, 1.9), rot=(0.0, 0.0, 0.0, 0.0), convention="opengl"),
         data_types=["rgb","distance_to_image_plane"],
+        update_period=0.05,
         spawn=sim_utils.PinholeCameraCfg(
-            focal_length=2.1, focus_distance=1.62, horizontal_aperture=1.8, vertical_aperture=1.5, clipping_range=(0.2, 1.6)
+            focal_length=2.4, focus_distance=1.60, horizontal_aperture=1.6, vertical_aperture=1.5
         ),
         width=camWidtPix,
         height=camHorzPix
     )
     tiled_camera5: TiledCameraCfg = TiledCameraCfg(
         prim_path="{ENV_REGEX_NS}/Camera5",
-        offset=TiledCameraCfg.OffsetCfg(pos=(-0.76-1.52*4, 0.0, 1.85), rot=(0.0, 0.0, 0.0, 0.0), convention="world"),
+        offset=TiledCameraCfg.OffsetCfg(pos=(-0.76-1.52*4, 0.0, 1.9), rot=(0.0, 0.0, 0.0, 0.0), convention="opengl"),
         data_types=["rgb","distance_to_image_plane"],
+        update_period=0.05,
         spawn=sim_utils.PinholeCameraCfg(
-            focal_length=2.1, focus_distance=1.62, horizontal_aperture=1.8, vertical_aperture=1.5, clipping_range=(0.2, 1.6)
+            focal_length=2.4, focus_distance=1.60, horizontal_aperture=1.6, vertical_aperture=1.5
         ),
         width=camWidtPix,
         height=camHorzPix
     )
     tiled_camera6: TiledCameraCfg = TiledCameraCfg(
         prim_path="{ENV_REGEX_NS}/Camera6",
-        offset=TiledCameraCfg.OffsetCfg(pos=(-0.76-1.52*5, 0.0, 1.85), rot=(0.0, 0.0, 0.0, 0.0), convention="world"),
+        offset=TiledCameraCfg.OffsetCfg(pos=(-0.76-1.52*5, 0.0, 1.9), rot=(0.0, 0.0, 0.0, 0.0), convention="opengl"),
         data_types=["rgb","distance_to_image_plane"],
+        update_period=0.05,
         spawn=sim_utils.PinholeCameraCfg(
-            focal_length=2.1, focus_distance=1.62, horizontal_aperture=1.8, vertical_aperture=1.5, clipping_range=(0.2, 1.6)
+            focal_length=2.4, focus_distance=1.60, horizontal_aperture=1.6, vertical_aperture=1.5
         ),
         width=camWidtPix,
         height=camHorzPix
     )
     tiled_camera7: TiledCameraCfg = TiledCameraCfg(
         prim_path="{ENV_REGEX_NS}/Camera7",
-        offset=TiledCameraCfg.OffsetCfg(pos=(-0.76-1.52*6, 0.0, 1.85), rot=(0.0, 0.0, 0.0, 0.0), convention="world"),
+        offset=TiledCameraCfg.OffsetCfg(pos=(-0.76-1.52*6, 0.0, 1.9), rot=(0.0, 0.0, 0.0, 0.0), convention="opengl"),
         data_types=["rgb","distance_to_image_plane"],
+        update_period=0.05,
         spawn=sim_utils.PinholeCameraCfg(
-            focal_length=2.1, focus_distance=1.62, horizontal_aperture=1.8, vertical_aperture=1.5, clipping_range=(0.2, 1.6)
+            focal_length=2.4, focus_distance=1.60, horizontal_aperture=1.6, vertical_aperture=1.5
         ),
         width=camWidtPix,
         height=camHorzPix
     )
     tiled_camera8: TiledCameraCfg = TiledCameraCfg(
         prim_path="{ENV_REGEX_NS}/Camera8",
-        offset=TiledCameraCfg.OffsetCfg(pos=(-0.76-1.52*7, 0.0, 1.85), rot=(0.0, 0.0, 0.0, 0.0), convention="world"),
+        offset=TiledCameraCfg.OffsetCfg(pos=(-0.76-1.52*7, 0.0, 1.9), rot=(0.0, 0.0, 0.0, 0.0), convention="opengl"),
         data_types=["rgb","distance_to_image_plane"],
+        update_period=0.05,
         spawn=sim_utils.PinholeCameraCfg(
-            focal_length=2.1, focus_distance=1.62, horizontal_aperture=1.8, vertical_aperture=1.5, clipping_range=(0.2, 1.6)
+            focal_length=2.4, focus_distance=1.60, horizontal_aperture=1.6, vertical_aperture=1.5
         ),
         width=camWidtPix,
         height=camHorzPix
@@ -447,10 +479,10 @@ class ActionsCfg:
     #joint_velocities1 = mdp.JointVelocityActionCfg(asset_name="robot", joint_names=["Roller_1_.*", "Roller_17_.*", "Roller_33_.*", "Roller_49_.*", 
     #                                                                              "Roller_65_.*", "Roller_81_.*", "Roller_97_.*", "Roller_113_.*"], scale=1.0)
     
-    joint_velocities1 = mdp.JointVelocityActionCfg(asset_name="robot", joint_names=["Roller_1_.*", "Roller_17_.*"], scale=20.0)
-    joint_velocities2 = mdp.JointVelocityActionCfg(asset_name="robot", joint_names=["Roller_33_.*", "Roller_49_.*"], scale=20.0)
-    joint_velocities3 = mdp.JointVelocityActionCfg(asset_name="robot", joint_names=["Roller_65_.*", "Roller_81_.*"], scale=20.0)
-    joint_velocities4 = mdp.JointVelocityActionCfg(asset_name="robot", joint_names=["Roller_97_.*", "Roller_113_.*"], scale=20.0)
+    joint_velocities1 = mdp.JointVelocityActionCfg(asset_name="robot", joint_names=["Roller_1_.*", "Roller_17_.*"], scale=10.0)
+    joint_velocities2 = mdp.JointVelocityActionCfg(asset_name="robot", joint_names=["Roller_33_.*", "Roller_49_.*"], scale=10.0)
+    joint_velocities3 = mdp.JointVelocityActionCfg(asset_name="robot", joint_names=["Roller_65_.*", "Roller_81_.*"], scale=10.0)
+    joint_velocities4 = mdp.JointVelocityActionCfg(asset_name="robot", joint_names=["Roller_97_.*", "Roller_113_.*"], scale=10.0)
     
 @configclass
 class ObservationsCfg:
@@ -505,27 +537,27 @@ class DepthObservationsCfg:
         image1 = ObsTerm(
             func=mdp.image, params={"sensor_cfg": SceneEntityCfg("tiled_camera1"), "data_type": "rgb"}
         )
-        # image2 = ObsTerm(
-        #     func=mdp.image, params={"sensor_cfg": SceneEntityCfg("tiled_camera2"), "data_type": "rgb"}
-        # )
-        # image3 = ObsTerm(
-        #     func=mdp.image, params={"sensor_cfg": SceneEntityCfg("tiled_camera3"), "data_type": "rgb"}
-        # )
-        # image4 = ObsTerm(
-        #     func=mdp.image, params={"sensor_cfg": SceneEntityCfg("tiled_camera4"), "data_type": "rgb"}
-        # )
-        # image5 = ObsTerm(
-        #     func=mdp.image, params={"sensor_cfg": SceneEntityCfg("tiled_camera5"), "data_type": "rgb"}
-        # )
-        # image6 = ObsTerm(
-        #     func=mdp.image, params={"sensor_cfg": SceneEntityCfg("tiled_camera6"), "data_type": "rgb"}
-        # )
-        # image7 = ObsTerm(
-        #     func=mdp.image, params={"sensor_cfg": SceneEntityCfg("tiled_camera7"), "data_type": "rgb"}
-        # )
-        # image8 = ObsTerm(
-        #     func=mdp.image, params={"sensor_cfg": SceneEntityCfg("tiled_camera8"), "data_type": "rgb"}
-        # )
+        image2 = ObsTerm(
+            func=mdp.image, params={"sensor_cfg": SceneEntityCfg("tiled_camera2"), "data_type": "rgb"}
+        )
+        image3 = ObsTerm(
+            func=mdp.image, params={"sensor_cfg": SceneEntityCfg("tiled_camera3"), "data_type": "rgb"}
+        )
+        image4 = ObsTerm(
+            func=mdp.image, params={"sensor_cfg": SceneEntityCfg("tiled_camera4"), "data_type": "rgb"}
+        )
+        image5 = ObsTerm(
+            func=mdp.image, params={"sensor_cfg": SceneEntityCfg("tiled_camera5"), "data_type": "rgb"}
+        )
+        image6 = ObsTerm(
+            func=mdp.image, params={"sensor_cfg": SceneEntityCfg("tiled_camera6"), "data_type": "rgb"}
+        )
+        image7 = ObsTerm(
+            func=mdp.image, params={"sensor_cfg": SceneEntityCfg("tiled_camera7"), "data_type": "rgb"}
+        )
+        image8 = ObsTerm(
+            func=mdp.image, params={"sensor_cfg": SceneEntityCfg("tiled_camera8"), "data_type": "rgb"}
+        )
         
         def __post_init__(self) -> None:
             self.enable_corruption = False
@@ -561,11 +593,54 @@ class RewardsCfg:
         params={"asset_cfg": SceneEntityCfg("robot")},
         )
     # (5) Primary task: Keep coverage area below 80%
-    Cam8CoverageBelow80 = RewTerm(
+    Cam1CoverageBelow80 = RewTerm(
         func = mdp.targetedCoverage,
         weight = 2.0,
-        params = {"asset_cfg" : SceneEntityCfg('tiled_camera1'), "target" : 80.0}
+        params = {"asset_cfg" : SceneEntityCfg('tiled_camera1'), "heightThreshold" : 1.5}
     )
+    # (6) Primary task: Keep coverage area below 80%
+    Cam2CoverageBelow80 = RewTerm(
+        func = mdp.targetedCoverage,
+        weight = 2.0,
+        params = {"asset_cfg" : SceneEntityCfg('tiled_camera2'), "heightThreshold" : 1.5}
+    )
+    # (7) Primary task: Keep coverage area below 80%
+    Cam3CoverageBelow80 = RewTerm(
+        func = mdp.targetedCoverage,
+        weight = 2.0,
+        params = {"asset_cfg" : SceneEntityCfg('tiled_camera3'), "heightThreshold" : 1.5}
+    )
+    # (8) Primary task: Keep coverage area below 80%
+    Cam4CoverageBelow80 = RewTerm(
+        func = mdp.targetedCoverage,
+        weight = 2.0,
+        params = {"asset_cfg" : SceneEntityCfg('tiled_camera4'), "heightThreshold" : 1.5}
+    )
+    # (9) Primary task: Keep coverage area below 80%
+    Cam5CoverageBelow80 = RewTerm(
+        func = mdp.targetedCoverage,
+        weight = 2.0,
+        params = {"asset_cfg" : SceneEntityCfg('tiled_camera5'), "heightThreshold" : 1.5}
+    )
+    # (10) Primary task: Keep coverage area below 80%
+    Cam6CoverageBelow80 = RewTerm(
+        func = mdp.targetedCoverage,
+        weight = 2.0,
+        params = {"asset_cfg" : SceneEntityCfg('tiled_camera6'), "heightThreshold" : 1.5}
+    )
+    # (11) Primary task: Keep coverage area below 80%
+    Cam7CoverageBelow80 = RewTerm(
+        func = mdp.targetedCoverage,
+        weight = 2.0,
+        params = {"asset_cfg" : SceneEntityCfg('tiled_camera7'), "heightThreshold" : 1.5}
+    )
+    # (12) Primary task: Keep coverage area below 80%
+    Cam2CoverageBelow80 = RewTerm(
+        func = mdp.targetedCoverage,
+        weight = 2.0,
+        params = {"asset_cfg" : SceneEntityCfg('tiled_camera8'), "heightThreshold" : 1.5}
+    )
+    
 
 @configclass
 class TerminationsCfg:

@@ -63,6 +63,6 @@ def targetedCoverage(env: ManagerBasedRLEnv, heightThreshold: float, asset_cfg: 
     
     # print(np.mean(depthImgData > 1.40)*100)
     if heightThreshold is None:
-        heightThreshold = 1.4 # 1.5m from the camera down to the conveyor
+        heightThreshold = 1.5 # 1.5m from the camera down to the conveyor
         
-    return np.mean(depthImgData > heightThreshold)*100
+    return np.mean(depthImgData < heightThreshold)*100

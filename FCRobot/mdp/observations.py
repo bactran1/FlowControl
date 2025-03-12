@@ -14,6 +14,8 @@ from isaaclab.utils.math import wrap_to_pi
 
 import cv2
 from math import sqrt
+import numpy as np
+from numpy import inf
 from isaaclab.utils import convert_dict_to_backend
 
 if TYPE_CHECKING:
@@ -34,44 +36,27 @@ def percentageArea_occupied(env: ManagerBasedRLEnv, asset_cfg: SceneEntityCfg) -
     
     asset: Articulation = env.scene[asset_cfg.name]
 
+    # env.render(recompute=True)
+    
     single_cam_data = convert_dict_to_backend(
                 {k: v[0] for k, v in asset.data.output.items()}, backend="numpy")
-
-    img_gray = cv2.cvtColor(single_cam_data['rgb'], cv2.COLOR_BGR2GRAY)
-    thr, img_th = cv2.threshold(img_gray, 100, 255, cv2.THRESH_BINARY)
-    white_pix = cv2.countNonZero(img_th)
-    ratio = ((100*100 - white_pix)/(100*100)) *100
-    print(ratio)
-
-    return torch.tensor(ratio, dtype=torch.float32) 
+    
+    depthImgData = single_cam_data["distance_to_image_plane"]
+    depthImgData[depthImgData == inf]= 0
     
     
+    # normalized_coverage = 1 - sqrt((coverage - target)**2)/100
+    # print(img_gray)
+    # print(depthImgData)
+    # print(white_pix)
+    # print(white_pix, type(white_pix), normalized_coverage, type(normalized_coverage), type(single_cam_data))
+    # print(depthImgData[0], type(depthImgData))
+    
+    # print(np.max(depthImgData))
+    
+    # print(np.mean(depthImgData > 1.40)*100)
+    heightThreshold = 1.5 # 1.5m from the camera down to the conveyor
+        
+    return torch.tensor(np.mean(depthImgData < heightThreshold)*100, dtype=torch.float32)
 
-    # asset: Articulation = env.scene[asset_cfg.name]
-
-    # single_cam_data = convert_dict_to_backend(
-    #             {k: v[0] for k, v in asset.data.output.items()}, backend="numpy")
-
-    # # compute the reward
-    # img_gray = cv2.cvtColor(single_cam_data['rgb'], cv2.COLOR_BGR2GRAY)
-    # thr, img_th = cv2.threshold(img_gray, 100, 255, cv2.THRESH_BINARY)
-    # # Find contours of the black regions
-    # contours, _ = cv2.findContours(cv2.bitwise_not(img_th), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-    # # Initialize variables to store the center coordinates
-    # centers = []
-    # # Loop through contours to calculate centroids
-    # for contour in contours:
-    #     # Calculate moments
-    #     M = cv2.moments(contour)
-    #     if M['m00'] != 0:
-    #         # Calculate x, y coordinates of the centroid
-    #         cX = int(M['m10'] / M['m00'])
-    #         cY = int(M['m01'] / M['m00'])
-    #         centers.append((cX, cY))
-
-    # if len(centers) > 0:
-    #     normilized_dist = 1 - sqrt((160 - centers[0][0])**2 + (120 - centers[0][1])**2)/200 
-    # else:
-    #     normilized_dist = 0
-
-    # return normilized_dist
+    # return torch.tensor(ratio, dtype=torch.float32) 

@@ -548,27 +548,27 @@ class DepthObservationsCfg:
     class DepthCameraPolicyCfg(ObsGroup):
         """Observations for policy group with depth images."""
 
-        # image1 = ObsTerm(
-        #     func=mdp.image, params={"sensor_cfg": SceneEntityCfg("tiled_camera1"), "data_type": "rgb"}
-        # )
-        # image2 = ObsTerm(
-        #     func=mdp.image, params={"sensor_cfg": SceneEntityCfg("tiled_camera2"), "data_type": "rgb"}
-        # )
-        # image3 = ObsTerm(
-        #     func=mdp.image, params={"sensor_cfg": SceneEntityCfg("tiled_camera3"), "data_type": "rgb"}
-        # )
-        # image4 = ObsTerm(
-        #     func=mdp.image, params={"sensor_cfg": SceneEntityCfg("tiled_camera4"), "data_type": "rgb"}
-        # )
-        # image5 = ObsTerm(
-        #     func=mdp.image, params={"sensor_cfg": SceneEntityCfg("tiled_camera5"), "data_type": "rgb"}
-        # )
-        # image6 = ObsTerm(
-        #     func=mdp.image, params={"sensor_cfg": SceneEntityCfg("tiled_camera6"), "data_type": "rgb"}
-        # )
-        # image7 = ObsTerm(
-        #     func=mdp.image, params={"sensor_cfg": SceneEntityCfg("tiled_camera7"), "data_type": "rgb"}
-        # )
+        image1 = ObsTerm(
+            func=mdp.image, params={"sensor_cfg": SceneEntityCfg("tiled_camera1"), "data_type": "rgb"}
+        )
+        image2 = ObsTerm(
+            func=mdp.image, params={"sensor_cfg": SceneEntityCfg("tiled_camera2"), "data_type": "rgb"}
+        )
+        image3 = ObsTerm(
+            func=mdp.image, params={"sensor_cfg": SceneEntityCfg("tiled_camera3"), "data_type": "rgb"}
+        )
+        image4 = ObsTerm(
+            func=mdp.image, params={"sensor_cfg": SceneEntityCfg("tiled_camera4"), "data_type": "rgb"}
+        )
+        image5 = ObsTerm(
+            func=mdp.image, params={"sensor_cfg": SceneEntityCfg("tiled_camera5"), "data_type": "rgb"}
+        )
+        image6 = ObsTerm(
+            func=mdp.image, params={"sensor_cfg": SceneEntityCfg("tiled_camera6"), "data_type": "rgb"}
+        )
+        image7 = ObsTerm(
+            func=mdp.image, params={"sensor_cfg": SceneEntityCfg("tiled_camera7"), "data_type": "rgb"}
+        )
         image8 = ObsTerm(
             func=mdp.image, params={"sensor_cfg": SceneEntityCfg("tiled_camera8"), "data_type": "rgb"}
         )
@@ -610,8 +610,51 @@ class RewardsCfg:
     Cam1CoverageBelow80 = RewTerm(
         func = mdp.targetedCoverage,
         weight = 2.0,
+        params = {"asset_cfg" : SceneEntityCfg('tiled_camera1'), "heightThreshold" : 1.5}
+    )
+    # (6) Primary task: Keep coverage area below 80%
+    Cam2CoverageBelow80 = RewTerm(
+        func = mdp.targetedCoverage,
+        weight = 2.0,
+        params = {"asset_cfg" : SceneEntityCfg('tiled_camera2'), "heightThreshold" : 1.5}
+    )
+    # (7) Primary task: Keep coverage area below 80%
+    Cam3CoverageBelow80 = RewTerm(
+        func = mdp.targetedCoverage,
+        weight = 2.0,
+        params = {"asset_cfg" : SceneEntityCfg('tiled_camera3'), "heightThreshold" : 1.5}
+    )
+    # (8) Primary task: Keep coverage area below 80%
+    Cam4CoverageBelow80 = RewTerm(
+        func = mdp.targetedCoverage,
+        weight = 2.0,
+        params = {"asset_cfg" : SceneEntityCfg('tiled_camera4'), "heightThreshold" : 1.5}
+    )
+    # (9) Primary task: Keep coverage area below 80%
+    Cam5CoverageBelow80 = RewTerm(
+        func = mdp.targetedCoverage,
+        weight = 2.0,
+        params = {"asset_cfg" : SceneEntityCfg('tiled_camera5'), "heightThreshold" : 1.5}
+    )
+    # (10) Primary task: Keep coverage area below 80%
+    Cam6CoverageBelow80 = RewTerm(
+        func = mdp.targetedCoverage,
+        weight = 2.0,
+        params = {"asset_cfg" : SceneEntityCfg('tiled_camera6'), "heightThreshold" : 1.5}
+    )
+    # (11) Primary task: Keep coverage area below 80%
+    Cam7CoverageBelow80 = RewTerm(
+        func = mdp.targetedCoverage,
+        weight = 2.0,
+        params = {"asset_cfg" : SceneEntityCfg('tiled_camera7'), "heightThreshold" : 1.5}
+    )
+    # (12) Primary task: Keep coverage area below 80%
+    Cam2CoverageBelow80 = RewTerm(
+        func = mdp.targetedCoverage,
+        weight = 2.0,
         params = {"asset_cfg" : SceneEntityCfg('tiled_camera8'), "heightThreshold" : 1.5}
     )
+    
 
 @configclass
 class TerminationsCfg:

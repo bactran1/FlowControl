@@ -14,6 +14,8 @@ from isaaclab.utils.math import wrap_to_pi
 
 import cv2
 from math import sqrt
+import numpy as np
+from numpy import inf
 from isaaclab.utils import convert_dict_to_backend
 
 if TYPE_CHECKING:
@@ -35,12 +37,25 @@ def coverMoreThan90(env: ManagerBasedRLEnv, asset_cfg: SceneEntityCfg) -> torch.
 
     asset: Articulation = env.scene[asset_cfg.name]
 
+    # env.render(recompute=True)
+    
     single_cam_data = convert_dict_to_backend(
                 {k: v[0] for k, v in asset.data.output.items()}, backend="numpy")
-
-    img_gray = cv2.cvtColor(single_cam_data['rgb'], cv2.COLOR_BGR2GRAY)
-    thr, img_th = cv2.threshold(img_gray, 100, 255, cv2.THRESH_BINARY)
-    white_pix = cv2.countNonZero(img_th)
-    coverage = ((100*100 - white_pix)/(100*100)) * 100
     
-    return coverage > 90.0
+    depthImgData = single_cam_data["distance_to_image_plane"]
+    depthImgData[depthImgData == inf]= 0
+    
+    # print(np.mean(depthImgData > 1.40)*100)
+    
+    # def count_less_than_x(arr, x):
+
+    #     return np.sum(arr < x)
+    
+    if heightThreshold is None:
+        heightThreshold = 1.4 # 1.5m from the camera down to the conveyor
+    
+    # print(count_less_than_x(depthImgData, heightThreshold), np.mean(depthImgData < heightThreshold)*100)
+    
+    coveragePercent = np.mean(depthImgData < heightThreshold)*100
+        
+    return coveragePercent > 90.0
