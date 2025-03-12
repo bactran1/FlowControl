@@ -78,7 +78,7 @@ class CustomCNN(BaseFeaturesExtractor):
         super(CustomCNN, self).__init__(observation_space, features_dim)
         
         self.cnn = nn.Sequential(
-            nn.Conv2d(in_channels=3, out_channels=32, kernel_size=8, stride=4),
+            nn.Conv2d(in_channels=24, out_channels=32, kernel_size=8, stride=4),
             nn.ReLU(),
             nn.Conv2d(32, 64, kernel_size=4, stride=2),
             nn.ReLU(),
