@@ -56,7 +56,7 @@ def percentageArea_occupied(env: ManagerBasedRLEnv, asset_cfg: SceneEntityCfg) -
     
     # print(np.mean(depthImgData > 1.40)*100)
     heightThreshold = 1.5 # 1.5m from the camera down to the conveyor
+    areaCovered = torch.tensor([np.mean(depthImgData < heightThreshold)],dtype=torch.float32,device=env.device)
+    #print(areaCovered, areaCovered.size())
         
-    return torch.tensor(np.mean(depthImgData < heightThreshold)*100, dtype=torch.float32)
-
-    # return torch.tensor(ratio, dtype=torch.float32) 
+    return areaCovered.unsqueeze(0)

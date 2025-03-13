@@ -475,14 +475,15 @@ class FlowControlSceneCfg(InteractiveSceneCfg):
 @configclass
 class ActionsCfg:
     """Action specifications for the environment."""
-
-    #joint_velocities1 = mdp.JointVelocityActionCfg(asset_name="robot", joint_names=["Roller_1_.*", "Roller_17_.*", "Roller_33_.*", "Roller_49_.*", 
-    #                                                                              "Roller_65_.*", "Roller_81_.*", "Roller_97_.*", "Roller_113_.*"], scale=1.0)
     
-    joint_velocities1 = mdp.JointVelocityActionCfg(asset_name="robot", joint_names=["Roller_1_.*", "Roller_17_.*"], scale=10.0)
-    joint_velocities2 = mdp.JointVelocityActionCfg(asset_name="robot", joint_names=["Roller_33_.*", "Roller_49_.*"], scale=10.0)
-    joint_velocities3 = mdp.JointVelocityActionCfg(asset_name="robot", joint_names=["Roller_65_.*", "Roller_81_.*"], scale=10.0)
-    joint_velocities4 = mdp.JointVelocityActionCfg(asset_name="robot", joint_names=["Roller_97_.*", "Roller_113_.*"], scale=10.0)
+    joint_velocities1 = mdp.JointVelocityActionCfg(asset_name="robot", joint_names=["Roller_1_.*"], scale=10.0)
+    joint_velocities2 = mdp.JointVelocityActionCfg(asset_name="robot", joint_names=["Roller_33_.*"], scale=10.0)
+    joint_velocities3 = mdp.JointVelocityActionCfg(asset_name="robot", joint_names=["Roller_65_.*"], scale=10.0)
+    joint_velocities4 = mdp.JointVelocityActionCfg(asset_name="robot", joint_names=["Roller_97_.*"], scale=10.0)
+    joint_velocities5 = mdp.JointVelocityActionCfg(asset_name="robot", joint_names=["Roller_17_.*"], scale=10.0)
+    joint_velocities6 = mdp.JointVelocityActionCfg(asset_name="robot", joint_names=["Roller_49_.*"], scale=10.0)
+    joint_velocities7 = mdp.JointVelocityActionCfg(asset_name="robot", joint_names=["Roller_81_.*"], scale=10.0)
+    joint_velocities8 = mdp.JointVelocityActionCfg(asset_name="robot", joint_names=["Roller_113_.*"], scale=10.0)
     
 @configclass
 class ObservationsCfg:
@@ -515,10 +516,40 @@ class ConveyorCoverageCamObsCfg:
             params = {"asset_cfg" : SceneEntityCfg('tiled_camera1')}
         )
         
-        # convey2Cover = ObsTerm(
-        #     func=mdp.percentageArea_occupied,
-        #     params = {"asset_cfg" : SceneEntityCfg('tiled_camera2')}
-        # )
+        convey2Cover = ObsTerm(
+            func=mdp.percentageArea_occupied,
+            params = {"asset_cfg" : SceneEntityCfg('tiled_camera2')}
+        )
+        
+        convey3Cover = ObsTerm(
+            func=mdp.percentageArea_occupied,
+            params = {"asset_cfg" : SceneEntityCfg('tiled_camera3')}
+        )
+        
+        convey4Cover = ObsTerm(
+            func=mdp.percentageArea_occupied,
+            params = {"asset_cfg" : SceneEntityCfg('tiled_camera4')}
+        )
+        
+        convey5Cover = ObsTerm(
+            func=mdp.percentageArea_occupied,
+            params = {"asset_cfg" : SceneEntityCfg('tiled_camera5')}
+        )
+        
+        convey6Cover = ObsTerm(
+            func=mdp.percentageArea_occupied,
+            params = {"asset_cfg" : SceneEntityCfg('tiled_camera6')}
+        )
+        
+        convey7Cover = ObsTerm(
+            func=mdp.percentageArea_occupied,
+            params = {"asset_cfg" : SceneEntityCfg('tiled_camera7')}
+        )
+        
+        convey8Cover = ObsTerm(
+            func=mdp.percentageArea_occupied,
+            params = {"asset_cfg" : SceneEntityCfg('tiled_camera8')}
+        )
     
         def __post_init__(self) -> None:
                 self.enable_corruption = False
@@ -535,28 +566,28 @@ class DepthObservationsCfg:
         """Observations for policy group with depth images."""
 
         image1 = ObsTerm(
-            func=mdp.image, params={"sensor_cfg": SceneEntityCfg("tiled_camera1"), "data_type": "rgb"}
+            func=mdp.image, params={"sensor_cfg": SceneEntityCfg("tiled_camera1"), "data_type": "distance_to_image_plane"}
         )
         image2 = ObsTerm(
-            func=mdp.image, params={"sensor_cfg": SceneEntityCfg("tiled_camera2"), "data_type": "rgb"}
+            func=mdp.image, params={"sensor_cfg": SceneEntityCfg("tiled_camera2"), "data_type": "distance_to_image_plane"}
         )
         image3 = ObsTerm(
-            func=mdp.image, params={"sensor_cfg": SceneEntityCfg("tiled_camera3"), "data_type": "rgb"}
+            func=mdp.image, params={"sensor_cfg": SceneEntityCfg("tiled_camera3"), "data_type": "distance_to_image_plane"}
         )
         image4 = ObsTerm(
-            func=mdp.image, params={"sensor_cfg": SceneEntityCfg("tiled_camera4"), "data_type": "rgb"}
+            func=mdp.image, params={"sensor_cfg": SceneEntityCfg("tiled_camera4"), "data_type": "distance_to_image_plane"}
         )
         image5 = ObsTerm(
-            func=mdp.image, params={"sensor_cfg": SceneEntityCfg("tiled_camera5"), "data_type": "rgb"}
+            func=mdp.image, params={"sensor_cfg": SceneEntityCfg("tiled_camera5"), "data_type": "distance_to_image_plane"}
         )
         image6 = ObsTerm(
-            func=mdp.image, params={"sensor_cfg": SceneEntityCfg("tiled_camera6"), "data_type": "rgb"}
+            func=mdp.image, params={"sensor_cfg": SceneEntityCfg("tiled_camera6"), "data_type": "distance_to_image_plane"}
         )
         image7 = ObsTerm(
-            func=mdp.image, params={"sensor_cfg": SceneEntityCfg("tiled_camera7"), "data_type": "rgb"}
+            func=mdp.image, params={"sensor_cfg": SceneEntityCfg("tiled_camera7"), "data_type": "distance_to_image_plane"}
         )
         image8 = ObsTerm(
-            func=mdp.image, params={"sensor_cfg": SceneEntityCfg("tiled_camera8"), "data_type": "rgb"}
+            func=mdp.image, params={"sensor_cfg": SceneEntityCfg("tiled_camera8"), "data_type": "distance_to_image_plane"}
         )
         
         def __post_init__(self) -> None:
@@ -635,7 +666,7 @@ class RewardsCfg:
         params = {"asset_cfg" : SceneEntityCfg('tiled_camera7'), "heightThreshold" : 1.5}
     )
     # (12) Primary task: Keep coverage area below 80%
-    Cam2CoverageBelow80 = RewTerm(
+    Cam8CoverageBelow80 = RewTerm(
         func = mdp.targetedCoverage,
         weight = 2.0,
         params = {"asset_cfg" : SceneEntityCfg('tiled_camera8'), "heightThreshold" : 1.5}
@@ -676,8 +707,8 @@ class FlowControlEnvCfg(ManagerBasedRLEnvCfg):
     scene: FlowControlSceneCfg = FlowControlSceneCfg(num_envs=4096, env_spacing=16.0)
     # Basic settings
     #observations: ObservationsCfg = ObservationsCfg()
-    observations: DepthObservationsCfg = DepthObservationsCfg()
-    #observations: ConveyorCoverageCamObsCfg = ConveyorCoverageCamObsCfg()
+    #observations: DepthObservationsCfg = DepthObservationsCfg()
+    observations: ConveyorCoverageCamObsCfg = ConveyorCoverageCamObsCfg()
     actions: ActionsCfg = ActionsCfg()
     events: EventCfg = EventCfg()
     # MDP settings

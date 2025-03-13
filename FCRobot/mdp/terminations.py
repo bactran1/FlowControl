@@ -56,6 +56,6 @@ def coverMoreThan90(env: ManagerBasedRLEnv, asset_cfg: SceneEntityCfg) -> torch.
     
     # print(count_less_than_x(depthImgData, heightThreshold), np.mean(depthImgData < heightThreshold)*100)
     
-    coveragePercent = np.mean(depthImgData < heightThreshold)*100
+    coveragePercent = np.mean(depthImgData < heightThreshold)
         
-    return coveragePercent > 90.0
+    return coveragePercent > 0.9

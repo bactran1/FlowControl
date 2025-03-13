@@ -64,5 +64,6 @@ def targetedCoverage(env: ManagerBasedRLEnv, heightThreshold: float, asset_cfg: 
     # print(np.mean(depthImgData > 1.40)*100)
     if heightThreshold is None:
         heightThreshold = 1.5 # 1.5m from the camera down to the conveyor
+    areaCovered = torch.tensor([np.mean(depthImgData < heightThreshold)],dtype=torch.float32,device=env.device)
         
-    return np.mean(depthImgData < heightThreshold)*100
+    return areaCovered
