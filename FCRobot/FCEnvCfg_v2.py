@@ -371,7 +371,7 @@ class FlowControlSceneCfg(InteractiveSceneCfg):
     tiled_camera1: TiledCameraCfg = TiledCameraCfg(
         prim_path="{ENV_REGEX_NS}/Camera1",
         offset=TiledCameraCfg.OffsetCfg(pos=(-0.76, 0.0, 1.9), rot=(0.0, 0.0, 0.0, 0.0), convention="opengl"),
-        data_types=["rgb","distance_to_image_plane"],
+        data_types=["distance_to_image_plane"],
         update_period=0.05,
         spawn=sim_utils.PinholeCameraCfg(
             focal_length=2.4, focus_distance=1.60, horizontal_aperture=1.6, vertical_aperture=1.5
@@ -383,7 +383,7 @@ class FlowControlSceneCfg(InteractiveSceneCfg):
     tiled_camera2: TiledCameraCfg = TiledCameraCfg(
         prim_path="{ENV_REGEX_NS}/Camera2",
         offset=TiledCameraCfg.OffsetCfg(pos=(-0.76-1.52*1, 0.0, 1.9), rot=(0.0, 0.0, 0.0, 0.0), convention="opengl"),
-        data_types=["rgb","distance_to_image_plane"],
+        data_types=["distance_to_image_plane"],
         update_period=0.05,
         spawn=sim_utils.PinholeCameraCfg(
             focal_length=2.4, focus_distance=1.60, horizontal_aperture=1.6, vertical_aperture=1.5
@@ -394,7 +394,7 @@ class FlowControlSceneCfg(InteractiveSceneCfg):
     tiled_camera3: TiledCameraCfg = TiledCameraCfg(
         prim_path="{ENV_REGEX_NS}/Camera3",
         offset=TiledCameraCfg.OffsetCfg(pos=(-0.76-1.52*2, 0.0, 1.9), rot=(0.0, 0.0, 0.0, 0.0), convention="opengl"),
-        data_types=["rgb","distance_to_image_plane"],
+        data_types=["distance_to_image_plane"],
         update_period=0.05,
         spawn=sim_utils.PinholeCameraCfg(
             focal_length=2.4, focus_distance=1.60, horizontal_aperture=1.6, vertical_aperture=1.5
@@ -405,7 +405,7 @@ class FlowControlSceneCfg(InteractiveSceneCfg):
     tiled_camera4: TiledCameraCfg = TiledCameraCfg(
         prim_path="{ENV_REGEX_NS}/Camera4",
         offset=TiledCameraCfg.OffsetCfg(pos=(-0.76-1.52*3, 0.0, 1.9), rot=(0.0, 0.0, 0.0, 0.0), convention="opengl"),
-        data_types=["rgb","distance_to_image_plane"],
+        data_types=["distance_to_image_plane"],
         update_period=0.05,
         spawn=sim_utils.PinholeCameraCfg(
             focal_length=2.4, focus_distance=1.60, horizontal_aperture=1.6, vertical_aperture=1.5
@@ -416,7 +416,7 @@ class FlowControlSceneCfg(InteractiveSceneCfg):
     tiled_camera5: TiledCameraCfg = TiledCameraCfg(
         prim_path="{ENV_REGEX_NS}/Camera5",
         offset=TiledCameraCfg.OffsetCfg(pos=(-0.76-1.52*4, 0.0, 1.9), rot=(0.0, 0.0, 0.0, 0.0), convention="opengl"),
-        data_types=["rgb","distance_to_image_plane"],
+        data_types=["distance_to_image_plane"],
         update_period=0.05,
         spawn=sim_utils.PinholeCameraCfg(
             focal_length=2.4, focus_distance=1.60, horizontal_aperture=1.6, vertical_aperture=1.5
@@ -427,7 +427,7 @@ class FlowControlSceneCfg(InteractiveSceneCfg):
     tiled_camera6: TiledCameraCfg = TiledCameraCfg(
         prim_path="{ENV_REGEX_NS}/Camera6",
         offset=TiledCameraCfg.OffsetCfg(pos=(-0.76-1.52*5, 0.0, 1.9), rot=(0.0, 0.0, 0.0, 0.0), convention="opengl"),
-        data_types=["rgb","distance_to_image_plane"],
+        data_types=["distance_to_image_plane"],
         update_period=0.05,
         spawn=sim_utils.PinholeCameraCfg(
             focal_length=2.4, focus_distance=1.60, horizontal_aperture=1.6, vertical_aperture=1.5
@@ -438,7 +438,7 @@ class FlowControlSceneCfg(InteractiveSceneCfg):
     tiled_camera7: TiledCameraCfg = TiledCameraCfg(
         prim_path="{ENV_REGEX_NS}/Camera7",
         offset=TiledCameraCfg.OffsetCfg(pos=(-0.76-1.52*6, 0.0, 1.9), rot=(0.0, 0.0, 0.0, 0.0), convention="opengl"),
-        data_types=["rgb","distance_to_image_plane"],
+        data_types=["distance_to_image_plane"],
         update_period=0.05,
         spawn=sim_utils.PinholeCameraCfg(
             focal_length=2.4, focus_distance=1.60, horizontal_aperture=1.6, vertical_aperture=1.5
@@ -449,7 +449,7 @@ class FlowControlSceneCfg(InteractiveSceneCfg):
     tiled_camera8: TiledCameraCfg = TiledCameraCfg(
         prim_path="{ENV_REGEX_NS}/Camera8",
         offset=TiledCameraCfg.OffsetCfg(pos=(-0.76-1.52*7, 0.0, 1.9), rot=(0.0, 0.0, 0.0, 0.0), convention="opengl"),
-        data_types=["rgb","distance_to_image_plane"],
+        data_types=["distance_to_image_plane"],
         update_period=0.05,
         spawn=sim_utils.PinholeCameraCfg(
             focal_length=2.4, focus_distance=1.60, horizontal_aperture=1.6, vertical_aperture=1.5
@@ -475,6 +475,9 @@ class FlowControlSceneCfg(InteractiveSceneCfg):
 @configclass
 class ActionsCfg:
     """Action specifications for the environment."""
+
+    #joint_velocities1 = mdp.JointVelocityActionCfg(asset_name="robot", joint_names=["Roller_1_.*", "Roller_17_.*", "Roller_33_.*", "Roller_49_.*", 
+    #                                                                              "Roller_65_.*", "Roller_81_.*", "Roller_97_.*", "Roller_113_.*"], scale=1.0)
     
     joint_velocities1 = mdp.JointVelocityActionCfg(asset_name="robot", joint_names=["Roller_1_.*"], scale=10.0)
     joint_velocities2 = mdp.JointVelocityActionCfg(asset_name="robot", joint_names=["Roller_33_.*"], scale=10.0)
@@ -553,7 +556,7 @@ class ConveyorCoverageCamObsCfg:
     
         def __post_init__(self) -> None:
                 self.enable_corruption = False
-                self.concatenate_terms = True
+                self.concatenate_terms = False
         
     policy: ObsGroup = ConveyorCoverageCamPolicyCfg()
 
@@ -627,49 +630,49 @@ class RewardsCfg:
     Cam1CoverageBelow80 = RewTerm(
         func = mdp.targetedCoverage,
         weight = 2.0,
-        params = {"asset_cfg" : SceneEntityCfg('tiled_camera1'), "heightThreshold" : 1.5}
+        params = {"asset_cfg" : SceneEntityCfg('tiled_camera1'), "heightThreshold" : 1.6}
     )
     # (6) Primary task: Keep coverage area below 80%
     Cam2CoverageBelow80 = RewTerm(
         func = mdp.targetedCoverage,
         weight = 2.0,
-        params = {"asset_cfg" : SceneEntityCfg('tiled_camera2'), "heightThreshold" : 1.5}
+        params = {"asset_cfg" : SceneEntityCfg('tiled_camera2'), "heightThreshold" : 1.6}
     )
     # (7) Primary task: Keep coverage area below 80%
     Cam3CoverageBelow80 = RewTerm(
         func = mdp.targetedCoverage,
         weight = 2.0,
-        params = {"asset_cfg" : SceneEntityCfg('tiled_camera3'), "heightThreshold" : 1.5}
+        params = {"asset_cfg" : SceneEntityCfg('tiled_camera3'), "heightThreshold" : 1.6}
     )
     # (8) Primary task: Keep coverage area below 80%
     Cam4CoverageBelow80 = RewTerm(
         func = mdp.targetedCoverage,
         weight = 2.0,
-        params = {"asset_cfg" : SceneEntityCfg('tiled_camera4'), "heightThreshold" : 1.5}
+        params = {"asset_cfg" : SceneEntityCfg('tiled_camera4'), "heightThreshold" : 1.6}
     )
     # (9) Primary task: Keep coverage area below 80%
     Cam5CoverageBelow80 = RewTerm(
         func = mdp.targetedCoverage,
         weight = 2.0,
-        params = {"asset_cfg" : SceneEntityCfg('tiled_camera5'), "heightThreshold" : 1.5}
+        params = {"asset_cfg" : SceneEntityCfg('tiled_camera5'), "heightThreshold" : 1.6}
     )
     # (10) Primary task: Keep coverage area below 80%
     Cam6CoverageBelow80 = RewTerm(
         func = mdp.targetedCoverage,
         weight = 2.0,
-        params = {"asset_cfg" : SceneEntityCfg('tiled_camera6'), "heightThreshold" : 1.5}
+        params = {"asset_cfg" : SceneEntityCfg('tiled_camera6'), "heightThreshold" : 1.6}
     )
     # (11) Primary task: Keep coverage area below 80%
     Cam7CoverageBelow80 = RewTerm(
         func = mdp.targetedCoverage,
         weight = 2.0,
-        params = {"asset_cfg" : SceneEntityCfg('tiled_camera7'), "heightThreshold" : 1.5}
+        params = {"asset_cfg" : SceneEntityCfg('tiled_camera7'), "heightThreshold" : 1.6}
     )
     # (12) Primary task: Keep coverage area below 80%
     Cam8CoverageBelow80 = RewTerm(
         func = mdp.targetedCoverage,
         weight = 2.0,
-        params = {"asset_cfg" : SceneEntityCfg('tiled_camera8'), "heightThreshold" : 1.5}
+        params = {"asset_cfg" : SceneEntityCfg('tiled_camera8'), "heightThreshold" : 1.6}
     )
     
 

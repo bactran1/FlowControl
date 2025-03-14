@@ -382,10 +382,10 @@ class FlowControlSceneCfg(InteractiveSceneCfg):
     robot: ArticulationCfg = FC_CFG.replace(prim_path="{ENV_REGEX_NS}/FC")
     
     # Cameras
-    tiled_camera1: TiledCameraCfg = TiledCameraCfg(
+    tiled_camera1: CameraCfg = TiledCameraCfg(
         prim_path="{ENV_REGEX_NS}/Camera1",
         offset=TiledCameraCfg.OffsetCfg(pos=(-0.76, 0.0, 1.9), rot=(0.0, 0.0, 0.0, 0.0), convention="opengl"),
-        data_types=["rgb","distance_to_image_plane"],
+        data_types=["distance_to_image_plane"],
         update_period=0.05,
         spawn=sim_utils.PinholeCameraCfg(
             focal_length=2.4, focus_distance=1.60, horizontal_aperture=1.6, vertical_aperture=1.5
@@ -397,7 +397,7 @@ class FlowControlSceneCfg(InteractiveSceneCfg):
     tiled_camera2: TiledCameraCfg = TiledCameraCfg(
         prim_path="{ENV_REGEX_NS}/Camera2",
         offset=TiledCameraCfg.OffsetCfg(pos=(-0.76-1.52*1, 0.0, 1.9), rot=(0.0, 0.0, 0.0, 0.0), convention="opengl"),
-        data_types=["rgb","distance_to_image_plane"],
+        data_types=["distance_to_image_plane"],
         update_period=0.05,
         spawn=sim_utils.PinholeCameraCfg(
             focal_length=2.4, focus_distance=1.60, horizontal_aperture=1.6, vertical_aperture=1.5
@@ -408,7 +408,7 @@ class FlowControlSceneCfg(InteractiveSceneCfg):
     tiled_camera3: TiledCameraCfg = TiledCameraCfg(
         prim_path="{ENV_REGEX_NS}/Camera3",
         offset=TiledCameraCfg.OffsetCfg(pos=(-0.76-1.52*2, 0.0, 1.9), rot=(0.0, 0.0, 0.0, 0.0), convention="opengl"),
-        data_types=["rgb","distance_to_image_plane"],
+        data_types=["distance_to_image_plane"],
         update_period=0.05,
         spawn=sim_utils.PinholeCameraCfg(
             focal_length=2.4, focus_distance=1.60, horizontal_aperture=1.6, vertical_aperture=1.5
@@ -419,7 +419,7 @@ class FlowControlSceneCfg(InteractiveSceneCfg):
     tiled_camera4: TiledCameraCfg = TiledCameraCfg(
         prim_path="{ENV_REGEX_NS}/Camera4",
         offset=TiledCameraCfg.OffsetCfg(pos=(-0.76-1.52*3, 0.0, 1.9), rot=(0.0, 0.0, 0.0, 0.0), convention="opengl"),
-        data_types=["rgb","distance_to_image_plane"],
+        data_types=["distance_to_image_plane"],
         update_period=0.05,
         spawn=sim_utils.PinholeCameraCfg(
             focal_length=2.4, focus_distance=1.60, horizontal_aperture=1.6, vertical_aperture=1.5
@@ -430,7 +430,7 @@ class FlowControlSceneCfg(InteractiveSceneCfg):
     tiled_camera5: TiledCameraCfg = TiledCameraCfg(
         prim_path="{ENV_REGEX_NS}/Camera5",
         offset=TiledCameraCfg.OffsetCfg(pos=(-0.76-1.52*4, 0.0, 1.9), rot=(0.0, 0.0, 0.0, 0.0), convention="opengl"),
-        data_types=["rgb","distance_to_image_plane"],
+        data_types=["distance_to_image_plane"],
         update_period=0.05,
         spawn=sim_utils.PinholeCameraCfg(
             focal_length=2.4, focus_distance=1.60, horizontal_aperture=1.6, vertical_aperture=1.5
@@ -441,7 +441,7 @@ class FlowControlSceneCfg(InteractiveSceneCfg):
     tiled_camera6: TiledCameraCfg = TiledCameraCfg(
         prim_path="{ENV_REGEX_NS}/Camera6",
         offset=TiledCameraCfg.OffsetCfg(pos=(-0.76-1.52*5, 0.0, 1.9), rot=(0.0, 0.0, 0.0, 0.0), convention="opengl"),
-        data_types=["rgb","distance_to_image_plane"],
+        data_types=["distance_to_image_plane"],
         update_period=0.05,
         spawn=sim_utils.PinholeCameraCfg(
             focal_length=2.4, focus_distance=1.60, horizontal_aperture=1.6, vertical_aperture=1.5
@@ -452,7 +452,7 @@ class FlowControlSceneCfg(InteractiveSceneCfg):
     tiled_camera7: TiledCameraCfg = TiledCameraCfg(
         prim_path="{ENV_REGEX_NS}/Camera7",
         offset=TiledCameraCfg.OffsetCfg(pos=(-0.76-1.52*6, 0.0, 1.9), rot=(0.0, 0.0, 0.0, 0.0), convention="opengl"),
-        data_types=["rgb","distance_to_image_plane"],
+        data_types=["distance_to_image_plane"],
         update_period=0.05,
         spawn=sim_utils.PinholeCameraCfg(
             focal_length=2.4, focus_distance=1.60, horizontal_aperture=1.6, vertical_aperture=1.5
@@ -463,7 +463,7 @@ class FlowControlSceneCfg(InteractiveSceneCfg):
     tiled_camera8: TiledCameraCfg = TiledCameraCfg(
         prim_path="{ENV_REGEX_NS}/Camera8",
         offset=TiledCameraCfg.OffsetCfg(pos=(-0.76-1.52*7, 0.0, 1.9), rot=(0.0, 0.0, 0.0, 0.0), convention="opengl"),
-        data_types=["rgb","distance_to_image_plane"],
+        data_types=["distance_to_image_plane"],
         update_period=0.05,
         spawn=sim_utils.PinholeCameraCfg(
             focal_length=2.4, focus_distance=1.60, horizontal_aperture=1.6, vertical_aperture=1.5
@@ -644,49 +644,49 @@ class RewardsCfg:
     Cam1CoverageBelow80 = RewTerm(
         func = mdp.targetedCoverage,
         weight = 2.0,
-        params = {"asset_cfg" : SceneEntityCfg('tiled_camera1'), "heightThreshold" : 1.5}
+        params = {"asset_cfg" : SceneEntityCfg('tiled_camera1'), "heightThreshold" : 1.6}
     )
     # (6) Primary task: Keep coverage area below 80%
     Cam2CoverageBelow80 = RewTerm(
         func = mdp.targetedCoverage,
         weight = 2.0,
-        params = {"asset_cfg" : SceneEntityCfg('tiled_camera2'), "heightThreshold" : 1.5}
+        params = {"asset_cfg" : SceneEntityCfg('tiled_camera2'), "heightThreshold" : 1.6}
     )
     # (7) Primary task: Keep coverage area below 80%
     Cam3CoverageBelow80 = RewTerm(
         func = mdp.targetedCoverage,
         weight = 2.0,
-        params = {"asset_cfg" : SceneEntityCfg('tiled_camera3'), "heightThreshold" : 1.5}
+        params = {"asset_cfg" : SceneEntityCfg('tiled_camera3'), "heightThreshold" : 1.6}
     )
     # (8) Primary task: Keep coverage area below 80%
     Cam4CoverageBelow80 = RewTerm(
         func = mdp.targetedCoverage,
         weight = 2.0,
-        params = {"asset_cfg" : SceneEntityCfg('tiled_camera4'), "heightThreshold" : 1.5}
+        params = {"asset_cfg" : SceneEntityCfg('tiled_camera4'), "heightThreshold" : 1.6}
     )
     # (9) Primary task: Keep coverage area below 80%
     Cam5CoverageBelow80 = RewTerm(
         func = mdp.targetedCoverage,
         weight = 2.0,
-        params = {"asset_cfg" : SceneEntityCfg('tiled_camera5'), "heightThreshold" : 1.5}
+        params = {"asset_cfg" : SceneEntityCfg('tiled_camera5'), "heightThreshold" : 1.6}
     )
     # (10) Primary task: Keep coverage area below 80%
     Cam6CoverageBelow80 = RewTerm(
         func = mdp.targetedCoverage,
         weight = 2.0,
-        params = {"asset_cfg" : SceneEntityCfg('tiled_camera6'), "heightThreshold" : 1.5}
+        params = {"asset_cfg" : SceneEntityCfg('tiled_camera6'), "heightThreshold" : 1.6}
     )
     # (11) Primary task: Keep coverage area below 80%
     Cam7CoverageBelow80 = RewTerm(
         func = mdp.targetedCoverage,
         weight = 2.0,
-        params = {"asset_cfg" : SceneEntityCfg('tiled_camera7'), "heightThreshold" : 1.5}
+        params = {"asset_cfg" : SceneEntityCfg('tiled_camera7'), "heightThreshold" : 1.6}
     )
     # (12) Primary task: Keep coverage area below 80%
     Cam8CoverageBelow80 = RewTerm(
         func = mdp.targetedCoverage,
         weight = 2.0,
-        params = {"asset_cfg" : SceneEntityCfg('tiled_camera8'), "heightThreshold" : 1.5}
+        params = {"asset_cfg" : SceneEntityCfg('tiled_camera8'), "heightThreshold" : 1.6}
     )
     
 
@@ -800,8 +800,15 @@ def main():
             # print(joint_vel)
             # print(joint_vel.size())
             # print("Active iterable terms: ", env.observation_manager.get_active_iterable_terms)
-            # print("Active iterable terms: ", max(env.observation_manager.get_active_iterable_terms(0)))
-            # print("Active terms: ", env.observation_manager.active_terms['policy'][0])
+            # print("Active iterable terms 0: ", env.observation_manager.get_active_iterable_terms(0)[0])
+            # print("Active iterable terms 1: ", env.observation_manager.get_active_iterable_terms(0)[1])
+            # print("Active iterable terms 2: ", env.observation_manager.get_active_iterable_terms(0)[2])
+            # print("Active iterable terms 3: ", env.observation_manager.get_active_iterable_terms(0)[3])
+            # print("Active iterable terms 4: ", env.observation_manager.get_active_iterable_terms(0)[4])
+            # print("Active iterable terms 5: ", env.observation_manager.get_active_iterable_terms(0)[5])
+            # print("Active iterable terms 6: ", env.observation_manager.get_active_iterable_terms(0)[6])
+            # print("Active iterable terms 7: ", env.observation_manager.get_active_iterable_terms(0)[7])
+            # print("Active terms: ", env.observation_manager.active_terms['policy'])
             # print("Group Obs Dimm: ", env.observation_manager.group_obs_dim['policy'])
             # print("Group Obs Terms Dimm: ", env.observation_manager.group_obs_term_dim)
             # print("Group Obs Concat: ", env.observation_manager.group_obs_concatenate)
