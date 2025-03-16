@@ -1,0 +1,347 @@
+$ EZ-EDS Version 3.29.1.20210209 Generated Electronic Data Sheet
+
+[File]
+        DescText = "Banner ZMX 3D";
+        CreateDate = 12-12-2022;
+        CreateTime = 11:29:00;
+        ModDate = 01-12-2023;
+        ModTime = 09:53:31;
+        Revision = 1.1;
+        HomeURL = "http://www.bannerengineering.com/";
+
+[Device]
+        VendCode = 12;
+        VendName = "Banner Engineering Corp.";
+        ProdType = 43;
+        ProdTypeStr = "Generic Device";
+        ProdCode = 110;
+        MajRev = 2;
+        MinRev = 102;
+        ProdName = "3D TOF Sensor";
+        Catalog = "Banner ZMX";
+        Icon = "banner_zmx.ico";
+
+[Device Classification]
+        Class1 = EtherNetIP;
+
+[Params]
+        Param1 =
+                0,
+                ,,
+                0x0004,
+                0xC8,
+                4,
+                "RPI Range",
+                "",
+                "",
+                100000,3200000,100000,
+                1,1000,1,0,
+                ,,,,
+                1;                      $ RPI range
+        Param2 =
+                0,
+                ,,
+                0x0000,
+                0xD2,
+                2,
+                "Variable 16-bit WORDs",
+                "",
+                "",
+                0,65535,0,
+                ,,,,
+                ,,,,
+                ;
+
+
+[Assembly]
+        Assem1 =
+                "O->T 0x70",
+                ,
+                80,
+                0x0000,
+                ,,
+                16,Param2,              $ 40 16-bit WORDs
+                16,Param2,
+                16,Param2,
+                16,Param2,
+                16,Param2,
+                16,Param2,
+                16,Param2,
+                16,Param2,
+                16,Param2,
+                16,Param2,
+                16,Param2,
+                16,Param2,
+                16,Param2,
+                16,Param2,
+                16,Param2,
+                16,Param2,
+                16,Param2,
+                16,Param2,
+                16,Param2,
+                16,Param2,
+                16,Param2,
+                16,Param2,
+                16,Param2,
+                16,Param2,
+                16,Param2,
+                16,Param2,
+                16,Param2,
+                16,Param2,
+                16,Param2,
+                16,Param2,
+                16,Param2,
+                16,Param2,
+                16,Param2,
+                16,Param2,
+                16,Param2,
+                16,Param2,
+                16,Param2,
+                16,Param2,
+                16,Param2,
+                16,Param2;
+
+        Assem2 =
+                "T->O 0x64",
+                ,
+                136,
+                0x0000,
+                ,,
+                16,Param2,              $ 40 16-bit WORDs
+                16,Param2,
+                16,Param2,
+                16,Param2,
+                16,Param2,
+                16,Param2,
+                16,Param2,
+                16,Param2,
+                16,Param2,
+                16,Param2,
+                16,Param2,
+                16,Param2,
+                16,Param2,
+                16,Param2,
+                16,Param2,
+                16,Param2,
+                16,Param2,
+                16,Param2,
+                16,Param2,
+                16,Param2,
+                16,Param2,
+                16,Param2,
+                16,Param2,
+                16,Param2,
+                16,Param2,
+                16,Param2,
+                16,Param2,
+                16,Param2,
+                16,Param2,
+                16,Param2,
+                16,Param2,
+                16,Param2,
+                16,Param2,
+                16,Param2,
+                16,Param2,
+                16,Param2,
+                16,Param2,
+                16,Param2,
+                16,Param2,
+                16,Param2,
+                16,Param2,
+                16,Param2,
+                16,Param2,
+                16,Param2,
+                16,Param2,
+                16,Param2,
+                16,Param2,
+                16,Param2,
+                16,Param2,
+                16,Param2,
+                16,Param2,
+                16,Param2,
+                16,Param2,
+                16,Param2,
+                16,Param2,
+                16,Param2,
+                16,Param2,
+                16,Param2,
+                16,Param2,
+                16,Param2,
+                16,Param2,
+                16,Param2,
+                16,Param2,
+                16,Param2,
+                16,Param2,
+                16,Param2,
+                16,Param2,
+                16,Param2;
+
+[Connection Manager]
+        Object_Name = "Connection Manager Object";
+        Object_Class_Code = 0x06;
+        Connection1 =
+                0x04010002,
+                                        $ TRIGGER AND TRANSPORT MASK
+                                        $     BIT=VAL DESCRIPTION
+                                        $       0 = 0  (class 0:null)
+                                        $       1 = 1  (class 1:dup. detect)
+                                        $       2 = 0  (class 2:acknowledged)
+                                        $       3 = 0  (class 3:verified)
+                                        $       4 = 0  (class 4:non-block)
+                                        $       5 = 0  (class 5:non-block, frag)
+                                        $       6 = 0  (class 6:multicast, frag)
+                                        $    7-15 = 0  (class  :reserved)
+                                        $      16 = 1  (trigger: cyclic)
+                                        $      17 = 0  (trigger: change of state)
+                                        $      18 = 0  (trigger: application)
+                                        $  19-23 = 0  (trigger: reserved (must be zero))
+                                        $      24 = 0  (transport type: listen-only)
+                                        $      25 = 0  (transport type: input-only)
+                                        $      26 = 1  (transport type: exclusive-owner)
+                                        $      27 = 0  (transport type: redundant-owner)
+                                        $   28-30 = 0  (reserved (must be zero))
+                                        $      31 = 0  (not used for Class 1)
+                0x77750405,
+                                        $ CONNECTION PARAMETERS BIT ASSIGNMENTS
+                                        $     BIT=VAL DESCRIPTION
+                                        $        0 = 1  (O=>T fixed)
+                                        $        1 = 0  (O=>T variable)
+                                        $        2 = 1  (T=>O fixed)
+                                        $        3 = 0  (T=>O variable)
+                                        $     4-7 = 0  (reserved (must be zero))
+                                        $   8-10 = 4  (O=>T header (4 byte run/idle))
+                                        $      11 = 0  (reserved (must be zero))
+                                        $   12-14 = 0  (T=>O header (pure data))
+                                        $      15 = 0  (reserved (must be zero))
+                                        $      16 = 0  (O=>T connection type: NULL)
+                                        $      17 = 0  (O=>T connection type: MULTI)
+                                        $      18 = 1  (O=>T connection type: P2P)
+                                        $      19 = 0  (O=>T connection type: RSVD)
+                                        $      20 = 0  (T=>O connection type: NULL)
+                                        $      21 = 1  (T=>O connection type: MULTI)
+                                        $      22 = 1  (T=>O connection type: P2P)
+                                        $      23 = 0  (T=>O connection type: RSVD)
+                                        $      24 = 0  (O=>T priority: LOW)
+                                        $      25 = 0  (O=>T priority: HIGH)
+                                        $      26 = 1  (O=>T priority: SCHEDULED)
+                                        $      27 = 0  (O=>T priority: RSVD)
+                                        $      28 = 0  (T=>O priority: LOW)
+                                        $      29 = 0  (T=>O priority: HIGH)
+                                        $      30 = 1  (T=>O priority: SCHEDULED)
+                                        $      31 = 0  (T=>O priority: RSVD)
+                Param1,80,Assem1,       $ O=>T RPI, size, format
+                Param1,136,Assem2,      $ T=>O RPI, size, format
+                ,,                      $ config part 1 (not used)
+                ,,                      $ config part 2 (not used)
+                "ExOwner",              $ connection name
+                "",                     $ Help string
+                "20 04 24 01 2C 70 2C 64";    $ small size Assemblies path
+        Connection2 =
+                0x01010002,             $ 0-15    = supported transport classes
+                                        $ 16      = trigger: cyclic
+                                        $ 17      = trigger: change of state
+                                        $ 18      = trigger: application
+                                        $ 19-23   = trigger: reserved
+                                        $ 24      = application type: listen-only
+                                        $ 25      = application type: input-only
+                                        $ 26      = application type: exclusive-owner
+                                        $ 27      = application type: redundant-owner
+                                        $ 28-30   = reserved
+                                        $ 31      = Direction: Client = 0 / Server = 1
+                0x77750305,             $ 0       = O->T fixed size supported
+                                        $ 1       = O->T variable size supported
+                                        $ 2       = T->O fixed size supported
+                                        $ 3       = T->O variable size supported
+                                        $ 4-5     = O->T number of bytes per slot (obsolete)
+                                        $ 6-7     = T->O number of bytes per slot (obsolete)
+                                        $ 8-10    = O->T Real time transfer format
+                                        $ 11      = reserved
+                                        $ 12-14   = T->O Real time transfer format
+                                        $ 15      = reserved
+                                        $ 16      = O->T connection type: NULL
+                                        $ 17      = O->T connection type: MULTICAST
+                                        $ 18      = O->T connection type: POINT2POINT
+                                        $ 19      = O->T connection type: reserved
+                                        $ 20      = T->O connection type: NULL
+                                        $ 21      = T->O connection type: MULTICAST
+                                        $ 22      = T->O connection type: POINT2POINT
+                                        $ 23      = T->O connection type: reserved
+                                        $ 24      = O->T priority: LOW
+                                        $ 25      = O->T priority: HIGH
+                                        $ 26      = O->T priority: SCHEDULED
+                                        $ 27      = O->T priority: reserved
+                                        $ 28      = T->O priority: LOW
+                                        $ 29      = T->O priority: HIGH
+                                        $ 30      = T->O priority: SCHEDULED
+                                        $ 31      = T->O priority: reserved
+                Param1,0,,              $ O->T RPI, size, format
+                Param1,136,,            $ T->O RPI, size, format
+                ,,                      $ proxy config size, format
+                ,,                      $ target config size, format
+                "ListenOnly",           $ Connection Name
+                "",                     $ help string
+                "20 04 24 01 2C ED 2C 64";    $ Path
+        Connection3 =
+                0x02010002,             $ 0-15    = supported transport classes
+                                        $ 16      = trigger: cyclic
+                                        $ 17      = trigger: change of state
+                                        $ 18      = trigger: application
+                                        $ 19-23   = trigger: reserved
+                                        $ 24      = application type: listen-only
+                                        $ 25      = application type: input-only
+                                        $ 26      = application type: exclusive-owner
+                                        $ 27      = application type: redundant-owner
+                                        $ 28-30   = reserved
+                                        $ 31      = Direction: Client = 0 / Server = 1
+                0x77750305,             $ 0       = O->T fixed size supported
+                                        $ 1       = O->T variable size supported
+                                        $ 2       = T->O fixed size supported
+                                        $ 3       = T->O variable size supported
+                                        $ 4-5     = O->T number of bytes per slot (obsolete)
+                                        $ 6-7     = T->O number of bytes per slot (obsolete)
+                                        $ 8-10    = O->T Real time transfer format
+                                        $ 11      = reserved
+                                        $ 12-14   = T->O Real time transfer format
+                                        $ 15      = reserved
+                                        $ 16      = O->T connection type: NULL
+                                        $ 17      = O->T connection type: MULTICAST
+                                        $ 18      = O->T connection type: POINT2POINT
+                                        $ 19      = O->T connection type: reserved
+                                        $ 20      = T->O connection type: NULL
+                                        $ 21      = T->O connection type: MULTICAST
+                                        $ 22      = T->O connection type: POINT2POINT
+                                        $ 23      = T->O connection type: reserved
+                                        $ 24      = O->T priority: LOW
+                                        $ 25      = O->T priority: HIGH
+                                        $ 26      = O->T priority: SCHEDULED
+                                        $ 27      = O->T priority: reserved
+                                        $ 28      = T->O priority: LOW
+                                        $ 29      = T->O priority: HIGH
+                                        $ 30      = T->O priority: SCHEDULED
+                                        $ 31      = T->O priority: reserved
+                Param1,0,,              $ O->T RPI, size, format
+                Param1,136,,            $ T->O RPI, size, format
+                ,,                      $ proxy config size, format
+                ,,                      $ target config size, format
+                "InputOnly",            $ Connection Name
+                "",                     $ help string
+                "20 04 24 01 2C EE 2C 64";    $ Path
+
+
+
+
+[Port]
+        Object_Name = "Port Object";
+        Object_Class_Code = 0xF4;
+        Port1 =
+                TCP,
+                "EtherNet/IP Port",
+                "20 F5 24 01",
+                1,
+                0x00,
+                ;
+
+[Capacity]
+        TSpec1 = Rx, 80, 10;
+        TSpec2 = Tx, 136, 10;
+
