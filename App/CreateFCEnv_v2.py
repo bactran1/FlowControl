@@ -698,9 +698,7 @@ class TerminationsCfg:
     time_out = DoneTerm(func=mdp.time_out, time_out=True)
     
     # (2) Coverage more than 90%
-    #coverMoreThan90 = DoneTerm(func=mdp.coverMoreThan90,
-    #                           params={"asset_cfg" : SceneEntityCfg('tiled_camera1')}
-    #                           )
+    positiveJointVel = DoneTerm(func=mdp.joint_vel_positive)
   
 
 @configclass

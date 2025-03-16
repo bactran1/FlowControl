@@ -39,10 +39,12 @@ def coverMoreThan90(env: ManagerBasedRLEnv, asset_cfg: SceneEntityCfg) -> torch.
 
     # env.render(recompute=True)
     
-    single_cam_data = convert_dict_to_backend(
-                {k: v[0] for k, v in asset.data.output.items()}, backend="numpy")
+    multi_cam_data = convert_dict_to_backend(
+                {k: v for k, v in asset.data.output.items()}, backend="numpy")
+    #print(multi_cam_data["distance_to_image_plane"], multi_cam_data["distance_to_image_plane"].size)
     
-    depthImgData = single_cam_data["distance_to_image_plane"]
+    depthImgData = multi_cam_data["distance_to_image_plane"]
+    depthImgData = np.squeeze(depthImgData)
     depthImgData[depthImgData == inf]= 0
     
     # print(np.mean(depthImgData > 1.40)*100)
@@ -51,11 +53,29 @@ def coverMoreThan90(env: ManagerBasedRLEnv, asset_cfg: SceneEntityCfg) -> torch.
 
     #     return np.sum(arr < x)
     
-    if heightThreshold is None:
-        heightThreshold = 1.4 # 1.5m from the camera down to the conveyor
+    heightThreshold = 1.5 # 1.5m from the camera down to the conveyor
     
     # print(count_less_than_x(depthImgData, heightThreshold), np.mean(depthImgData < heightThreshold)*100)
     
-    coveragePercent = np.mean(depthImgData < heightThreshold)
+    areaCovered = torch.empty((depthImgData.shape[0],1),dtype=torch.float32,device=env.device)
+    
+    for i in range(depthImgData.shape[0]):
+        miniAreaCovered = torch.tensor([np.mean(depthImgData[i,:,:] < heightThreshold)], dtype=torch.float32,device=env.device)
+        areaCovered[i] = miniAreaCovered
+    
         
-    return coveragePercent > 0.9
+    return areaCovered > 0.3
+
+def joint_vel_positive(env: ManagerBasedRLEnv, asset_cfg: SceneEntityCfg = SceneEntityCfg("robot")):
+    """The joint velocities of the asset w.r.t. the default joint velocities.
+
+    Note: Only the joints configured in :attr:`asset_cfg.joint_ids` will have their velocities returned.
+    """
+    # extract the used quantities (to enable type-hinting)
+    asset: Articulation = env.scene[asset_cfg.name]
+    # print(asset.data.joint_vel[:,:], asset.data.joint_vel[:,:].size())
+    # print(asset_cfg.joint_names, asset_cfg.joint_ids)
+    jointVel = asset.data.joint_vel[:, asset_cfg.joint_ids] - asset.data.default_joint_vel[:, asset_cfg.joint_ids]
+    # for k in jointVel: print(k)
+    # print(asset.data.joint_vel[:, asset_cfg.joint_ids] - asset.data.default_joint_vel[:, asset_cfg.joint_ids])
+    return (jointVel < 1).any().item() | (jointVel > 10).any().item()
