@@ -631,62 +631,68 @@ class RewardsCfg:
     # (3) Primary task: don't cross the torque limit
     limitTorque = RewTerm(
         func=mdp.joint_torques_l2,
-        weight=1.0,
+        weight=-0.01,
         params={"asset_cfg": SceneEntityCfg("robot")},
     )
     # (4) Primary task: don't cross the speed limit
     limitVel = RewTerm(
         func=mdp.joint_vel_l1,
-        weight=1.0,
+        weight=-0.001,
         params={"asset_cfg": SceneEntityCfg("robot")},
         )
-    # (5) Primary task: Keep coverage area below 80%
-    Cam1CoverageBelow80 = RewTerm(
+    
+    positiveJointVel = RewTerm(
+        func=mdp.joint_vel_positive,
+        weight=-10.0
+        )
+    
+    # (5) Primary task: Keep coverage area at 50%
+    Cam1CoverageAt50 = RewTerm(
         func = mdp.targetedCoverage,
         weight = 2.0,
-        params = {"asset_cfg" : SceneEntityCfg('tiled_camera1'), "heightThreshold" : 1.6}
+        params = {"asset_cfg" : SceneEntityCfg('tiled_camera1'), "heightThreshold" : 1.5}
     )
-    # (6) Primary task: Keep coverage area below 80%
-    Cam2CoverageBelow80 = RewTerm(
+    # (6) Primary task: Keep coverage area at 50%
+    Cam2CoverageAt50 = RewTerm(
         func = mdp.targetedCoverage,
         weight = 2.0,
-        params = {"asset_cfg" : SceneEntityCfg('tiled_camera2'), "heightThreshold" : 1.6}
+        params = {"asset_cfg" : SceneEntityCfg('tiled_camera2'), "heightThreshold" : 1.5}
     )
-    # (7) Primary task: Keep coverage area below 80%
-    Cam3CoverageBelow80 = RewTerm(
+    # (7) Primary task: Keep coverage area at 50%
+    Cam3CoverageAt50 = RewTerm(
         func = mdp.targetedCoverage,
         weight = 2.0,
-        params = {"asset_cfg" : SceneEntityCfg('tiled_camera3'), "heightThreshold" : 1.6}
+        params = {"asset_cfg" : SceneEntityCfg('tiled_camera3'), "heightThreshold" : 1.5}
     )
-    # (8) Primary task: Keep coverage area below 80%
-    Cam4CoverageBelow80 = RewTerm(
+    # (8) Primary task: Keep coverage area at 50%
+    Cam4CoverageAt50 = RewTerm(
         func = mdp.targetedCoverage,
         weight = 2.0,
-        params = {"asset_cfg" : SceneEntityCfg('tiled_camera4'), "heightThreshold" : 1.6}
+        params = {"asset_cfg" : SceneEntityCfg('tiled_camera4'), "heightThreshold" : 1.5}
     )
-    # (9) Primary task: Keep coverage area below 80%
-    Cam5CoverageBelow80 = RewTerm(
+    # (9) Primary task: Keep coverage area at 50%
+    Cam5CoverageAt50 = RewTerm(
         func = mdp.targetedCoverage,
         weight = 2.0,
-        params = {"asset_cfg" : SceneEntityCfg('tiled_camera5'), "heightThreshold" : 1.6}
+        params = {"asset_cfg" : SceneEntityCfg('tiled_camera5'), "heightThreshold" : 1.5}
     )
-    # (10) Primary task: Keep coverage area below 80%
-    Cam6CoverageBelow80 = RewTerm(
+    # (10) Primary task: Keep coverage area at 50%
+    Cam6CoverageAt50 = RewTerm(
         func = mdp.targetedCoverage,
         weight = 2.0,
-        params = {"asset_cfg" : SceneEntityCfg('tiled_camera6'), "heightThreshold" : 1.6}
+        params = {"asset_cfg" : SceneEntityCfg('tiled_camera6'), "heightThreshold" : 1.5}
     )
-    # (11) Primary task: Keep coverage area below 80%
-    Cam7CoverageBelow80 = RewTerm(
+    # (11) Primary task: Keep coverage area at 50%
+    Cam7CoverageAt50 = RewTerm(
         func = mdp.targetedCoverage,
         weight = 2.0,
-        params = {"asset_cfg" : SceneEntityCfg('tiled_camera7'), "heightThreshold" : 1.6}
+        params = {"asset_cfg" : SceneEntityCfg('tiled_camera7'), "heightThreshold" : 1.5}
     )
-    # (12) Primary task: Keep coverage area below 80%
-    Cam8CoverageBelow80 = RewTerm(
+    # (12) Primary task: Keep coverage area at 50%
+    Cam8CoverageAt50 = RewTerm(
         func = mdp.targetedCoverage,
         weight = 2.0,
-        params = {"asset_cfg" : SceneEntityCfg('tiled_camera8'), "heightThreshold" : 1.6}
+        params = {"asset_cfg" : SceneEntityCfg('tiled_camera8'), "heightThreshold" : 1.5}
     )
     
 
@@ -698,7 +704,7 @@ class TerminationsCfg:
     time_out = DoneTerm(func=mdp.time_out, time_out=True)
     
     # (2) Coverage more than 90%
-    positiveJointVel = DoneTerm(func=mdp.joint_vel_positive)
+    #positiveJointVel = DoneTerm(func=mdp.joint_vel_positive)
   
 
 @configclass

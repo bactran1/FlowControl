@@ -66,16 +66,16 @@ def coverMoreThan90(env: ManagerBasedRLEnv, asset_cfg: SceneEntityCfg) -> torch.
         
     return areaCovered > 0.3
 
-def joint_vel_positive(env: ManagerBasedRLEnv, asset_cfg: SceneEntityCfg = SceneEntityCfg("robot")):
-    """The joint velocities of the asset w.r.t. the default joint velocities.
+# def joint_vel_positive(env: ManagerBasedRLEnv, asset_cfg: SceneEntityCfg = SceneEntityCfg("robot")):
+#     """The joint velocities of the asset w.r.t. the default joint velocities.
 
-    Note: Only the joints configured in :attr:`asset_cfg.joint_ids` will have their velocities returned.
-    """
-    # extract the used quantities (to enable type-hinting)
-    asset: Articulation = env.scene[asset_cfg.name]
-    # print(asset.data.joint_vel[:,:], asset.data.joint_vel[:,:].size())
-    # print(asset_cfg.joint_names, asset_cfg.joint_ids)
-    jointVel = asset.data.joint_vel[:, asset_cfg.joint_ids] - asset.data.default_joint_vel[:, asset_cfg.joint_ids]
-    # for k in jointVel: print(k)
-    # print(asset.data.joint_vel[:, asset_cfg.joint_ids] - asset.data.default_joint_vel[:, asset_cfg.joint_ids])
-    return (jointVel < 1).any().item() | (jointVel > 10).any().item()
+#     Note: Only the joints configured in :attr:`asset_cfg.joint_ids` will have their velocities returned.
+#     """
+#     # extract the used quantities (to enable type-hinting)
+#     asset: Articulation = env.scene[asset_cfg.name]
+#     # print(asset.data.joint_vel[:,:], asset.data.joint_vel[:,:].size())
+#     # print(asset_cfg.joint_names, asset_cfg.joint_ids)
+#     jointVel = asset.data.joint_vel[:, asset_cfg.joint_ids] - asset.data.default_joint_vel[:, asset_cfg.joint_ids]
+#     # for k in jointVel: print(k)
+#     # print(asset.data.joint_vel[:, asset_cfg.joint_ids] - asset.data.default_joint_vel[:, asset_cfg.joint_ids])
+#     return (jointVel < 1).any().item() | (jointVel > 10).any().item()

@@ -368,7 +368,7 @@ class FlowControlSceneCfg(InteractiveSceneCfg):
     robot: ArticulationCfg = FC_CFG.replace(prim_path="{ENV_REGEX_NS}/FC")
     
     # Cameras
-    tiled_camera1: TiledCameraCfg = TiledCameraCfg(
+    tiled_camera1: CameraCfg = TiledCameraCfg(
         prim_path="{ENV_REGEX_NS}/Camera1",
         offset=TiledCameraCfg.OffsetCfg(pos=(-0.76, 0.0, 1.9), rot=(0.0, 0.0, 0.0, 0.0), convention="opengl"),
         data_types=["distance_to_image_plane"],
@@ -617,15 +617,21 @@ class RewardsCfg:
     # (3) Primary task: don't cross the torque limit
     limitTorque = RewTerm(
         func=mdp.joint_torques_l2,
-        weight=1.0,
+        weight=-0.01,
         params={"asset_cfg": SceneEntityCfg("robot")},
     )
     # (4) Primary task: don't cross the speed limit
     limitVel = RewTerm(
         func=mdp.joint_vel_l1,
-        weight=1.0,
+        weight=-0.001,
         params={"asset_cfg": SceneEntityCfg("robot")},
         )
+    
+    positiveJointVel = RewTerm(
+        func=mdp.joint_vel_positive,
+        weight=1.0
+        )
+    
     # (5) Primary task: Keep coverage area below 80%
     Cam1CoverageBelow80 = RewTerm(
         func = mdp.targetedCoverage,
@@ -684,7 +690,7 @@ class TerminationsCfg:
     time_out = DoneTerm(func=mdp.time_out, time_out=True)
     
     # (2) Coverage more than 90%
-    positiveJointVel = DoneTerm(func=mdp.joint_vel_positive)
+    #positiveJointVel = DoneTerm(func=mdp.joint_vel_positive)
   
 
 @configclass

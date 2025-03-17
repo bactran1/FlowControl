@@ -65,5 +65,44 @@ def targetedCoverage(env: ManagerBasedRLEnv, heightThreshold: float, asset_cfg: 
     if heightThreshold is None:
         heightThreshold = 1.5 # 1.5m from the camera down to the conveyor
     areaCovered = torch.tensor([np.mean(depthImgData < heightThreshold)],dtype=torch.float32,device=env.device)
-        
-    return 1.0 - areaCovered
+    
+    target = 0.5
+    diff = abs(areaCovered - target)
+    if diff == 0: return areaCovered * 10.0
+    elif diff != 0: return diff * -5.0
+
+def joint_vel_positive(env: ManagerBasedRLEnv, asset_cfg: SceneEntityCfg = SceneEntityCfg("robot")) -> torch.Tensor:
+    """The joint velocities of the asset w.r.t. the default joint velocities.
+
+    Note: Only the joints configured in :attr:`asset_cfg.joint_ids` will have their velocities returned.
+    """
+    # extract the used quantities (to enable type-hinting)
+    asset: Articulation = env.scene[asset_cfg.name]
+    # print(asset.data.joint_vel[:,:], asset.data.joint_vel[:,:].size())
+    # print(asset_cfg.joint_names, asset_cfg.joint_ids)
+    jointVel = asset.data.joint_vel[:, asset_cfg.joint_ids] - asset.data.default_joint_vel[:, asset_cfg.joint_ids]
+    # for k in jointVel: print(k)
+    # print(asset.data.joint_vel[:, asset_cfg.joint_ids] - asset.data.default_joint_vel[:, asset_cfg.joint_ids])
+    #print(((jointVel < 1).sum().item())/(int(env.num_envs)*128.0))
+    JointVelNegCount = (jointVel < 7).sum().item()
+    JointVelPosCount = (jointVel >= 7).sum().item()
+    
+    if JointVelPosCount == None: JointVelPosCount = 0
+    if JointVelNegCount == None: JointVelNegCount = 0
+    
+    print(JointVelPosCount, JointVelNegCount)
+
+    if JointVelNegCount < JointVelPosCount:
+        return torch.tensor((5.0 + ((JointVelPosCount - JointVelNegCount)/128.0))*2, dtype=torch.float32, device=env.device)
+    elif JointVelNegCount == 0 and JointVelPosCount == 0:
+        return torch.tensor((-5.0*10), dtype=torch.float32, device=env.device)
+    elif JointVelNegCount >= JointVelPosCount or JointVelNegCount > 0:
+        return torch.tensor(-1.0*(-5.0 + ((JointVelPosCount - JointVelNegCount)/128.0))**2, dtype=torch.float32, device=env.device)
+    # generalJointVel = ((jointVel < 5).sum().item())/(int(env.num_envs)*128.0)
+    # # print(generalJointVel)
+    # return torch.tensor(generalJointVel, dtype=torch.float32, device=env.device)
+    
+    
+    
+    
+    

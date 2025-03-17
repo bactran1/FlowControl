@@ -5,7 +5,7 @@ n_timesteps: !!float 2e10
 #policy: 'CnnPolicy'
 policy: 'MlpPolicy'
 #policy: 'MultiInputPolicy'
-n_steps: 16
+n_steps: 64
 batch_size: 4096
 gae_lambda: 0.95
 gamma: 0.99
@@ -25,7 +25,7 @@ clip_range: !!float 0.2
 
 policy_kwargs: "dict(
                   activation_fn=nn.ReLU,
-                  net_arch=[32, 32],
+                  net_arch=[128, 128],
                   squash_output=False,
                 )"
 vf_coef: 1.0
