@@ -68,8 +68,8 @@ def targetedCoverage(env: ManagerBasedRLEnv, heightThreshold: float, asset_cfg: 
     
     target = 0.5
     diff = abs(areaCovered - target)
-    if diff == 0: return areaCovered * 10.0
-    elif diff != 0: return diff * -5.0
+    if diff == 0: return areaCovered * 30.0
+    elif diff != 0: return diff * -30.0
 
 def joint_vel_positive(env: ManagerBasedRLEnv, asset_cfg: SceneEntityCfg = SceneEntityCfg("robot")) -> torch.Tensor:
     """The joint velocities of the asset w.r.t. the default joint velocities.
@@ -84,8 +84,8 @@ def joint_vel_positive(env: ManagerBasedRLEnv, asset_cfg: SceneEntityCfg = Scene
     # for k in jointVel: print(k)
     # print(asset.data.joint_vel[:, asset_cfg.joint_ids] - asset.data.default_joint_vel[:, asset_cfg.joint_ids])
     #print(((jointVel < 1).sum().item())/(int(env.num_envs)*128.0))
-    JointVelNegCount = (jointVel < 7).sum().item()
-    JointVelPosCount = (jointVel >= 7).sum().item()
+    JointVelNegCount = (jointVel < 50).sum().item()
+    JointVelPosCount = (jointVel >= 50).sum().item()
     
     if JointVelPosCount == None: JointVelPosCount = 0
     if JointVelNegCount == None: JointVelNegCount = 0

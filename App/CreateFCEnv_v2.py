@@ -630,7 +630,7 @@ class RewardsCfg:
     terminating = RewTerm(func=mdp.is_terminated, weight=-2.0)
     # (3) Primary task: don't cross the torque limit
     limitTorque = RewTerm(
-        func=mdp.joint_torques_l2,
+        func=mdp.joint_torques_l1,
         weight=-0.01,
         params={"asset_cfg": SceneEntityCfg("robot")},
     )
