@@ -628,18 +628,18 @@ class RewardsCfg:
     alive = RewTerm(func=mdp.is_alive, weight=1.0)
     # (2) Failure penalty
     terminating = RewTerm(func=mdp.is_terminated, weight=-2.0)
-    # (3) Primary task: don't cross the torque limit
-    limitTorque = RewTerm(
-        func=mdp.joint_torques_l1,
-        weight=-0.01,
-        params={"asset_cfg": SceneEntityCfg("robot")},
-    )
-    # (4) Primary task: don't cross the speed limit
-    limitVel = RewTerm(
-        func=mdp.joint_vel_l1,
-        weight=-0.001,
-        params={"asset_cfg": SceneEntityCfg("robot")},
-        )
+    # # (3) Primary task: don't cross the torque limit
+    # limitTorque = RewTerm(
+    #     func=mdp.joint_torques_l1,
+    #     weight=-0.01,
+    #     params={"asset_cfg": SceneEntityCfg("robot")},
+    # )
+    # # (4) Primary task: don't cross the speed limit
+    # limitVel = RewTerm(
+    #     func=mdp.joint_vel_l1,
+    #     weight=-0.001,
+    #     params={"asset_cfg": SceneEntityCfg("robot")},
+    #     )
     
     positiveJointVel = RewTerm(
         func=mdp.joint_vel_positive,
