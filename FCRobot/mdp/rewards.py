@@ -84,20 +84,21 @@ def joint_vel_positive(env: ManagerBasedRLEnv, asset_cfg: SceneEntityCfg = Scene
     # for k in jointVel: print(k)
     # print(asset.data.joint_vel[:, asset_cfg.joint_ids] - asset.data.default_joint_vel[:, asset_cfg.joint_ids])
     #print(((jointVel < 1).sum().item())/(int(env.num_envs)*128.0))
-    JointVelNegCount = (jointVel < 50).sum().item()
-    JointVelPosCount = (jointVel >= 50).sum().item()
+    JointVelNegCount = (jointVel < 20).sum().item()
+    JointVelPosCount = (jointVel >= 20).sum().item()
     
     if JointVelPosCount == None: JointVelPosCount = 0
     if JointVelNegCount == None: JointVelNegCount = 0
     
-    print(JointVelPosCount, JointVelNegCount)
+    #print(jointVel, jointVel.size())
+    #print(JointVelPosCount, JointVelNegCount)
 
     if JointVelNegCount < JointVelPosCount:
-        return torch.tensor((5.0 + ((JointVelPosCount - JointVelNegCount)/128.0))*2, dtype=torch.float32, device=env.device)
+        return torch.tensor((15.0 + ((JointVelPosCount - JointVelNegCount)/env.num_envs))**2, dtype=torch.float32, device=env.device)
     elif JointVelNegCount == 0 and JointVelPosCount == 0:
         return torch.tensor((-5.0*10), dtype=torch.float32, device=env.device)
     elif JointVelNegCount >= JointVelPosCount or JointVelNegCount > 0:
-        return torch.tensor(-1.0*(-5.0 + ((JointVelPosCount - JointVelNegCount)/128.0))**2, dtype=torch.float32, device=env.device)
+        return torch.tensor(-1.0*(-15.0 + ((JointVelPosCount - JointVelNegCount)/env.num_envs))**2, dtype=torch.float32, device=env.device)
     # generalJointVel = ((jointVel < 5).sum().item())/(int(env.num_envs)*128.0)
     # # print(generalJointVel)
     # return torch.tensor(generalJointVel, dtype=torch.float32, device=env.device)

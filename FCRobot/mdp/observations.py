@@ -67,9 +67,13 @@ def percentageArea_occupied(env: ManagerBasedRLEnv, asset_cfg: SceneEntityCfg) -
     # print(env.num_envs, type(env.num_envs))
     areaCovered = torch.empty((depthImgData.shape[0],1),dtype=torch.float32,device=env.device)
     
-    for i in range(depthImgData.shape[0]):
-        miniAreaCovered = torch.tensor([np.mean(depthImgData[i,:,:] < heightThreshold)], dtype=torch.float32,device=env.device)
-        areaCovered[i] = miniAreaCovered
+    if depthImgData.ndim == 3:
+        for i in range(depthImgData.shape[0]):
+            miniAreaCovered = torch.tensor([np.mean(depthImgData[i,:,:] < heightThreshold)], dtype=torch.float32,device=env.device)
+            areaCovered[i] = miniAreaCovered
+    elif depthImgData.ndim == 2:
+        miniAreaCovered = torch.tensor([np.mean(depthImgData[:,:] < heightThreshold)], dtype=torch.float32,device=env.device)
+        areaCovered[0] = miniAreaCovered
     
     # areaCovered = torch.tensor(miniAreaCovered,dtype=torch.float32,device=env.device)
     #print(asset_cfg.name, areaCovered, areaCovered.size())

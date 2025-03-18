@@ -643,7 +643,7 @@ class RewardsCfg:
     
     positiveJointVel = RewTerm(
         func=mdp.joint_vel_positive,
-        weight=-10.0
+        weight=1.0
         )
     
     # (5) Primary task: Keep coverage area at 50%
