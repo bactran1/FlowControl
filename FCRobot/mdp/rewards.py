@@ -80,25 +80,50 @@ def joint_vel_positive(env: ManagerBasedRLEnv, asset_cfg: SceneEntityCfg = Scene
     asset: Articulation = env.scene[asset_cfg.name]
     # print(asset.data.joint_vel[:,:], asset.data.joint_vel[:,:].size())
     # print(asset_cfg.joint_names, asset_cfg.joint_ids)
-    jointVel = asset.data.joint_vel[:, asset_cfg.joint_ids] - asset.data.default_joint_vel[:, asset_cfg.joint_ids]
+    
+    # ######### Default #############
+    # jointVel = asset.data.joint_vel[:, asset_cfg.joint_ids] - asset.data.default_joint_vel[:, asset_cfg.joint_ids]
+    # ###############################
+    
+    # print(asset.data, type(asset.data))
+    # print(asset.data.soft_joint_vel_limits, asset.data.soft_joint_vel_limits.size())
+    # print(asset.data.joint_vel_limits) ArticulationData does not have this. Weird
     # for k in jointVel: print(k)
     # print(asset.data.joint_vel[:, asset_cfg.joint_ids] - asset.data.default_joint_vel[:, asset_cfg.joint_ids])
     #print(((jointVel < 1).sum().item())/(int(env.num_envs)*128.0))
-    JointVelNegCount = (jointVel < 20).sum().item()
-    JointVelPosCount = (jointVel >= 20).sum().item()
     
-    if JointVelPosCount == None: JointVelPosCount = 0
-    if JointVelNegCount == None: JointVelNegCount = 0
+    sumEnvJointVel = torch.sum(asset.data.joint_vel[:, asset_cfg.joint_ids],dim=1)
+    # sumEnvDefaultJointVel = torch.sum(asset.data.default_joint_vel[:, asset_cfg.joint_ids],dim=1)
+    sumEnvSoftJointVelLim = torch.sum(asset.data.soft_joint_vel_limits[:, asset_cfg.joint_ids], dim=1)
     
-    #print(jointVel, jointVel.size())
-    #print(JointVelPosCount, JointVelNegCount)
+    #outLimNeg = torch.sub(sumEnvJointVel, sumEnvDefaultJointVel,alpha=1.0)
+    ratio = 300
+    outLimRew = torch.tanh(torch.div((sumEnvJointVel - sumEnvSoftJointVelLim * 0.5), ratio))
+    
+    # print("Joint Vel ",sumEnvJointVel)
+    # print("Default Joint Vel ",sumEnvDefaultJointVel)
+    # print("Soft Joint Vel Lim ",sumEnvSoftJointVelLim)
+    
+    #print(outLimRew)
+    
+    return outLimRew*100.0
 
-    if JointVelNegCount < JointVelPosCount:
-        return torch.tensor((15.0 + ((JointVelPosCount - JointVelNegCount)/env.num_envs))**2, dtype=torch.float32, device=env.device)
-    elif JointVelNegCount == 0 and JointVelPosCount == 0:
-        return torch.tensor((-5.0*10), dtype=torch.float32, device=env.device)
-    elif JointVelNegCount >= JointVelPosCount or JointVelNegCount > 0:
-        return torch.tensor(-1.0*(-15.0 + ((JointVelPosCount - JointVelNegCount)/env.num_envs))**2, dtype=torch.float32, device=env.device)
+
+    
+    # JointVelNegCount = (jointVel < 20).sum().item()
+    # JointVelPosCount = (jointVel >= 20).sum().item()
+    
+    # if JointVelPosCount == None: JointVelPosCount = 0
+    # if JointVelNegCount == None: JointVelNegCount = 0
+
+    # if JointVelNegCount < JointVelPosCount:
+    #     return torch.tensor((15.0 + ((JointVelPosCount - JointVelNegCount)/env.num_envs))**2, dtype=torch.float32, device=env.device)
+    # elif JointVelNegCount == 0 and JointVelPosCount == 0:
+    #     return torch.tensor((-5.0*10), dtype=torch.float32, device=env.device)
+    # elif JointVelNegCount >= JointVelPosCount or JointVelNegCount > 0:
+    #     return torch.tensor(-1.0*(-15.0 + ((JointVelPosCount - JointVelNegCount)/env.num_envs))**2, dtype=torch.float32, device=env.device)
+    
+    
     # generalJointVel = ((jointVel < 5).sum().item())/(int(env.num_envs)*128.0)
     # # print(generalJointVel)
     # return torch.tensor(generalJointVel, dtype=torch.float32, device=env.device)

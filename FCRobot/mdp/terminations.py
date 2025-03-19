@@ -82,4 +82,4 @@ def joint_vel_positive_terminated(env: ManagerBasedRLEnv, asset_cfg: SceneEntity
     jointVel = asset.data.joint_vel[:, asset_cfg.joint_ids] - asset.data.default_joint_vel[:, asset_cfg.joint_ids]
     # for k in jointVel: print(k)
     # print(asset.data.joint_vel[:, asset_cfg.joint_ids] - asset.data.default_joint_vel[:, asset_cfg.joint_ids])
-    return (jointVel < 1).any().item() | (jointVel > 10).any().item()
+    return (jointVel < 6.283).any().item()
