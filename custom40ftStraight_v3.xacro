@@ -22,20 +22,20 @@
         <visual>
             <origin xyz="-6.096 0 0" rpy="0 0 0" />
             <geometry>
-                <box size="12.192 1.219 0.1"/>
+                <box size="12.192 1.219 2.0"/>
             </geometry>
             <material name="gray">
                 <color rgba="0.6 0.6 0.6 1.0"/>
             </material>
         </visual>
         <collision>
-            <origin xyz="-6.096 0 0" rpy="0 0 0" />
+            <origin xyz="-6.096 0 1.0" rpy="0 0 0" />
             <geometry>
-                <box size="12.192 1.219 0.1"/>
+                <box size="12.192 1.219 2.0"/>
             </geometry>
         </collision>
         <inertial>
-            <origin xyz="-6.096 0 0" rpy="0 0 0" />
+            <origin xyz="-6.096 0 1.0" rpy="0 0 0" />
             <mass value="20.0"/>
             <inertia ixx="0.2" iyy="0.2" izz="0.2"/>
         </inertial>
@@ -44,22 +44,22 @@
     <!-- Left Guide Frame-->
     <link name="leftFrame">
         <visual>
-            <origin xyz="-6.096 0 0" rpy="0 0 0" />
+            <origin xyz="-6.096 0 0.0" rpy="0 0 0" />
             <geometry>
-                <box size="12.192 0.05 0.5"/>
+                <box size="12.192 0.05 2.5"/>
             </geometry>
             <material name="gray">
                 <color rgba="0.6 0.6 0.6 1.0"/>
             </material>
         </visual>
         <collision>
-            <origin xyz="-6.096 0 0" rpy="0 0 0" />
+            <origin xyz="-6.096 0 0.0" rpy="0 0 0" />
             <geometry>
-                <box size="12.192 0.05 0.5"/>
+                <box size="12.192 0.05 2.5"/>
             </geometry>
         </collision>
         <inertial>
-            <origin xyz="-6.096 0 0" rpy="0 0 0" />
+            <origin xyz="-6.096 0 0.0" rpy="0 0 0" />
             <mass value="20.0"/>
             <inertia ixx="0.2" iyy="0.2" izz="0.2"/>
         </inertial>
@@ -76,7 +76,7 @@
         <visual>
             <origin xyz="-6.096 0 0" rpy="0 0 0" />
             <geometry>
-                <box size="12.192 0.05 0.5"/>
+                <box size="12.192 0.05 2.5"/>
             </geometry>
             <material name="gray">
                 <color rgba="0.6 0.6 0.6 1.0"/>
@@ -85,7 +85,7 @@
         <collision>
             <origin xyz="-6.096 0 0" rpy="0 0 0" />
             <geometry>
-                <box size="12.192 0.05 0.5"/>
+                <box size="12.192 0.05 2.5"/>
             </geometry>
         </collision>
         <inertial>
@@ -128,7 +128,7 @@
     <joint name="Roller_1_1_joint" type="continuous">
         <parent link="base_link"/>
         <child link="Roller_1"/>
-        <origin xyz="-${roller_pitch/2} 0 0.15" rpy="1.570796 0 0"/>
+        <origin xyz="-${roller_pitch/2} 0 1.15" rpy="1.570796 0 0"/>
         <axis xyz="0 0 1"/>
         <dynamics damping="1.0" friction="0.0"/>
     </joint>
@@ -158,7 +158,7 @@
         <joint name="Roller_1_${rollerNum}_joint" type="continuous">
             <parent link="base_link"/>
             <child link="Roller_${rollerNum}"/>
-            <origin xyz="-${(rollerNum-1)*roller_pitch + roller_pitch/2} 0 0.15" rpy="${pi/2} 0 0"/>
+            <origin xyz="-${(rollerNum-1)*roller_pitch + roller_pitch/2} 0 1.15" rpy="${pi/2} 0 0"/>
             <axis xyz="0 0 1"/>
             <dynamics damping="1.0" friction="0.0"/>
             <mimic joint="Roller_1_1_joint" multiplier="1" offset="0" />
@@ -189,7 +189,7 @@
     <joint name="Roller_17_17_joint" type="continuous">
         <parent link="base_link"/>
         <child link="Roller_17"/>
-        <origin xyz="-${(17-1)*roller_pitch + roller_pitch/2} 0 0.15" rpy="1.570796 0 0"/>
+        <origin xyz="-${(17-1)*roller_pitch + roller_pitch/2} 0 1.15" rpy="1.570796 0 0"/>
         <axis xyz="0 0 1"/>
         <dynamics damping="1.0" friction="0.0"/>
     </joint>
@@ -219,7 +219,7 @@
         <joint name="Roller_17_${rollerNum}_joint" type="continuous">
             <parent link="base_link"/>
             <child link="Roller_${rollerNum}"/>
-            <origin xyz="-${(rollerNum-1)*roller_pitch + roller_pitch/2} 0 0.15" rpy="${pi/2} 0 0"/>
+            <origin xyz="-${(rollerNum-1)*roller_pitch + roller_pitch/2} 0 1.15" rpy="${pi/2} 0 0"/>
             <axis xyz="0 0 1"/>
             <dynamics damping="1.0" friction="0.0"/>
             <mimic joint="Roller_17_17_joint" multiplier="1" offset="0" />
@@ -251,7 +251,7 @@
     <joint name="Roller_33_33_joint" type="continuous">
         <parent link="base_link"/>
         <child link="Roller_33"/>
-        <origin xyz="-${(32)*roller_pitch + roller_pitch/2} 0 0.15" rpy="1.570796 0 0"/>
+        <origin xyz="-${(32)*roller_pitch + roller_pitch/2} 0 1.15" rpy="1.570796 0 0"/>
         <axis xyz="0 0 1"/>
         <dynamics damping="1.0" friction="0.0"/>
     </joint>
@@ -281,7 +281,7 @@
         <joint name="Roller_33_${rollerNum}_joint" type="continuous">
             <parent link="base_link"/>
             <child link="Roller_${rollerNum}"/>
-            <origin xyz="-${(rollerNum-1)*roller_pitch + roller_pitch/2} 0 0.15" rpy="${pi/2} 0 0"/>
+            <origin xyz="-${(rollerNum-1)*roller_pitch + roller_pitch/2} 0 1.15" rpy="${pi/2} 0 0"/>
             <axis xyz="0 0 1"/>
             <dynamics damping="1.0" friction="0.0"/>
             <mimic joint="Roller_33_33_joint" multiplier="1" offset="0" />
@@ -312,7 +312,7 @@
     <joint name="Roller_49_49_joint" type="continuous">
         <parent link="base_link"/>
         <child link="Roller_49"/>
-        <origin xyz="-${(49-1)*roller_pitch + roller_pitch/2} 0 0.15" rpy="1.570796 0 0"/>
+        <origin xyz="-${(49-1)*roller_pitch + roller_pitch/2} 0 1.15" rpy="1.570796 0 0"/>
         <axis xyz="0 0 1"/>
         <dynamics damping="1.0" friction="0.0"/>
     </joint>
@@ -342,7 +342,7 @@
         <joint name="Roller_49_${rollerNum}_joint" type="continuous">
             <parent link="base_link"/>
             <child link="Roller_${rollerNum}"/>
-            <origin xyz="-${(rollerNum-1)*roller_pitch + roller_pitch/2} 0 0.15" rpy="${pi/2} 0 0"/>
+            <origin xyz="-${(rollerNum-1)*roller_pitch + roller_pitch/2} 0 1.15" rpy="${pi/2} 0 0"/>
             <axis xyz="0 0 1"/>
             <dynamics damping="1.0" friction="0.0"/>
             <mimic joint="Roller_49_49_joint" multiplier="1" offset="0" />
@@ -374,7 +374,7 @@
     <joint name="Roller_65_65_joint" type="continuous">
         <parent link="base_link"/>
         <child link="Roller_65"/>
-        <origin xyz="-${(64)*roller_pitch + roller_pitch/2} 0 0.15" rpy="1.570796 0 0"/>
+        <origin xyz="-${(64)*roller_pitch + roller_pitch/2} 0 1.15" rpy="1.570796 0 0"/>
         <axis xyz="0 0 1"/>
         <dynamics damping="1.0" friction="0.0"/>
     </joint>
@@ -404,7 +404,7 @@
         <joint name="Roller_65_${rollerNum}_joint" type="continuous">
             <parent link="base_link"/>
             <child link="Roller_${rollerNum}"/>
-            <origin xyz="-${(rollerNum-1)*roller_pitch + roller_pitch/2} 0 0.15" rpy="${pi/2} 0 0"/>
+            <origin xyz="-${(rollerNum-1)*roller_pitch + roller_pitch/2} 0 1.15" rpy="${pi/2} 0 0"/>
             <axis xyz="0 0 1"/>
             <dynamics damping="1.0" friction="0.0"/>
             <mimic joint="Roller_65_65_joint" multiplier="1" offset="0" />
@@ -435,7 +435,7 @@
     <joint name="Roller_81_81_joint" type="continuous">
         <parent link="base_link"/>
         <child link="Roller_81"/>
-        <origin xyz="-${(81-1)*roller_pitch + roller_pitch/2} 0 0.15" rpy="1.570796 0 0"/>
+        <origin xyz="-${(81-1)*roller_pitch + roller_pitch/2} 0 1.15" rpy="1.570796 0 0"/>
         <axis xyz="0 0 1"/>
         <dynamics damping="1.0" friction="0.0"/>
     </joint>
@@ -465,7 +465,7 @@
         <joint name="Roller_81_${rollerNum}_joint" type="continuous">
             <parent link="base_link"/>
             <child link="Roller_${rollerNum}"/>
-            <origin xyz="-${(rollerNum-1)*roller_pitch + roller_pitch/2} 0 0.15" rpy="${pi/2} 0 0"/>
+            <origin xyz="-${(rollerNum-1)*roller_pitch + roller_pitch/2} 0 1.15" rpy="${pi/2} 0 0"/>
             <axis xyz="0 0 1"/>
             <dynamics damping="1.0" friction="0.0"/>
             <mimic joint="Roller_81_81_joint" multiplier="1" offset="0" />
@@ -497,7 +497,7 @@
     <joint name="Roller_97_97_joint" type="continuous">
         <parent link="base_link"/>
         <child link="Roller_97"/>
-        <origin xyz="-${(96)*roller_pitch + roller_pitch/2} 0 0.15" rpy="1.570796 0 0"/>
+        <origin xyz="-${(96)*roller_pitch + roller_pitch/2} 0 1.15" rpy="1.570796 0 0"/>
         <axis xyz="0 0 1"/>
         <dynamics damping="1.0" friction="0.0"/>
     </joint>
@@ -527,7 +527,7 @@
         <joint name="Roller_97_${rollerNum}_joint" type="continuous">
             <parent link="base_link"/>
             <child link="Roller_${rollerNum}"/>
-            <origin xyz="-${(rollerNum-1)*roller_pitch + roller_pitch/2} 0 0.15" rpy="${pi/2} 0 0"/>
+            <origin xyz="-${(rollerNum-1)*roller_pitch + roller_pitch/2} 0 1.15" rpy="${pi/2} 0 0"/>
             <axis xyz="0 0 1"/>
             <dynamics damping="1.0" friction="0.0"/>
             <mimic joint="Roller_97_97_joint" multiplier="1" offset="0" />
@@ -558,7 +558,7 @@
     <joint name="Roller_113_113_joint" type="continuous">
         <parent link="base_link"/>
         <child link="Roller_113"/>
-        <origin xyz="-${(113-1)*roller_pitch + roller_pitch/2} 0 0.15" rpy="1.570796 0 0"/>
+        <origin xyz="-${(113-1)*roller_pitch + roller_pitch/2} 0 1.15" rpy="1.570796 0 0"/>
         <axis xyz="0 0 1"/>
         <dynamics damping="1.0" friction="0.0"/>
     </joint>
@@ -588,7 +588,7 @@
         <joint name="Roller_113_${rollerNum}_joint" type="continuous">
             <parent link="base_link"/>
             <child link="Roller_${rollerNum}"/>
-            <origin xyz="-${(rollerNum-1)*roller_pitch + roller_pitch/2} 0 0.15" rpy="${pi/2} 0 0"/>
+            <origin xyz="-${(rollerNum-1)*roller_pitch + roller_pitch/2} 0 1.15" rpy="${pi/2} 0 0"/>
             <axis xyz="0 0 1"/>
             <dynamics damping="1.0" friction="0.0"/>
             <mimic joint="Roller_113_113_joint" multiplier="1" offset="0" />

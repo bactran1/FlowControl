@@ -68,8 +68,8 @@ import numpy as np
 
 FC_CFG = ArticulationCfg(
     spawn=sim_utils.UsdFileCfg(
-        #usd_path="./Custom40ftStraight_v2.usd",
-        usd_path="C:/Users/bactran/Documents/IsaacLab/IsaacLab/source/isaaclab_tasks/isaaclab_tasks/manager_based/classic/FCRobot/Custom40ftStraight_v2.usd",
+        #usd_path="./Custom40ftStraight_v3.usd",
+        usd_path="C:/Users/bactran/Documents/IsaacLab/IsaacLab/source/isaaclab_tasks/isaaclab_tasks/manager_based/classic/FCRobot/Custom40ftStraight_v3.usd",
         rigid_props=sim_utils.RigidBodyPropertiesCfg(
             rigid_body_enabled=True,
             max_linear_velocity=1000.0,
@@ -86,70 +86,70 @@ FC_CFG = ArticulationCfg(
         ),
     ),
     init_state=ArticulationCfg.InitialStateCfg(
-        pos=(0.0, 0.0, 1.501),
+        pos=(0.0, 0.0, 0.0),
         joint_pos={"Roller_1_.*": 0.0, "Roller_17_.*": 0.0, "Roller_33_.*": 0.0, "Roller_49_.*": 0.0, 
                    "Roller_65_.*": 0.0, "Roller_81_.*": 0.0, "Roller_97_.*": 0.0, "Roller_113_.*": 0.0}
     ),
     actuators={
         "joint_1_actuator": ImplicitActuatorCfg(
-            joint_names_expr=["Roller_1_.*"],
-            effort_limit=7000000.0,
+            joint_names_expr=["Roller_1_1_joint"],
+            effort_limit=70000.0,
             velocity_limit=1326.0,
             velocity_limit_sim=1326.0,
             stiffness=0.0,
             damping=5.0
         ),
         "joint_17_actuator": ImplicitActuatorCfg(
-            joint_names_expr=["Roller_17_.*"],
-            effort_limit=7000000.0,
+            joint_names_expr=["Roller_17_17_joint"],
+            effort_limit=70000.0,
             velocity_limit=1326.0,
             velocity_limit_sim=1326.0,
             stiffness=0.0,
             damping=5.0
         ),
         "joint_33_actuator": ImplicitActuatorCfg(
-            joint_names_expr=["Roller_33_.*"],
-            effort_limit=7000000.0,
+            joint_names_expr=["Roller_33_33_joint"],
+            effort_limit=70000.0,
             velocity_limit=1326.0,
             velocity_limit_sim=1326.0,
             stiffness=0.0,
             damping=5.0
         ),
         "joint_49_actuator": ImplicitActuatorCfg(
-            joint_names_expr=["Roller_49_.*"],
-            effort_limit=7000000.0,
+            joint_names_expr=["Roller_49_49_joint"],
+            effort_limit=70000.0,
             velocity_limit=1326.0,
             velocity_limit_sim=1326.0,
             stiffness=0.0,
             damping=5.0
         ),
         "joint_65_actuator": ImplicitActuatorCfg(
-            joint_names_expr=["Roller_65_.*"],
-            effort_limit=7000000.0,
+            joint_names_expr=["Roller_65_65_joint"],
+            effort_limit=70000.0,
             velocity_limit=1326.0,
             velocity_limit_sim=1326.0,
             stiffness=0.0,
             damping=5.0
         ),
         "joint_81_actuator": ImplicitActuatorCfg(
-            joint_names_expr=["Roller_81_.*"],
-            effort_limit=7000000.0,
+            joint_names_expr=["Roller_81_81_joint"],
+            effort_limit=70000.0,
             velocity_limit=1326.0,
             velocity_limit_sim=1326.0,
             stiffness=0.0,
             damping=5.0
         ),
         "joint_97_actuator": ImplicitActuatorCfg(
-            joint_names_expr=["Roller_97_.*"],
-            effort_limit=7000000.0,
+            joint_names_expr=["Roller_97_97_joint"],
+            effort_limit=70000.0,
             velocity_limit=1326.0,
             velocity_limit_sim=1326.0,
             stiffness=0.0,
             damping=5.0
         ),
         "joint_113_actuator": ImplicitActuatorCfg(
-            joint_names_expr=["Roller_113_.*"],
-            effort_limit=7000000.0,
+            joint_names_expr=["Roller_113_113_joint"],
+            effort_limit=70000.0,
             velocity_limit=1326.0,
             velocity_limit_sim=1326.0,
             stiffness=0.0,
@@ -177,25 +177,25 @@ class FlowControlSceneCfg(InteractiveSceneCfg):
     # rigid objects
     
     # Base
-    BaseBox: RigidObjectCfg = RigidObjectCfg(
-        prim_path="/World/envs/env_.*/BaseBox",
-        spawn=sim_utils.MultiAssetSpawnerCfg(
-            assets_cfg=[
-                sim_utils.CuboidCfg(
-                    size=(-12.192, 2.0, 1.5),
-                    visual_material=sim_utils.PreviewSurfaceCfg(diffuse_color=(0.1, 0.1, 0.1), metallic=0.2),
-                    physics_material=sim_utils.RigidBodyMaterialCfg(restitution=GVL_restitution)
-                )
-            ],
-            random_choice=True,
-            rigid_props=sim_utils.RigidBodyPropertiesCfg(
-                solver_position_iteration_count=4, solver_velocity_iteration_count=0
-            ),
-            mass_props=sim_utils.MassPropertiesCfg(mass=20000.0),
-            #collision_props=sim_utils.CollisionPropertiesCfg(),
-        ),
-        init_state=RigidObjectCfg.InitialStateCfg(pos=(-6.096, 0.0, 0.75))
-    )
+    # BaseBox: RigidObjectCfg = RigidObjectCfg(
+    #     prim_path="/World/envs/env_.*/BaseBox",
+    #     spawn=sim_utils.MultiAssetSpawnerCfg(
+    #         assets_cfg=[
+    #             sim_utils.CuboidCfg(
+    #                 size=(-12.192, 2.0, 1.5),
+    #                 visual_material=sim_utils.PreviewSurfaceCfg(diffuse_color=(0.1, 0.1, 0.1), metallic=0.2),
+    #                 physics_material=sim_utils.RigidBodyMaterialCfg(restitution=GVL_restitution)
+    #             )
+    #         ],
+    #         random_choice=True,
+    #         rigid_props=sim_utils.RigidBodyPropertiesCfg(
+    #             solver_position_iteration_count=4, solver_velocity_iteration_count=0
+    #         ),
+    #         mass_props=sim_utils.MassPropertiesCfg(mass=20000.0),
+    #         collision_props=sim_utils.CollisionPropertiesCfg(),
+    #     ),
+    #     init_state=RigidObjectCfg.InitialStateCfg(pos=(-6.096, 0.0, 0.75))
+    # )
     
     BoxS1: RigidObjectCfg = RigidObjectCfg(
         prim_path="/World/envs/env_.*/BoxS1",
@@ -523,14 +523,14 @@ class ActionsCfg:
     #joint_velocities1 = mdp.JointVelocityActionCfg(asset_name="robot", joint_names=["Roller_1_.*", "Roller_17_.*", "Roller_33_.*", "Roller_49_.*", 
     #                                                                              "Roller_65_.*", "Roller_81_.*", "Roller_97_.*", "Roller_113_.*"], scale=1.0)
     
-    joint_velocities1 = mdp.JointVelocityActionCfg(asset_name="robot", joint_names=["Roller_1_.*"], scale=1.0)
-    joint_velocities2 = mdp.JointVelocityActionCfg(asset_name="robot", joint_names=["Roller_33_.*"], scale=1.0)
-    joint_velocities3 = mdp.JointVelocityActionCfg(asset_name="robot", joint_names=["Roller_65_.*"], scale=1.0)
-    joint_velocities4 = mdp.JointVelocityActionCfg(asset_name="robot", joint_names=["Roller_97_.*"], scale=1.0)
-    joint_velocities5 = mdp.JointVelocityActionCfg(asset_name="robot", joint_names=["Roller_17_.*"], scale=1.0)
-    joint_velocities6 = mdp.JointVelocityActionCfg(asset_name="robot", joint_names=["Roller_49_.*"], scale=1.0)
-    joint_velocities7 = mdp.JointVelocityActionCfg(asset_name="robot", joint_names=["Roller_81_.*"], scale=1.0)
-    joint_velocities8 = mdp.JointVelocityActionCfg(asset_name="robot", joint_names=["Roller_113_.*"], scale=1.0)
+    joint_velocities1 = mdp.JointVelocityActionCfg(asset_name="robot", joint_names=["Roller_1_1_joint"], scale=1.0)
+    joint_velocities2 = mdp.JointVelocityActionCfg(asset_name="robot", joint_names=["Roller_33_33_joint"], scale=1.0)
+    joint_velocities3 = mdp.JointVelocityActionCfg(asset_name="robot", joint_names=["Roller_65_65_joint"], scale=1.0)
+    joint_velocities4 = mdp.JointVelocityActionCfg(asset_name="robot", joint_names=["Roller_97_97_joint"], scale=1.0)
+    joint_velocities5 = mdp.JointVelocityActionCfg(asset_name="robot", joint_names=["Roller_17_17_joint"], scale=1.0)
+    joint_velocities6 = mdp.JointVelocityActionCfg(asset_name="robot", joint_names=["Roller_49_49_joint"], scale=1.0)
+    joint_velocities7 = mdp.JointVelocityActionCfg(asset_name="robot", joint_names=["Roller_81_81_joint"], scale=1.0)
+    joint_velocities8 = mdp.JointVelocityActionCfg(asset_name="robot", joint_names=["Roller_113_113_joint"], scale=1.0)
     
 @configclass
 class ObservationsCfg:
@@ -833,10 +833,10 @@ def main():
             #env.scene.rigid_objects['BoxS1'].write_data_to_sim()
             # sample random actions
             #joint_vel = torch.randn_like(env.action_manager.action)
-            joint_vel =  torch.cat((torch.multiply(torch.ones(args_cli.num_envs, 16), 0.5), torch.multiply(torch.ones(args_cli.num_envs, 16), 1.5),
-                                   torch.multiply(torch.ones(args_cli.num_envs, 16), 2.0), torch.multiply(torch.ones(args_cli.num_envs, 16),3.0),
-                                   torch.multiply(torch.ones(args_cli.num_envs, 16), 5.0), torch.multiply(torch.ones(args_cli.num_envs, 16), 7.0),
-                                   torch.multiply(torch.ones(args_cli.num_envs, 16), 2.0), torch.multiply(torch.ones(args_cli.num_envs, 16), 7.7)),1) 
+            joint_vel =  torch.cat((torch.multiply(torch.ones(args_cli.num_envs, 1), 0.5), torch.multiply(torch.ones(args_cli.num_envs, 1), 1.5),
+                                   torch.multiply(torch.ones(args_cli.num_envs, 1), 1.0), torch.multiply(torch.ones(args_cli.num_envs, 1),1.0),
+                                   torch.multiply(torch.ones(args_cli.num_envs, 1), 1.0), torch.multiply(torch.ones(args_cli.num_envs, 1), 1.0),
+                                   torch.multiply(torch.ones(args_cli.num_envs, 1), 1.0), torch.multiply(torch.ones(args_cli.num_envs, 1), 1.7)),1) 
             # step the environment
             env.render()
             obs, rew, terminated, truncated, info = env.step(joint_vel)
