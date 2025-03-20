@@ -53,25 +53,4 @@
     </visual>
   </link>
 
-  <joint name="joint2" type="revolute">
-    <parent link="link1"/>
-    <child link="link3"/>
-    <origin xyz="0 0 0.5" rpy="0 0 0" />
-    <axis xyz="1 0 0" />
-    <limit lower="-1.57" upper="1.57" effort="0.5293" velocity="6.159937255" />
-    <mimic joint="joint0" multiplier="-1" offset="0" />
-  </joint>
-
-  <link name="link3">
-    <visual>
-      <origin xyz="0 0.25 0" rpy="1.57 0 0" />
-      <geometry>
-        <cylinder radius="0.02" length="0.5" />
-      </geometry>
-      <material name="red">
-        <color rgba=".8 0 0 1" />
-      </material>
-    </visual>
-  </link>
-
 </robot>

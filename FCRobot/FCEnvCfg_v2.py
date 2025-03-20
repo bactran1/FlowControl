@@ -168,7 +168,7 @@ class FlowControlSceneCfg(InteractiveSceneCfg):
         spawn=sim_utils.MultiAssetSpawnerCfg(
             assets_cfg=[
                 sim_utils.CuboidCfg(
-                    size=(-12.192, 1.22, 1.5),
+                    size=(-12.192, 2.0, 1.5),
                     visual_material=sim_utils.PreviewSurfaceCfg(diffuse_color=(0.1, 0.1, 0.1), metallic=0.2),
                     physics_material=sim_utils.RigidBodyMaterialCfg(restitution=GVL_restitution)
                 )
@@ -177,7 +177,7 @@ class FlowControlSceneCfg(InteractiveSceneCfg):
             rigid_props=sim_utils.RigidBodyPropertiesCfg(
                 solver_position_iteration_count=4, solver_velocity_iteration_count=0
             ),
-            mass_props=sim_utils.MassPropertiesCfg(mass=200.0),
+            mass_props=sim_utils.MassPropertiesCfg(mass=20000.0),
             collision_props=sim_utils.CollisionPropertiesCfg(),
         ),
         init_state=RigidObjectCfg.InitialStateCfg(pos=(-6.096, 0.0, 0.75))
@@ -659,7 +659,7 @@ class RewardsCfg:
     
     positiveJointVel = RewTerm(
         func=mdp.joint_vel_positive,
-        weight=1000.0
+        weight=1.0
         )
     
     reduceJitter = RewTerm(
@@ -729,8 +729,8 @@ class TerminationsCfg:
     # (1) Time out
     time_out = DoneTerm(func=mdp.time_out, time_out=True)
     
-    # (2) Terminated when joints velocity < 1 rad/s
-    positiveJointVel = DoneTerm(func=mdp.joint_vel_positive_terminated)
+    # (2) Coverage more than 90%
+    # positiveJointVel = DoneTerm(func=mdp.joint_vel_positive_terminated)
   
 
 @configclass

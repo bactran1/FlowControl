@@ -75,7 +75,7 @@ FC_CFG = ArticulationCfg(
             max_linear_velocity=1000.0,
             max_angular_velocity=1326.0,
             max_depenetration_velocity=100.0,
-            enable_gyroscopic_forces=True,
+            enable_gyroscopic_forces=False,
         ),
         articulation_props=sim_utils.ArticulationRootPropertiesCfg(
             enabled_self_collisions=False,
@@ -86,7 +86,7 @@ FC_CFG = ArticulationCfg(
         ),
     ),
     init_state=ArticulationCfg.InitialStateCfg(
-        pos=(0.0, 0.0, 1.51),
+        pos=(0.0, 0.0, 1.501),
         joint_pos={"Roller_1_.*": 0.0, "Roller_17_.*": 0.0, "Roller_33_.*": 0.0, "Roller_49_.*": 0.0, 
                    "Roller_65_.*": 0.0, "Roller_81_.*": 0.0, "Roller_97_.*": 0.0, "Roller_113_.*": 0.0}
     ),
@@ -182,7 +182,7 @@ class FlowControlSceneCfg(InteractiveSceneCfg):
         spawn=sim_utils.MultiAssetSpawnerCfg(
             assets_cfg=[
                 sim_utils.CuboidCfg(
-                    size=(-12.192, 1.22, 1.5),
+                    size=(-12.192, 2.0, 1.5),
                     visual_material=sim_utils.PreviewSurfaceCfg(diffuse_color=(0.1, 0.1, 0.1), metallic=0.2),
                     physics_material=sim_utils.RigidBodyMaterialCfg(restitution=GVL_restitution)
                 )
@@ -191,7 +191,7 @@ class FlowControlSceneCfg(InteractiveSceneCfg):
             rigid_props=sim_utils.RigidBodyPropertiesCfg(
                 solver_position_iteration_count=4, solver_velocity_iteration_count=0
             ),
-            mass_props=sim_utils.MassPropertiesCfg(mass=200.0),
+            mass_props=sim_utils.MassPropertiesCfg(mass=20000.0),
             collision_props=sim_utils.CollisionPropertiesCfg(),
         ),
         init_state=RigidObjectCfg.InitialStateCfg(pos=(-6.096, 0.0, 0.75))
@@ -657,7 +657,7 @@ class RewardsCfg:
     # (1) Constant running reward
     alive = RewTerm(func=mdp.is_alive, weight=1.0)
     # (2) Failure penalty
-    terminating = RewTerm(func=mdp.is_terminated, weight=-2.0)
+    terminating = RewTerm(func=mdp.is_terminated, weight=-200.0)
     # # (3) Primary task: don't cross the torque limit
     # limitTorque = RewTerm(
     #     func=mdp.joint_torques_l1,
@@ -744,7 +744,7 @@ class TerminationsCfg:
     time_out = DoneTerm(func=mdp.time_out, time_out=True)
     
     # (2) Coverage more than 90%
-    #positiveJointVel = DoneTerm(func=mdp.joint_vel_positive)
+    # positiveJointVel = DoneTerm(func=mdp.joint_vel_positive_terminated)
   
 
 @configclass

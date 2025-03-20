@@ -92,21 +92,36 @@ def joint_vel_positive(env: ManagerBasedRLEnv, asset_cfg: SceneEntityCfg = Scene
     # print(asset.data.joint_vel[:, asset_cfg.joint_ids] - asset.data.default_joint_vel[:, asset_cfg.joint_ids])
     #print(((jointVel < 1).sum().item())/(int(env.num_envs)*128.0))
     
-    sumEnvJointVel = torch.sum(asset.data.joint_vel[:, asset_cfg.joint_ids],dim=1)
-    # sumEnvDefaultJointVel = torch.sum(asset.data.default_joint_vel[:, asset_cfg.joint_ids],dim=1)
-    sumEnvSoftJointVelLim = torch.sum(asset.data.soft_joint_vel_limits[:, asset_cfg.joint_ids], dim=1)
+    ## tanh method
+    # sumEnvJointVel = torch.sum(asset.data.joint_vel[:, asset_cfg.joint_ids],dim=1)
+    # # sumEnvDefaultJointVel = torch.sum(asset.data.default_joint_vel[:, asset_cfg.joint_ids],dim=1)
+    # sumEnvSoftJointVelLim = torch.sum(asset.data.soft_joint_vel_limits[:, asset_cfg.joint_ids], dim=1)
     
-    #outLimNeg = torch.sub(sumEnvJointVel, sumEnvDefaultJointVel,alpha=1.0)
-    ratio = 300
-    outLimRew = torch.tanh(torch.div((sumEnvJointVel - sumEnvSoftJointVelLim * 0.5), ratio))
+    # #outLimNeg = torch.sub(sumEnvJointVel, sumEnvDefaultJointVel,alpha=1.0)
+    # ratio = 300
+    # outLimRew = torch.tanh(torch.div((sumEnvJointVel - sumEnvSoftJointVelLim * 0.5), ratio))
     
-    # print("Joint Vel ",sumEnvJointVel)
-    # print("Default Joint Vel ",sumEnvDefaultJointVel)
-    # print("Soft Joint Vel Lim ",sumEnvSoftJointVelLim)
+    # # print("Joint Vel ",sumEnvJointVel)
+    # # print("Default Joint Vel ",sumEnvDefaultJointVel)
+    # # print("Soft Joint Vel Lim ",sumEnvSoftJointVelLim)
     
-    #print(outLimRew)
+    # #print(outLimRew)
     
-    return outLimRew*100.0
+    # return outLimRew*100.0
+    ##
+    
+    currentAction = env.action_manager.action
+    prevAction = env.action_manager.prev_action
+    actionDiff = currentAction - prevAction
+    rew = torch.where(actionDiff > 0, actionDiff*1e5, actionDiff*1e-5)
+
+    print("RAW ", rew)
+    
+    print("SUM ", torch.sum(rew, dim=1))
+    
+    print(actionDiff)
+    
+    return torch.sum(rew, dim=1)
 
 
     
