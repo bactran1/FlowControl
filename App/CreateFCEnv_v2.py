@@ -72,10 +72,13 @@ FC_CFG = ArticulationCfg(
         usd_path="C:/Users/bactran/Documents/IsaacLab/IsaacLab/source/isaaclab_tasks/isaaclab_tasks/manager_based/classic/FCRobot/Custom40ftStraight_v2.usd",
         rigid_props=sim_utils.RigidBodyPropertiesCfg(
             rigid_body_enabled=True,
-            max_linear_velocity=1000.0,
+            max_linear_velocity=0.0,
             max_angular_velocity=1326.0,
-            max_depenetration_velocity=100.0,
+            #max_depenetration_velocity=1.0,
             enable_gyroscopic_forces=False,
+        ),
+        mass_props=sim_utils.MassPropertiesCfg(
+            mass=1  
         ),
         articulation_props=sim_utils.ArticulationRootPropertiesCfg(
             enabled_self_collisions=False,
@@ -86,7 +89,7 @@ FC_CFG = ArticulationCfg(
         ),
     ),
     init_state=ArticulationCfg.InitialStateCfg(
-        pos=(0.0, 0.0, 1.501),
+        pos=(0.0, 0.0, 1.6),
         joint_pos={"Roller_1_.*": 0.0, "Roller_17_.*": 0.0, "Roller_33_.*": 0.0, "Roller_49_.*": 0.0, 
                    "Roller_65_.*": 0.0, "Roller_81_.*": 0.0, "Roller_97_.*": 0.0, "Roller_113_.*": 0.0}
     ),
@@ -184,7 +187,7 @@ class FlowControlSceneCfg(InteractiveSceneCfg):
                 sim_utils.CuboidCfg(
                     size=(-12.192, 2.0, 1.5),
                     visual_material=sim_utils.PreviewSurfaceCfg(diffuse_color=(0.1, 0.1, 0.1), metallic=0.2),
-                    physics_material=sim_utils.RigidBodyMaterialCfg(restitution=GVL_restitution)
+                    physics_material=sim_utils.RigidBodyMaterialCfg(restitution=0.0)
                 )
             ],
             random_choice=True,
@@ -192,7 +195,7 @@ class FlowControlSceneCfg(InteractiveSceneCfg):
                 solver_position_iteration_count=4, solver_velocity_iteration_count=0
             ),
             mass_props=sim_utils.MassPropertiesCfg(mass=20000.0),
-            #collision_props=sim_utils.CollisionPropertiesCfg(),
+            collision_props=sim_utils.CollisionPropertiesCfg(),
         ),
         init_state=RigidObjectCfg.InitialStateCfg(pos=(-6.096, 0.0, 0.75))
     )

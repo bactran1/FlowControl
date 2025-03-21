@@ -72,7 +72,7 @@ FC_CFG = ArticulationCfg(
         usd_path="C:/Users/bactran/Documents/IsaacLab/IsaacLab/source/isaaclab_tasks/isaaclab_tasks/manager_based/classic/FCRobot/Custom40ftStraight_v3.usd",
         rigid_props=sim_utils.RigidBodyPropertiesCfg(
             rigid_body_enabled=True,
-            max_linear_velocity=1000.0,
+            max_linear_velocity=0.0,
             max_angular_velocity=1326.0,
             max_depenetration_velocity=100.0,
             enable_gyroscopic_forces=False,
@@ -86,70 +86,70 @@ FC_CFG = ArticulationCfg(
         ),
     ),
     init_state=ArticulationCfg.InitialStateCfg(
-        pos=(0.0, 0.0, 0.0),
+        pos=(0.0, 0.0, 0),
         joint_pos={"Roller_1_.*": 0.0, "Roller_17_.*": 0.0, "Roller_33_.*": 0.0, "Roller_49_.*": 0.0, 
                    "Roller_65_.*": 0.0, "Roller_81_.*": 0.0, "Roller_97_.*": 0.0, "Roller_113_.*": 0.0}
     ),
     actuators={
         "joint_1_actuator": ImplicitActuatorCfg(
-            joint_names_expr=["Roller_1_1_joint"],
-            effort_limit=70000.0,
+            joint_names_expr=["Roller_1_.*"],
+            effort_limit=7000000.0,
             velocity_limit=1326.0,
             velocity_limit_sim=1326.0,
             stiffness=0.0,
             damping=5.0
         ),
         "joint_17_actuator": ImplicitActuatorCfg(
-            joint_names_expr=["Roller_17_17_joint"],
-            effort_limit=70000.0,
+            joint_names_expr=["Roller_17_.*"],
+            effort_limit=7000000.0,
             velocity_limit=1326.0,
             velocity_limit_sim=1326.0,
             stiffness=0.0,
             damping=5.0
         ),
         "joint_33_actuator": ImplicitActuatorCfg(
-            joint_names_expr=["Roller_33_33_joint"],
-            effort_limit=70000.0,
+            joint_names_expr=["Roller_33_.*"],
+            effort_limit=7000000.0,
             velocity_limit=1326.0,
             velocity_limit_sim=1326.0,
             stiffness=0.0,
             damping=5.0
         ),
         "joint_49_actuator": ImplicitActuatorCfg(
-            joint_names_expr=["Roller_49_49_joint"],
-            effort_limit=70000.0,
+            joint_names_expr=["Roller_49_.*"],
+            effort_limit=7000000.0,
             velocity_limit=1326.0,
             velocity_limit_sim=1326.0,
             stiffness=0.0,
             damping=5.0
         ),
         "joint_65_actuator": ImplicitActuatorCfg(
-            joint_names_expr=["Roller_65_65_joint"],
-            effort_limit=70000.0,
+            joint_names_expr=["Roller_65_.*"],
+            effort_limit=7000000.0,
             velocity_limit=1326.0,
             velocity_limit_sim=1326.0,
             stiffness=0.0,
             damping=5.0
         ),
         "joint_81_actuator": ImplicitActuatorCfg(
-            joint_names_expr=["Roller_81_81_joint"],
-            effort_limit=70000.0,
+            joint_names_expr=["Roller_81_.*"],
+            effort_limit=7000000.0,
             velocity_limit=1326.0,
             velocity_limit_sim=1326.0,
             stiffness=0.0,
             damping=5.0
         ),
         "joint_97_actuator": ImplicitActuatorCfg(
-            joint_names_expr=["Roller_97_97_joint"],
-            effort_limit=70000.0,
+            joint_names_expr=["Roller_97_.*"],
+            effort_limit=7000000.0,
             velocity_limit=1326.0,
             velocity_limit_sim=1326.0,
             stiffness=0.0,
             damping=5.0
         ),
         "joint_113_actuator": ImplicitActuatorCfg(
-            joint_names_expr=["Roller_113_113_joint"],
-            effort_limit=70000.0,
+            joint_names_expr=["Roller_113_.*"],
+            effort_limit=7000000.0,
             velocity_limit=1326.0,
             velocity_limit_sim=1326.0,
             stiffness=0.0,
@@ -224,7 +224,7 @@ class FlowControlSceneCfg(InteractiveSceneCfg):
             mass_props=sim_utils.MassPropertiesCfg(mass=2.0),
             collision_props=sim_utils.CollisionPropertiesCfg(),
         ),
-        init_state=RigidObjectCfg.InitialStateCfg(pos=(-0.5, 0.0, 2.0),ang_vel=(uniform(10,15), uniform(10,15), uniform(10,15)))
+        init_state=RigidObjectCfg.InitialStateCfg(pos=(-0.5, 0.0, 3.0),ang_vel=(uniform(10,15), uniform(10,15), uniform(10,15)))
     )
     
     BoxS2: RigidObjectCfg = RigidObjectCfg(
@@ -254,7 +254,7 @@ class FlowControlSceneCfg(InteractiveSceneCfg):
             mass_props=sim_utils.MassPropertiesCfg(mass=2.0),
             collision_props=sim_utils.CollisionPropertiesCfg(),
         ),
-        init_state=RigidObjectCfg.InitialStateCfg(pos=(uniform(-5, -0.5), uniform(-0.5,0.5), 2.0),ang_vel=(uniform(10,15), uniform(10,15), uniform(10,15)))
+        init_state=RigidObjectCfg.InitialStateCfg(pos=(uniform(-5, -0.5), uniform(-0.5,0.5), 3.0),ang_vel=(uniform(10,15), uniform(10,15), uniform(10,15)))
     )
     
     BoxS3: RigidObjectCfg = RigidObjectCfg(
@@ -284,7 +284,7 @@ class FlowControlSceneCfg(InteractiveSceneCfg):
             mass_props=sim_utils.MassPropertiesCfg(mass=2.0),
             collision_props=sim_utils.CollisionPropertiesCfg(),
         ),
-        init_state=RigidObjectCfg.InitialStateCfg(pos=(uniform(-5, -0.5), uniform(-0.5,0.5), 2.0),ang_vel=(uniform(10,15), uniform(10,15), uniform(10,15)))
+        init_state=RigidObjectCfg.InitialStateCfg(pos=(uniform(-5, -0.5), uniform(-0.5,0.5), 3.0),ang_vel=(uniform(10,15), uniform(10,15), uniform(10,15)))
     )
     
     BoxS4: RigidObjectCfg = RigidObjectCfg(
@@ -314,7 +314,7 @@ class FlowControlSceneCfg(InteractiveSceneCfg):
             mass_props=sim_utils.MassPropertiesCfg(mass=2.0),
             collision_props=sim_utils.CollisionPropertiesCfg(),
         ),
-        init_state=RigidObjectCfg.InitialStateCfg(pos=(uniform(-5, -0.5), uniform(-0.5,0.5), 2.0),ang_vel=(uniform(10,15), uniform(10,15), uniform(10,15)))
+        init_state=RigidObjectCfg.InitialStateCfg(pos=(uniform(-5, -0.5), uniform(-0.5,0.5), 3.0),ang_vel=(uniform(10,15), uniform(10,15), uniform(10,15)))
     )
     
     BoxS5: RigidObjectCfg = RigidObjectCfg(
@@ -344,7 +344,7 @@ class FlowControlSceneCfg(InteractiveSceneCfg):
             mass_props=sim_utils.MassPropertiesCfg(mass=2.0),
             collision_props=sim_utils.CollisionPropertiesCfg(),
         ),
-        init_state=RigidObjectCfg.InitialStateCfg(pos=(uniform(-6, -5), uniform(-0.5,0.5), 2.0),ang_vel=(uniform(10,15), uniform(10,15), uniform(10,15)))
+        init_state=RigidObjectCfg.InitialStateCfg(pos=(uniform(-6, -5), uniform(-0.5,0.5), 3.0),ang_vel=(uniform(10,15), uniform(10,15), uniform(10,15)))
     )
     
     BoxS6: RigidObjectCfg = RigidObjectCfg(
@@ -374,7 +374,7 @@ class FlowControlSceneCfg(InteractiveSceneCfg):
             mass_props=sim_utils.MassPropertiesCfg(mass=2.0),
             collision_props=sim_utils.CollisionPropertiesCfg(),
         ),
-        init_state=RigidObjectCfg.InitialStateCfg(pos=(uniform(-6, -5), uniform(-0.5,0.5), 2.0),ang_vel=(uniform(10,15), uniform(10,15), uniform(10,15)))
+        init_state=RigidObjectCfg.InitialStateCfg(pos=(uniform(-6, -5), uniform(-0.5,0.5), 3.0),ang_vel=(uniform(10,15), uniform(10,15), uniform(10,15)))
     )
     
     BoxS7: RigidObjectCfg = RigidObjectCfg(
@@ -404,7 +404,7 @@ class FlowControlSceneCfg(InteractiveSceneCfg):
             mass_props=sim_utils.MassPropertiesCfg(mass=2.0),
             collision_props=sim_utils.CollisionPropertiesCfg(),
         ),
-        init_state=RigidObjectCfg.InitialStateCfg(pos=(uniform(-6, -5), uniform(-0.5,0.5), 2.0),ang_vel=(uniform(10,15), uniform(10,15), uniform(10,15)))
+        init_state=RigidObjectCfg.InitialStateCfg(pos=(uniform(-6, -5), uniform(-0.5,0.5), 3.0),ang_vel=(uniform(10,15), uniform(10,15), uniform(10,15)))
     )
     
         
@@ -414,7 +414,7 @@ class FlowControlSceneCfg(InteractiveSceneCfg):
     # Cameras
     tiled_camera1: CameraCfg = TiledCameraCfg(
         prim_path="{ENV_REGEX_NS}/Camera1",
-        offset=TiledCameraCfg.OffsetCfg(pos=(-0.76, 0.0, 3.4), rot=(0.0, 0.0, 0.0, 0.0), convention="opengl"),
+        offset=TiledCameraCfg.OffsetCfg(pos=(-0.76, 0.0, 10), rot=(0.0, 0.0, 0.0, 0.0), convention="opengl"),
         data_types=["distance_to_image_plane"],
         update_period=0.05,
         spawn=sim_utils.PinholeCameraCfg(
@@ -426,7 +426,7 @@ class FlowControlSceneCfg(InteractiveSceneCfg):
     
     tiled_camera2: TiledCameraCfg = TiledCameraCfg(
         prim_path="{ENV_REGEX_NS}/Camera2",
-        offset=TiledCameraCfg.OffsetCfg(pos=(-0.76-1.52*1, 0.0, 3.4), rot=(0.0, 0.0, 0.0, 0.0), convention="opengl"),
+        offset=TiledCameraCfg.OffsetCfg(pos=(-0.76-1.52*1, 0.0, 10), rot=(0.0, 0.0, 0.0, 0.0), convention="opengl"),
         data_types=["distance_to_image_plane"],
         update_period=0.05,
         spawn=sim_utils.PinholeCameraCfg(
@@ -437,7 +437,7 @@ class FlowControlSceneCfg(InteractiveSceneCfg):
     )
     tiled_camera3: TiledCameraCfg = TiledCameraCfg(
         prim_path="{ENV_REGEX_NS}/Camera3",
-        offset=TiledCameraCfg.OffsetCfg(pos=(-0.76-1.52*2, 0.0, 3.4), rot=(0.0, 0.0, 0.0, 0.0), convention="opengl"),
+        offset=TiledCameraCfg.OffsetCfg(pos=(-0.76-1.52*2, 0.0, 10), rot=(0.0, 0.0, 0.0, 0.0), convention="opengl"),
         data_types=["distance_to_image_plane"],
         update_period=0.05,
         spawn=sim_utils.PinholeCameraCfg(
@@ -448,7 +448,7 @@ class FlowControlSceneCfg(InteractiveSceneCfg):
     )
     tiled_camera4: TiledCameraCfg = TiledCameraCfg(
         prim_path="{ENV_REGEX_NS}/Camera4",
-        offset=TiledCameraCfg.OffsetCfg(pos=(-0.76-1.52*3, 0.0, 3.4), rot=(0.0, 0.0, 0.0, 0.0), convention="opengl"),
+        offset=TiledCameraCfg.OffsetCfg(pos=(-0.76-1.52*3, 0.0, 10), rot=(0.0, 0.0, 0.0, 0.0), convention="opengl"),
         data_types=["distance_to_image_plane"],
         update_period=0.05,
         spawn=sim_utils.PinholeCameraCfg(
@@ -459,7 +459,7 @@ class FlowControlSceneCfg(InteractiveSceneCfg):
     )
     tiled_camera5: TiledCameraCfg = TiledCameraCfg(
         prim_path="{ENV_REGEX_NS}/Camera5",
-        offset=TiledCameraCfg.OffsetCfg(pos=(-0.76-1.52*4, 0.0, 3.4), rot=(0.0, 0.0, 0.0, 0.0), convention="opengl"),
+        offset=TiledCameraCfg.OffsetCfg(pos=(-0.76-1.52*4, 0.0, 10), rot=(0.0, 0.0, 0.0, 0.0), convention="opengl"),
         data_types=["distance_to_image_plane"],
         update_period=0.05,
         spawn=sim_utils.PinholeCameraCfg(
@@ -470,7 +470,7 @@ class FlowControlSceneCfg(InteractiveSceneCfg):
     )
     tiled_camera6: TiledCameraCfg = TiledCameraCfg(
         prim_path="{ENV_REGEX_NS}/Camera6",
-        offset=TiledCameraCfg.OffsetCfg(pos=(-0.76-1.52*5, 0.0, 3.4), rot=(0.0, 0.0, 0.0, 0.0), convention="opengl"),
+        offset=TiledCameraCfg.OffsetCfg(pos=(-0.76-1.52*5, 0.0, 10), rot=(0.0, 0.0, 0.0, 0.0), convention="opengl"),
         data_types=["distance_to_image_plane"],
         update_period=0.05,
         spawn=sim_utils.PinholeCameraCfg(
@@ -481,7 +481,7 @@ class FlowControlSceneCfg(InteractiveSceneCfg):
     )
     tiled_camera7: TiledCameraCfg = TiledCameraCfg(
         prim_path="{ENV_REGEX_NS}/Camera7",
-        offset=TiledCameraCfg.OffsetCfg(pos=(-0.76-1.52*6, 0.0, 3.4), rot=(0.0, 0.0, 0.0, 0.0), convention="opengl"),
+        offset=TiledCameraCfg.OffsetCfg(pos=(-0.76-1.52*6, 0.0, 10), rot=(0.0, 0.0, 0.0, 0.0), convention="opengl"),
         data_types=["distance_to_image_plane"],
         update_period=0.05,
         spawn=sim_utils.PinholeCameraCfg(
@@ -492,7 +492,7 @@ class FlowControlSceneCfg(InteractiveSceneCfg):
     )
     tiled_camera8: TiledCameraCfg = TiledCameraCfg(
         prim_path="{ENV_REGEX_NS}/Camera8",
-        offset=TiledCameraCfg.OffsetCfg(pos=(-0.76-1.52*7, 0.0, 3.4), rot=(0.0, 0.0, 0.0, 0.0), convention="opengl"),
+        offset=TiledCameraCfg.OffsetCfg(pos=(-0.76-1.52*7, 0.0, 10), rot=(0.0, 0.0, 0.0, 0.0), convention="opengl"),
         data_types=["distance_to_image_plane"],
         update_period=0.05,
         spawn=sim_utils.PinholeCameraCfg(
@@ -520,17 +520,14 @@ class FlowControlSceneCfg(InteractiveSceneCfg):
 class ActionsCfg:
     """Action specifications for the environment."""
 
-    #joint_velocities1 = mdp.JointVelocityActionCfg(asset_name="robot", joint_names=["Roller_1_.*", "Roller_17_.*", "Roller_33_.*", "Roller_49_.*", 
-    #                                                                              "Roller_65_.*", "Roller_81_.*", "Roller_97_.*", "Roller_113_.*"], scale=1.0)
-    
-    joint_velocities1 = mdp.JointVelocityActionCfg(asset_name="robot", joint_names=["Roller_1_1_joint"], scale=1.0)
-    joint_velocities2 = mdp.JointVelocityActionCfg(asset_name="robot", joint_names=["Roller_33_33_joint"], scale=1.0)
-    joint_velocities3 = mdp.JointVelocityActionCfg(asset_name="robot", joint_names=["Roller_65_65_joint"], scale=1.0)
-    joint_velocities4 = mdp.JointVelocityActionCfg(asset_name="robot", joint_names=["Roller_97_97_joint"], scale=1.0)
-    joint_velocities5 = mdp.JointVelocityActionCfg(asset_name="robot", joint_names=["Roller_17_17_joint"], scale=1.0)
-    joint_velocities6 = mdp.JointVelocityActionCfg(asset_name="robot", joint_names=["Roller_49_49_joint"], scale=1.0)
-    joint_velocities7 = mdp.JointVelocityActionCfg(asset_name="robot", joint_names=["Roller_81_81_joint"], scale=1.0)
-    joint_velocities8 = mdp.JointVelocityActionCfg(asset_name="robot", joint_names=["Roller_113_113_joint"], scale=1.0)
+    joint_velocities1 = mdp.JointVelocityActionCfg(asset_name="robot", joint_names=["Roller_1_.*"], scale=1.0)
+    joint_velocities2 = mdp.JointVelocityActionCfg(asset_name="robot", joint_names=["Roller_33_.*"], scale=1.0)
+    joint_velocities3 = mdp.JointVelocityActionCfg(asset_name="robot", joint_names=["Roller_65_.*"], scale=1.0)
+    joint_velocities4 = mdp.JointVelocityActionCfg(asset_name="robot", joint_names=["Roller_97_.*"], scale=1.0)
+    joint_velocities5 = mdp.JointVelocityActionCfg(asset_name="robot", joint_names=["Roller_17_.*"], scale=1.0)
+    joint_velocities6 = mdp.JointVelocityActionCfg(asset_name="robot", joint_names=["Roller_49_.*"], scale=1.0)
+    joint_velocities7 = mdp.JointVelocityActionCfg(asset_name="robot", joint_names=["Roller_81_.*"], scale=1.0)
+    joint_velocities8 = mdp.JointVelocityActionCfg(asset_name="robot", joint_names=["Roller_113_.*"], scale=1.0)
     
 @configclass
 class ObservationsCfg:
@@ -833,10 +830,10 @@ def main():
             #env.scene.rigid_objects['BoxS1'].write_data_to_sim()
             # sample random actions
             #joint_vel = torch.randn_like(env.action_manager.action)
-            joint_vel =  torch.cat((torch.multiply(torch.ones(args_cli.num_envs, 1), 0.5), torch.multiply(torch.ones(args_cli.num_envs, 1), 1.5),
-                                   torch.multiply(torch.ones(args_cli.num_envs, 1), 1.0), torch.multiply(torch.ones(args_cli.num_envs, 1),1.0),
-                                   torch.multiply(torch.ones(args_cli.num_envs, 1), 1.0), torch.multiply(torch.ones(args_cli.num_envs, 1), 1.0),
-                                   torch.multiply(torch.ones(args_cli.num_envs, 1), 1.0), torch.multiply(torch.ones(args_cli.num_envs, 1), 1.7)),1) 
+            joint_vel =  torch.cat((torch.multiply(torch.ones(args_cli.num_envs, 16), 0.5), torch.multiply(torch.ones(args_cli.num_envs, 16), 1.5),
+                                   torch.multiply(torch.ones(args_cli.num_envs, 16), 1.0), torch.multiply(torch.ones(args_cli.num_envs, 16),1.0),
+                                   torch.multiply(torch.ones(args_cli.num_envs, 16), 1.0), torch.multiply(torch.ones(args_cli.num_envs, 16), 1.0),
+                                   torch.multiply(torch.ones(args_cli.num_envs, 16), 1.0), torch.multiply(torch.ones(args_cli.num_envs, 16), 1.7)),1) 
             # step the environment
             env.render()
             obs, rew, terminated, truncated, info = env.step(joint_vel)
