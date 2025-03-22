@@ -72,9 +72,9 @@ FC_CFG = ArticulationCfg(
         ),
     ),
     init_state=ArticulationCfg.InitialStateCfg(
-        pos=(0.0, 0.0, 1.51),
-        joint_pos={"Roller_1_.*": 0.0, "Roller_17_.*": 0.0, "Roller_33_.*": 0.0, "Roller_49_.*": 0.0, 
-                   "Roller_65_.*": 0.0, "Roller_81_.*": 0.0, "Roller_97_.*": 0.0, "Roller_113_.*": 0.0}
+        pos=(0.0, 0.0, 0.0),
+        joint_pos={"Roller_1_.*": 3.0, "Roller_17_.*": 3.0, "Roller_33_.*": 3.0, "Roller_49_.*": 3.0, 
+                   "Roller_65_.*": 3.0, "Roller_81_.*": 3.0, "Roller_97_.*": 3.0, "Roller_113_.*": 3.0}
     ),
     actuators={
         "joint_1_actuator": ImplicitActuatorCfg(
@@ -163,25 +163,25 @@ class FlowControlSceneCfg(InteractiveSceneCfg):
     # rigid objects
     
     # Base
-    BaseBox: RigidObjectCfg = RigidObjectCfg(
-        prim_path="/World/envs/env_.*/BaseBox",
-        spawn=sim_utils.MultiAssetSpawnerCfg(
-            assets_cfg=[
-                sim_utils.CuboidCfg(
-                    size=(-12.192, 2.0, 1.5),
-                    visual_material=sim_utils.PreviewSurfaceCfg(diffuse_color=(0.1, 0.1, 0.1), metallic=0.2),
-                    physics_material=sim_utils.RigidBodyMaterialCfg(restitution=GVL_restitution)
-                )
-            ],
-            random_choice=True,
-            rigid_props=sim_utils.RigidBodyPropertiesCfg(
-                solver_position_iteration_count=4, solver_velocity_iteration_count=0
-            ),
-            mass_props=sim_utils.MassPropertiesCfg(mass=20000.0),
-            collision_props=sim_utils.CollisionPropertiesCfg(),
-        ),
-        init_state=RigidObjectCfg.InitialStateCfg(pos=(-6.096, 0.0, 0.75))
-    )
+    # BaseBox: RigidObjectCfg = RigidObjectCfg(
+    #     prim_path="/World/envs/env_.*/BaseBox",
+    #     spawn=sim_utils.MultiAssetSpawnerCfg(
+    #         assets_cfg=[
+    #             sim_utils.CuboidCfg(
+    #                 size=(-12.192, 2.0, 1.5),
+    #                 visual_material=sim_utils.PreviewSurfaceCfg(diffuse_color=(0.1, 0.1, 0.1), metallic=0.2),
+    #                 physics_material=sim_utils.RigidBodyMaterialCfg(restitution=GVL_restitution)
+    #             )
+    #         ],
+    #         random_choice=True,
+    #         rigid_props=sim_utils.RigidBodyPropertiesCfg(
+    #             solver_position_iteration_count=4, solver_velocity_iteration_count=0
+    #         ),
+    #         mass_props=sim_utils.MassPropertiesCfg(mass=20000.0),
+    #         collision_props=sim_utils.CollisionPropertiesCfg(),
+    #     ),
+    #     init_state=RigidObjectCfg.InitialStateCfg(pos=(-6.096, 0.0, 0.75))
+    # )
     
     BoxS1: RigidObjectCfg = RigidObjectCfg(
         prim_path="/World/envs/env_.*/BoxS1",
@@ -210,7 +210,7 @@ class FlowControlSceneCfg(InteractiveSceneCfg):
             mass_props=sim_utils.MassPropertiesCfg(mass=2.0),
             collision_props=sim_utils.CollisionPropertiesCfg(),
         ),
-        init_state=RigidObjectCfg.InitialStateCfg(pos=(-0.5, 0.0, 2.0),ang_vel=(uniform(10,15), uniform(10,15), uniform(10,15)))
+        init_state=RigidObjectCfg.InitialStateCfg(pos=(uniform(-1.5, -0.5), uniform(-0.5,0.5), 0.5),ang_vel=(uniform(10,15), uniform(10,15), uniform(10,15)))
     )
     
     BoxS2: RigidObjectCfg = RigidObjectCfg(
@@ -240,7 +240,7 @@ class FlowControlSceneCfg(InteractiveSceneCfg):
             mass_props=sim_utils.MassPropertiesCfg(mass=2.0),
             collision_props=sim_utils.CollisionPropertiesCfg(),
         ),
-        init_state=RigidObjectCfg.InitialStateCfg(pos=(uniform(-5, -0.5), uniform(-0.5,0.5), 2.0),ang_vel=(uniform(10,15), uniform(10,15), uniform(10,15)))
+        init_state=RigidObjectCfg.InitialStateCfg(pos=(uniform(-1.5, -0.5), uniform(-0.5,0.5), 0.5),ang_vel=(uniform(10,15), uniform(10,15), uniform(10,15)))
     )
     
     BoxS3: RigidObjectCfg = RigidObjectCfg(
@@ -270,7 +270,7 @@ class FlowControlSceneCfg(InteractiveSceneCfg):
             mass_props=sim_utils.MassPropertiesCfg(mass=2.0),
             collision_props=sim_utils.CollisionPropertiesCfg(),
         ),
-        init_state=RigidObjectCfg.InitialStateCfg(pos=(uniform(-5, -0.5), uniform(-0.5,0.5), 2.0),ang_vel=(uniform(10,15), uniform(10,15), uniform(10,15)))
+        init_state=RigidObjectCfg.InitialStateCfg(pos=(uniform(-2.5, -1.5), uniform(-0.5,0.5), 0.5),ang_vel=(uniform(10,15), uniform(10,15), uniform(10,15)))
     )
     
     BoxS4: RigidObjectCfg = RigidObjectCfg(
@@ -300,7 +300,7 @@ class FlowControlSceneCfg(InteractiveSceneCfg):
             mass_props=sim_utils.MassPropertiesCfg(mass=2.0),
             collision_props=sim_utils.CollisionPropertiesCfg(),
         ),
-        init_state=RigidObjectCfg.InitialStateCfg(pos=(uniform(-5, -0.5), uniform(-0.5,0.5), 2.0),ang_vel=(uniform(10,15), uniform(10,15), uniform(10,15)))
+        init_state=RigidObjectCfg.InitialStateCfg(pos=(uniform(-2.5, -1.5), uniform(-0.5,0.5), 0.5),ang_vel=(uniform(10,15), uniform(10,15), uniform(10,15)))
     )
     
     BoxS5: RigidObjectCfg = RigidObjectCfg(
@@ -330,7 +330,7 @@ class FlowControlSceneCfg(InteractiveSceneCfg):
             mass_props=sim_utils.MassPropertiesCfg(mass=2.0),
             collision_props=sim_utils.CollisionPropertiesCfg(),
         ),
-        init_state=RigidObjectCfg.InitialStateCfg(pos=(uniform(-6, -5), uniform(-0.5,0.5), 2.0),ang_vel=(uniform(10,15), uniform(10,15), uniform(10,15)))
+        init_state=RigidObjectCfg.InitialStateCfg(pos=(uniform(-3.5, -2.5), uniform(-0.5,0.5), 0.5),ang_vel=(uniform(10,15), uniform(10,15), uniform(10,15)))
     )
     
     BoxS6: RigidObjectCfg = RigidObjectCfg(
@@ -360,7 +360,7 @@ class FlowControlSceneCfg(InteractiveSceneCfg):
             mass_props=sim_utils.MassPropertiesCfg(mass=2.0),
             collision_props=sim_utils.CollisionPropertiesCfg(),
         ),
-        init_state=RigidObjectCfg.InitialStateCfg(pos=(uniform(-6, -5), uniform(-0.5,0.5), 2.0),ang_vel=(uniform(10,15), uniform(10,15), uniform(10,15)))
+        init_state=RigidObjectCfg.InitialStateCfg(pos=(uniform(-3.5, -2.5), uniform(-0.5,0.5), 0.5),ang_vel=(uniform(10,15), uniform(10,15), uniform(10,15)))
     )
     
     BoxS7: RigidObjectCfg = RigidObjectCfg(
@@ -390,8 +390,341 @@ class FlowControlSceneCfg(InteractiveSceneCfg):
             mass_props=sim_utils.MassPropertiesCfg(mass=2.0),
             collision_props=sim_utils.CollisionPropertiesCfg(),
         ),
-        init_state=RigidObjectCfg.InitialStateCfg(pos=(uniform(-6, -5), uniform(-0.5,0.5), 2.0),ang_vel=(uniform(10,15), uniform(10,15), uniform(10,15)))
+        init_state=RigidObjectCfg.InitialStateCfg(pos=(uniform(-4.5, -3.5), uniform(-0.5,0.5), 0.5),ang_vel=(uniform(10,15), uniform(10,15), uniform(10,15)))
     )
+    
+    BoxS8: RigidObjectCfg = RigidObjectCfg(
+        prim_path="/World/envs/env_.*/BoxS8",
+        spawn=sim_utils.MultiAssetSpawnerCfg(
+            assets_cfg=[
+                sim_utils.CuboidCfg(
+                    size=(0.3, 0.3, 0.3),
+                    visual_material=sim_utils.PreviewSurfaceCfg(diffuse_color=(1.0, 0.0, 0.0), metallic=0.2),
+                    physics_material=sim_utils.RigidBodyMaterialCfg(restitution=GVL_restitution)
+                ),
+                sim_utils.CuboidCfg(
+                    size=(0.3, 0.5, 0.3),
+                    visual_material=sim_utils.PreviewSurfaceCfg(diffuse_color=(0.0, 1.0, 0.0), metallic=0.2),
+                    physics_material=sim_utils.RigidBodyMaterialCfg(restitution=GVL_restitution)
+                ),
+                sim_utils.CuboidCfg(
+                    size=(0.3, 0.3, 0.5),
+                    visual_material=sim_utils.PreviewSurfaceCfg(diffuse_color=(0.0, 0.0, 1.0), metallic=0.2),
+                    physics_material=sim_utils.RigidBodyMaterialCfg(restitution=GVL_restitution)
+                ),
+            ],
+            random_choice=True,
+            rigid_props=sim_utils.RigidBodyPropertiesCfg(
+                solver_position_iteration_count=4, solver_velocity_iteration_count=0
+            ),
+            mass_props=sim_utils.MassPropertiesCfg(mass=2.0),
+            collision_props=sim_utils.CollisionPropertiesCfg(),
+        ),
+        init_state=RigidObjectCfg.InitialStateCfg(pos=(uniform(-4.5, -3.5), uniform(-0.5,0.5), 0.5),ang_vel=(uniform(10,15), uniform(10,15), uniform(10,15)))
+    )
+    
+    BoxS9: RigidObjectCfg = RigidObjectCfg(
+        prim_path="/World/envs/env_.*/BoxS9",
+        spawn=sim_utils.MultiAssetSpawnerCfg(
+            assets_cfg=[
+                sim_utils.CuboidCfg(
+                    size=(0.3, 0.3, 0.3),
+                    visual_material=sim_utils.PreviewSurfaceCfg(diffuse_color=(1.0, 0.0, 0.0), metallic=0.2),
+                    physics_material=sim_utils.RigidBodyMaterialCfg(restitution=GVL_restitution)
+                ),
+                sim_utils.CuboidCfg(
+                    size=(0.3, 0.5, 0.3),
+                    visual_material=sim_utils.PreviewSurfaceCfg(diffuse_color=(0.0, 1.0, 0.0), metallic=0.2),
+                    physics_material=sim_utils.RigidBodyMaterialCfg(restitution=GVL_restitution)
+                ),
+                sim_utils.CuboidCfg(
+                    size=(0.3, 0.3, 0.5),
+                    visual_material=sim_utils.PreviewSurfaceCfg(diffuse_color=(0.0, 0.0, 1.0), metallic=0.2),
+                    physics_material=sim_utils.RigidBodyMaterialCfg(restitution=GVL_restitution)
+                ),
+            ],
+            random_choice=True,
+            rigid_props=sim_utils.RigidBodyPropertiesCfg(
+                solver_position_iteration_count=4, solver_velocity_iteration_count=0
+            ),
+            mass_props=sim_utils.MassPropertiesCfg(mass=2.0),
+            collision_props=sim_utils.CollisionPropertiesCfg(),
+        ),
+        init_state=RigidObjectCfg.InitialStateCfg(pos=(uniform(-5.5, -4.5), uniform(-0.5,0.5), 0.5),ang_vel=(uniform(10,15), uniform(10,15), uniform(10,15)))
+    )
+    
+    BoxS10: RigidObjectCfg = RigidObjectCfg(
+        prim_path="/World/envs/env_.*/BoxS10",
+        spawn=sim_utils.MultiAssetSpawnerCfg(
+            assets_cfg=[
+                sim_utils.CuboidCfg(
+                    size=(0.3, 0.3, 0.3),
+                    visual_material=sim_utils.PreviewSurfaceCfg(diffuse_color=(1.0, 0.0, 0.0), metallic=0.2),
+                    physics_material=sim_utils.RigidBodyMaterialCfg(restitution=GVL_restitution)
+                ),
+                sim_utils.CuboidCfg(
+                    size=(0.3, 0.5, 0.3),
+                    visual_material=sim_utils.PreviewSurfaceCfg(diffuse_color=(0.0, 1.0, 0.0), metallic=0.2),
+                    physics_material=sim_utils.RigidBodyMaterialCfg(restitution=GVL_restitution)
+                ),
+                sim_utils.CuboidCfg(
+                    size=(0.3, 0.3, 0.5),
+                    visual_material=sim_utils.PreviewSurfaceCfg(diffuse_color=(0.0, 0.0, 1.0), metallic=0.2),
+                    physics_material=sim_utils.RigidBodyMaterialCfg(restitution=GVL_restitution)
+                ),
+            ],
+            random_choice=True,
+            rigid_props=sim_utils.RigidBodyPropertiesCfg(
+                solver_position_iteration_count=4, solver_velocity_iteration_count=0
+            ),
+            mass_props=sim_utils.MassPropertiesCfg(mass=2.0),
+            collision_props=sim_utils.CollisionPropertiesCfg(),
+        ),
+        init_state=RigidObjectCfg.InitialStateCfg(pos=(uniform(-5.5, -4.5), uniform(-0.5,0.5), 0.5),ang_vel=(uniform(10,15), uniform(10,15), uniform(10,15)))
+    )
+    
+    BoxS11: RigidObjectCfg = RigidObjectCfg(
+        prim_path="/World/envs/env_.*/BoxS11",
+        spawn=sim_utils.MultiAssetSpawnerCfg(
+            assets_cfg=[
+                sim_utils.CuboidCfg(
+                    size=(0.3, 0.3, 0.3),
+                    visual_material=sim_utils.PreviewSurfaceCfg(diffuse_color=(1.0, 0.0, 0.0), metallic=0.2),
+                    physics_material=sim_utils.RigidBodyMaterialCfg(restitution=GVL_restitution)
+                ),
+                sim_utils.CuboidCfg(
+                    size=(0.3, 0.5, 0.3),
+                    visual_material=sim_utils.PreviewSurfaceCfg(diffuse_color=(0.0, 1.0, 0.0), metallic=0.2),
+                    physics_material=sim_utils.RigidBodyMaterialCfg(restitution=GVL_restitution)
+                ),
+                sim_utils.CuboidCfg(
+                    size=(0.3, 0.3, 0.5),
+                    visual_material=sim_utils.PreviewSurfaceCfg(diffuse_color=(0.0, 0.0, 1.0), metallic=0.2),
+                    physics_material=sim_utils.RigidBodyMaterialCfg(restitution=GVL_restitution)
+                ),
+            ],
+            random_choice=True,
+            rigid_props=sim_utils.RigidBodyPropertiesCfg(
+                solver_position_iteration_count=4, solver_velocity_iteration_count=0
+            ),
+            mass_props=sim_utils.MassPropertiesCfg(mass=2.0),
+            collision_props=sim_utils.CollisionPropertiesCfg(),
+        ),
+        init_state=RigidObjectCfg.InitialStateCfg(pos=(uniform(-6.5, -5.5), uniform(-0.5,0.5), 0.5),ang_vel=(uniform(10,15), uniform(10,15), uniform(10,15)))
+    )
+    
+    BoxS12: RigidObjectCfg = RigidObjectCfg(
+        prim_path="/World/envs/env_.*/BoxS12",
+        spawn=sim_utils.MultiAssetSpawnerCfg(
+            assets_cfg=[
+                sim_utils.CuboidCfg(
+                    size=(0.3, 0.3, 0.3),
+                    visual_material=sim_utils.PreviewSurfaceCfg(diffuse_color=(1.0, 0.0, 0.0), metallic=0.2),
+                    physics_material=sim_utils.RigidBodyMaterialCfg(restitution=GVL_restitution)
+                ),
+                sim_utils.CuboidCfg(
+                    size=(0.3, 0.5, 0.3),
+                    visual_material=sim_utils.PreviewSurfaceCfg(diffuse_color=(0.0, 1.0, 0.0), metallic=0.2),
+                    physics_material=sim_utils.RigidBodyMaterialCfg(restitution=GVL_restitution)
+                ),
+                sim_utils.CuboidCfg(
+                    size=(0.3, 0.3, 0.5),
+                    visual_material=sim_utils.PreviewSurfaceCfg(diffuse_color=(0.0, 0.0, 1.0), metallic=0.2),
+                    physics_material=sim_utils.RigidBodyMaterialCfg(restitution=GVL_restitution)
+                ),
+            ],
+            random_choice=True,
+            rigid_props=sim_utils.RigidBodyPropertiesCfg(
+                solver_position_iteration_count=4, solver_velocity_iteration_count=0
+            ),
+            mass_props=sim_utils.MassPropertiesCfg(mass=2.0),
+            collision_props=sim_utils.CollisionPropertiesCfg(),
+        ),
+        init_state=RigidObjectCfg.InitialStateCfg(pos=(uniform(-6.5, -5.5), uniform(-0.5,0.5), 0.5),ang_vel=(uniform(10,15), uniform(10,15), uniform(10,15)))
+    )
+    
+    BoxS13: RigidObjectCfg = RigidObjectCfg(
+        prim_path="/World/envs/env_.*/BoxS13",
+        spawn=sim_utils.MultiAssetSpawnerCfg(
+            assets_cfg=[
+                sim_utils.CuboidCfg(
+                    size=(0.3, 0.3, 0.3),
+                    visual_material=sim_utils.PreviewSurfaceCfg(diffuse_color=(1.0, 0.0, 0.0), metallic=0.2),
+                    physics_material=sim_utils.RigidBodyMaterialCfg(restitution=GVL_restitution)
+                ),
+                sim_utils.CuboidCfg(
+                    size=(0.3, 0.5, 0.3),
+                    visual_material=sim_utils.PreviewSurfaceCfg(diffuse_color=(0.0, 1.0, 0.0), metallic=0.2),
+                    physics_material=sim_utils.RigidBodyMaterialCfg(restitution=GVL_restitution)
+                ),
+                sim_utils.CuboidCfg(
+                    size=(0.3, 0.3, 0.5),
+                    visual_material=sim_utils.PreviewSurfaceCfg(diffuse_color=(0.0, 0.0, 1.0), metallic=0.2),
+                    physics_material=sim_utils.RigidBodyMaterialCfg(restitution=GVL_restitution)
+                ),
+            ],
+            random_choice=True,
+            rigid_props=sim_utils.RigidBodyPropertiesCfg(
+                solver_position_iteration_count=4, solver_velocity_iteration_count=0
+            ),
+            mass_props=sim_utils.MassPropertiesCfg(mass=2.0),
+            collision_props=sim_utils.CollisionPropertiesCfg(),
+        ),
+        init_state=RigidObjectCfg.InitialStateCfg(pos=(uniform(-7.5, -6.5), uniform(-0.5,0.5), 0.5),ang_vel=(uniform(10,15), uniform(10,15), uniform(10,15)))
+    )
+    
+    BoxS14: RigidObjectCfg = RigidObjectCfg(
+        prim_path="/World/envs/env_.*/BoxS14",
+        spawn=sim_utils.MultiAssetSpawnerCfg(
+            assets_cfg=[
+                sim_utils.CuboidCfg(
+                    size=(0.3, 0.3, 0.3),
+                    visual_material=sim_utils.PreviewSurfaceCfg(diffuse_color=(1.0, 0.0, 0.0), metallic=0.2),
+                    physics_material=sim_utils.RigidBodyMaterialCfg(restitution=GVL_restitution)
+                ),
+                sim_utils.CuboidCfg(
+                    size=(0.3, 0.5, 0.3),
+                    visual_material=sim_utils.PreviewSurfaceCfg(diffuse_color=(0.0, 1.0, 0.0), metallic=0.2),
+                    physics_material=sim_utils.RigidBodyMaterialCfg(restitution=GVL_restitution)
+                ),
+                sim_utils.CuboidCfg(
+                    size=(0.3, 0.3, 0.5),
+                    visual_material=sim_utils.PreviewSurfaceCfg(diffuse_color=(0.0, 0.0, 1.0), metallic=0.2),
+                    physics_material=sim_utils.RigidBodyMaterialCfg(restitution=GVL_restitution)
+                ),
+            ],
+            random_choice=True,
+            rigid_props=sim_utils.RigidBodyPropertiesCfg(
+                solver_position_iteration_count=4, solver_velocity_iteration_count=0
+            ),
+            mass_props=sim_utils.MassPropertiesCfg(mass=2.0),
+            collision_props=sim_utils.CollisionPropertiesCfg(),
+        ),
+        init_state=RigidObjectCfg.InitialStateCfg(pos=(uniform(-7.5, -6.5), uniform(-0.5,0.5), 0.5),ang_vel=(uniform(10,15), uniform(10,15), uniform(10,15)))
+    )
+    
+    BoxS15: RigidObjectCfg = RigidObjectCfg(
+        prim_path="/World/envs/env_.*/BoxS15",
+        spawn=sim_utils.MultiAssetSpawnerCfg(
+            assets_cfg=[
+                sim_utils.CuboidCfg(
+                    size=(0.3, 0.3, 0.3),
+                    visual_material=sim_utils.PreviewSurfaceCfg(diffuse_color=(1.0, 0.0, 0.0), metallic=0.2),
+                    physics_material=sim_utils.RigidBodyMaterialCfg(restitution=GVL_restitution)
+                ),
+                sim_utils.CuboidCfg(
+                    size=(0.3, 0.5, 0.3),
+                    visual_material=sim_utils.PreviewSurfaceCfg(diffuse_color=(0.0, 1.0, 0.0), metallic=0.2),
+                    physics_material=sim_utils.RigidBodyMaterialCfg(restitution=GVL_restitution)
+                ),
+                sim_utils.CuboidCfg(
+                    size=(0.3, 0.3, 0.5),
+                    visual_material=sim_utils.PreviewSurfaceCfg(diffuse_color=(0.0, 0.0, 1.0), metallic=0.2),
+                    physics_material=sim_utils.RigidBodyMaterialCfg(restitution=GVL_restitution)
+                ),
+            ],
+            random_choice=True,
+            rigid_props=sim_utils.RigidBodyPropertiesCfg(
+                solver_position_iteration_count=4, solver_velocity_iteration_count=0
+            ),
+            mass_props=sim_utils.MassPropertiesCfg(mass=2.0),
+            collision_props=sim_utils.CollisionPropertiesCfg(),
+        ),
+        init_state=RigidObjectCfg.InitialStateCfg(pos=(uniform(-8.5, -7.5), uniform(-0.5,0.5), 0.5),ang_vel=(uniform(10,15), uniform(10,15), uniform(10,15)))
+    )
+    
+    BoxS16: RigidObjectCfg = RigidObjectCfg(
+        prim_path="/World/envs/env_.*/BoxS16",
+        spawn=sim_utils.MultiAssetSpawnerCfg(
+            assets_cfg=[
+                sim_utils.CuboidCfg(
+                    size=(0.3, 0.3, 0.3),
+                    visual_material=sim_utils.PreviewSurfaceCfg(diffuse_color=(1.0, 0.0, 0.0), metallic=0.2),
+                    physics_material=sim_utils.RigidBodyMaterialCfg(restitution=GVL_restitution)
+                ),
+                sim_utils.CuboidCfg(
+                    size=(0.3, 0.5, 0.3),
+                    visual_material=sim_utils.PreviewSurfaceCfg(diffuse_color=(0.0, 1.0, 0.0), metallic=0.2),
+                    physics_material=sim_utils.RigidBodyMaterialCfg(restitution=GVL_restitution)
+                ),
+                sim_utils.CuboidCfg(
+                    size=(0.3, 0.3, 0.5),
+                    visual_material=sim_utils.PreviewSurfaceCfg(diffuse_color=(0.0, 0.0, 1.0), metallic=0.2),
+                    physics_material=sim_utils.RigidBodyMaterialCfg(restitution=GVL_restitution)
+                ),
+            ],
+            random_choice=True,
+            rigid_props=sim_utils.RigidBodyPropertiesCfg(
+                solver_position_iteration_count=4, solver_velocity_iteration_count=0
+            ),
+            mass_props=sim_utils.MassPropertiesCfg(mass=2.0),
+            collision_props=sim_utils.CollisionPropertiesCfg(),
+        ),
+        init_state=RigidObjectCfg.InitialStateCfg(pos=(uniform(-9.5, -8.5), uniform(-0.5,0.5), 0.5),ang_vel=(uniform(10,15), uniform(10,15), uniform(10,15)))
+    )
+    
+    BoxS17: RigidObjectCfg = RigidObjectCfg(
+        prim_path="/World/envs/env_.*/BoxS17",
+        spawn=sim_utils.MultiAssetSpawnerCfg(
+            assets_cfg=[
+                sim_utils.CuboidCfg(
+                    size=(0.3, 0.3, 0.3),
+                    visual_material=sim_utils.PreviewSurfaceCfg(diffuse_color=(1.0, 0.0, 0.0), metallic=0.2),
+                    physics_material=sim_utils.RigidBodyMaterialCfg(restitution=GVL_restitution)
+                ),
+                sim_utils.CuboidCfg(
+                    size=(0.3, 0.5, 0.3),
+                    visual_material=sim_utils.PreviewSurfaceCfg(diffuse_color=(0.0, 1.0, 0.0), metallic=0.2),
+                    physics_material=sim_utils.RigidBodyMaterialCfg(restitution=GVL_restitution)
+                ),
+                sim_utils.CuboidCfg(
+                    size=(0.3, 0.3, 0.5),
+                    visual_material=sim_utils.PreviewSurfaceCfg(diffuse_color=(0.0, 0.0, 1.0), metallic=0.2),
+                    physics_material=sim_utils.RigidBodyMaterialCfg(restitution=GVL_restitution)
+                ),
+            ],
+            random_choice=True,
+            rigid_props=sim_utils.RigidBodyPropertiesCfg(
+                solver_position_iteration_count=4, solver_velocity_iteration_count=0
+            ),
+            mass_props=sim_utils.MassPropertiesCfg(mass=2.0),
+            collision_props=sim_utils.CollisionPropertiesCfg(),
+        ),
+        init_state=RigidObjectCfg.InitialStateCfg(pos=(uniform(-9.5, -8.5), uniform(-0.5,0.5), 0.5),ang_vel=(uniform(10,15), uniform(10,15), uniform(10,15)))
+    )
+    
+    BoxS18: RigidObjectCfg = RigidObjectCfg(
+        prim_path="/World/envs/env_.*/BoxS18",
+        spawn=sim_utils.MultiAssetSpawnerCfg(
+            assets_cfg=[
+                sim_utils.CuboidCfg(
+                    size=(0.3, 0.3, 0.3),
+                    visual_material=sim_utils.PreviewSurfaceCfg(diffuse_color=(1.0, 0.0, 0.0), metallic=0.2),
+                    physics_material=sim_utils.RigidBodyMaterialCfg(restitution=GVL_restitution)
+                ),
+                sim_utils.CuboidCfg(
+                    size=(0.3, 0.5, 0.3),
+                    visual_material=sim_utils.PreviewSurfaceCfg(diffuse_color=(0.0, 1.0, 0.0), metallic=0.2),
+                    physics_material=sim_utils.RigidBodyMaterialCfg(restitution=GVL_restitution)
+                ),
+                sim_utils.CuboidCfg(
+                    size=(0.3, 0.3, 0.5),
+                    visual_material=sim_utils.PreviewSurfaceCfg(diffuse_color=(0.0, 0.0, 1.0), metallic=0.2),
+                    physics_material=sim_utils.RigidBodyMaterialCfg(restitution=GVL_restitution)
+                ),
+            ],
+            random_choice=True,
+            rigid_props=sim_utils.RigidBodyPropertiesCfg(
+                solver_position_iteration_count=4, solver_velocity_iteration_count=0
+            ),
+            mass_props=sim_utils.MassPropertiesCfg(mass=2.0),
+            collision_props=sim_utils.CollisionPropertiesCfg(),
+        ),
+        init_state=RigidObjectCfg.InitialStateCfg(pos=(uniform(-10.5, -9.5), uniform(-0.5,0.5), 0.5),ang_vel=(uniform(10,15), uniform(10,15), uniform(10,15)))
+    )
+    
+    
+    
     
         
     # Flow Control robot
@@ -400,7 +733,7 @@ class FlowControlSceneCfg(InteractiveSceneCfg):
     # Cameras
     tiled_camera1: CameraCfg = TiledCameraCfg(
         prim_path="{ENV_REGEX_NS}/Camera1",
-        offset=TiledCameraCfg.OffsetCfg(pos=(-0.76, 0.0, 3.4), rot=(0.0, 0.0, 0.0, 0.0), convention="opengl"),
+        offset=TiledCameraCfg.OffsetCfg(pos=(-0.76, 0.0, 1.9), rot=(0.0, 0.0, 0.0, 0.0), convention="opengl"),
         data_types=["distance_to_image_plane"],
         update_period=0.05,
         spawn=sim_utils.PinholeCameraCfg(
@@ -412,7 +745,7 @@ class FlowControlSceneCfg(InteractiveSceneCfg):
     
     tiled_camera2: TiledCameraCfg = TiledCameraCfg(
         prim_path="{ENV_REGEX_NS}/Camera2",
-        offset=TiledCameraCfg.OffsetCfg(pos=(-0.76-1.52*1, 0.0, 3.4), rot=(0.0, 0.0, 0.0, 0.0), convention="opengl"),
+        offset=TiledCameraCfg.OffsetCfg(pos=(-0.76-1.52*1, 0.0, 1.9), rot=(0.0, 0.0, 0.0, 0.0), convention="opengl"),
         data_types=["distance_to_image_plane"],
         update_period=0.05,
         spawn=sim_utils.PinholeCameraCfg(
@@ -423,7 +756,7 @@ class FlowControlSceneCfg(InteractiveSceneCfg):
     )
     tiled_camera3: TiledCameraCfg = TiledCameraCfg(
         prim_path="{ENV_REGEX_NS}/Camera3",
-        offset=TiledCameraCfg.OffsetCfg(pos=(-0.76-1.52*2, 0.0, 3.4), rot=(0.0, 0.0, 0.0, 0.0), convention="opengl"),
+        offset=TiledCameraCfg.OffsetCfg(pos=(-0.76-1.52*2, 0.0, 1.9), rot=(0.0, 0.0, 0.0, 0.0), convention="opengl"),
         data_types=["distance_to_image_plane"],
         update_period=0.05,
         spawn=sim_utils.PinholeCameraCfg(
@@ -434,7 +767,7 @@ class FlowControlSceneCfg(InteractiveSceneCfg):
     )
     tiled_camera4: TiledCameraCfg = TiledCameraCfg(
         prim_path="{ENV_REGEX_NS}/Camera4",
-        offset=TiledCameraCfg.OffsetCfg(pos=(-0.76-1.52*3, 0.0, 3.4), rot=(0.0, 0.0, 0.0, 0.0), convention="opengl"),
+        offset=TiledCameraCfg.OffsetCfg(pos=(-0.76-1.52*3, 0.0, 1.9), rot=(0.0, 0.0, 0.0, 0.0), convention="opengl"),
         data_types=["distance_to_image_plane"],
         update_period=0.05,
         spawn=sim_utils.PinholeCameraCfg(
@@ -445,7 +778,7 @@ class FlowControlSceneCfg(InteractiveSceneCfg):
     )
     tiled_camera5: TiledCameraCfg = TiledCameraCfg(
         prim_path="{ENV_REGEX_NS}/Camera5",
-        offset=TiledCameraCfg.OffsetCfg(pos=(-0.76-1.52*4, 0.0, 3.4), rot=(0.0, 0.0, 0.0, 0.0), convention="opengl"),
+        offset=TiledCameraCfg.OffsetCfg(pos=(-0.76-1.52*4, 0.0, 1.9), rot=(0.0, 0.0, 0.0, 0.0), convention="opengl"),
         data_types=["distance_to_image_plane"],
         update_period=0.05,
         spawn=sim_utils.PinholeCameraCfg(
@@ -456,7 +789,7 @@ class FlowControlSceneCfg(InteractiveSceneCfg):
     )
     tiled_camera6: TiledCameraCfg = TiledCameraCfg(
         prim_path="{ENV_REGEX_NS}/Camera6",
-        offset=TiledCameraCfg.OffsetCfg(pos=(-0.76-1.52*5, 0.0, 3.4), rot=(0.0, 0.0, 0.0, 0.0), convention="opengl"),
+        offset=TiledCameraCfg.OffsetCfg(pos=(-0.76-1.52*5, 0.0, 1.9), rot=(0.0, 0.0, 0.0, 0.0), convention="opengl"),
         data_types=["distance_to_image_plane"],
         update_period=0.05,
         spawn=sim_utils.PinholeCameraCfg(
@@ -467,7 +800,7 @@ class FlowControlSceneCfg(InteractiveSceneCfg):
     )
     tiled_camera7: TiledCameraCfg = TiledCameraCfg(
         prim_path="{ENV_REGEX_NS}/Camera7",
-        offset=TiledCameraCfg.OffsetCfg(pos=(-0.76-1.52*6, 0.0, 3.4), rot=(0.0, 0.0, 0.0, 0.0), convention="opengl"),
+        offset=TiledCameraCfg.OffsetCfg(pos=(-0.76-1.52*6, 0.0, 1.9), rot=(0.0, 0.0, 0.0, 0.0), convention="opengl"),
         data_types=["distance_to_image_plane"],
         update_period=0.05,
         spawn=sim_utils.PinholeCameraCfg(
@@ -478,7 +811,7 @@ class FlowControlSceneCfg(InteractiveSceneCfg):
     )
     tiled_camera8: TiledCameraCfg = TiledCameraCfg(
         prim_path="{ENV_REGEX_NS}/Camera8",
-        offset=TiledCameraCfg.OffsetCfg(pos=(-0.76-1.52*7, 0.0, 3.4), rot=(0.0, 0.0, 0.0, 0.0), convention="opengl"),
+        offset=TiledCameraCfg.OffsetCfg(pos=(-0.76-1.52*7, 0.0, 1.9), rot=(0.0, 0.0, 0.0, 0.0), convention="opengl"),
         data_types=["distance_to_image_plane"],
         update_period=0.05,
         spawn=sim_utils.PinholeCameraCfg(
@@ -509,14 +842,14 @@ class ActionsCfg:
     #joint_velocities1 = mdp.JointVelocityActionCfg(asset_name="robot", joint_names=["Roller_1_.*", "Roller_17_.*", "Roller_33_.*", "Roller_49_.*", 
     #                                                                              "Roller_65_.*", "Roller_81_.*", "Roller_97_.*", "Roller_113_.*"], scale=1.0)
     
-    joint_velocities1 = mdp.JointVelocityActionCfg(asset_name="robot", joint_names=["Roller_1_.*"], scale=1.0)
-    joint_velocities2 = mdp.JointVelocityActionCfg(asset_name="robot", joint_names=["Roller_33_.*"], scale=1.0)
-    joint_velocities3 = mdp.JointVelocityActionCfg(asset_name="robot", joint_names=["Roller_65_.*"], scale=1.0)
-    joint_velocities4 = mdp.JointVelocityActionCfg(asset_name="robot", joint_names=["Roller_97_.*"], scale=1.0)
-    joint_velocities5 = mdp.JointVelocityActionCfg(asset_name="robot", joint_names=["Roller_17_.*"], scale=1.0)
-    joint_velocities6 = mdp.JointVelocityActionCfg(asset_name="robot", joint_names=["Roller_49_.*"], scale=1.0)
-    joint_velocities7 = mdp.JointVelocityActionCfg(asset_name="robot", joint_names=["Roller_81_.*"], scale=1.0)
-    joint_velocities8 = mdp.JointVelocityActionCfg(asset_name="robot", joint_names=["Roller_113_.*"], scale=1.0)
+    joint_velocities1 = mdp.JointVelocityActionCfg(asset_name="robot", joint_names=["Roller_1_.*"], scale=1.0, clip={"Roller_1_.*":(0.0, 1326.0)})
+    joint_velocities2 = mdp.JointVelocityActionCfg(asset_name="robot", joint_names=["Roller_33_.*"], scale=1.0, clip={"Roller_33_.*":(0.0, 1326.0)})
+    joint_velocities3 = mdp.JointVelocityActionCfg(asset_name="robot", joint_names=["Roller_65_.*"], scale=1.0, clip={"Roller_65_.*":(0.0, 1326.0)})
+    joint_velocities4 = mdp.JointVelocityActionCfg(asset_name="robot", joint_names=["Roller_97_.*"], scale=1.0, clip={"Roller_97_.*":(0.0, 1326.0)})
+    joint_velocities5 = mdp.JointVelocityActionCfg(asset_name="robot", joint_names=["Roller_17_.*"], scale=1.0, clip={"Roller_17_.*":(0.0, 1326.0)})
+    joint_velocities6 = mdp.JointVelocityActionCfg(asset_name="robot", joint_names=["Roller_49_.*"], scale=1.0, clip={"Roller_49_.*":(0.0, 1326.0)})
+    joint_velocities7 = mdp.JointVelocityActionCfg(asset_name="robot", joint_names=["Roller_81_.*"], scale=1.0, clip={"Roller_81_.*":(0.0, 1326.0)})
+    joint_velocities8 = mdp.JointVelocityActionCfg(asset_name="robot", joint_names=["Roller_113_.*"], scale=1.0, clip={"Roller_113_.*":(0.0, 1326.0)})
     
 @configclass
 class ObservationsCfg:
@@ -659,7 +992,7 @@ class RewardsCfg:
     
     positiveJointVel = RewTerm(
         func=mdp.joint_vel_positive,
-        weight=1.0
+        weight=3.0
         )
     
     reduceJitter = RewTerm(
@@ -781,3 +1114,12 @@ class FlowControlEnvCfg(ManagerBasedRLEnvCfg):
         self.viewer.lookat = (0.0, 0.0, 0.0)
         # simulation settings
         self.sim.render_interval = self.decimation
+        
+        # self.actions.action_manager.action = torch.cat((torch.tile(self.actions.action_manager.action[:, 0].unsqueeze(1), (0, 16)),
+        #                                          torch.tile(self.actions.action_manager.action[:, 16].unsqueeze(1), (0, 16)),
+        #                                          torch.tile(self.actions.action_manager.action[:, 32].unsqueeze(1), (0, 16)),
+        #                                          torch.tile(self.actions.action_manager.action[:, 48].unsqueeze(1), (0, 16)),
+        #                                          torch.tile(self.actions.action_manager.action[:, 64].unsqueeze(1), (0, 16)),
+        #                                          torch.tile(self.actions.action_manager.action[:, 80].unsqueeze(1), (0, 16)),
+        #                                          torch.tile(self.actions.action_manager.action[:, 96].unsqueeze(1), (0, 16)),
+        #                                          torch.tile(self.actions.action_manager.action[:, 112].unsqueeze(1), (0, 16))) ,1)
