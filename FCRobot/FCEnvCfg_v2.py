@@ -16,9 +16,6 @@ import isaacsim.core.utils.prims as prim_utils
 from isaaclab.markers import VisualizationMarkers
 from isaaclab.markers.config import RAY_CASTER_MARKER_CFG
 from isaaclab.sensors import Camera, CameraCfg, TiledCameraCfg
-from isaaclab.sensors import patterns
-from isaaclab.sensors.camera.utils import create_pointcloud_from_depth
-from isaaclab.utils import convert_dict_to_backend
 
 import isaaclab_tasks.manager_based.classic.FCRobot.mdp as mdp
 
@@ -879,42 +876,42 @@ class ConveyorCoverageCamObsCfg:
     class ConveyorCoverageCamPolicyCfg(ObsGroup):
         convey1Cover = ObsTerm(
             func=mdp.percentageArea_occupied,
-            params = {"asset_cfg" : SceneEntityCfg('tiled_camera1')}
+            params = {"sensor_cfg" : SceneEntityCfg('tiled_camera1')}
         )
         
         convey2Cover = ObsTerm(
             func=mdp.percentageArea_occupied,
-            params = {"asset_cfg" : SceneEntityCfg('tiled_camera2')}
+            params = {"sensor_cfg" : SceneEntityCfg('tiled_camera2')}
         )
         
         convey3Cover = ObsTerm(
             func=mdp.percentageArea_occupied,
-            params = {"asset_cfg" : SceneEntityCfg('tiled_camera3')}
+            params = {"sensor_cfg" : SceneEntityCfg('tiled_camera3')}
         )
         
         convey4Cover = ObsTerm(
             func=mdp.percentageArea_occupied,
-            params = {"asset_cfg" : SceneEntityCfg('tiled_camera4')}
+            params = {"sensor_cfg" : SceneEntityCfg('tiled_camera4')}
         )
         
         convey5Cover = ObsTerm(
             func=mdp.percentageArea_occupied,
-            params = {"asset_cfg" : SceneEntityCfg('tiled_camera5')}
+            params = {"sensor_cfg" : SceneEntityCfg('tiled_camera5')}
         )
         
         convey6Cover = ObsTerm(
             func=mdp.percentageArea_occupied,
-            params = {"asset_cfg" : SceneEntityCfg('tiled_camera6')}
+            params = {"sensor_cfg" : SceneEntityCfg('tiled_camera6')}
         )
         
         convey7Cover = ObsTerm(
             func=mdp.percentageArea_occupied,
-            params = {"asset_cfg" : SceneEntityCfg('tiled_camera7')}
+            params = {"sensor_cfg" : SceneEntityCfg('tiled_camera7')}
         )
         
         convey8Cover = ObsTerm(
             func=mdp.percentageArea_occupied,
-            params = {"asset_cfg" : SceneEntityCfg('tiled_camera8')}
+            params = {"sensor_cfg" : SceneEntityCfg('tiled_camera8')}
         )
     
         def __post_init__(self) -> None:
@@ -923,44 +920,44 @@ class ConveyorCoverageCamObsCfg:
         
     policy: ObsGroup = ConveyorCoverageCamPolicyCfg()
 
-@configclass
-class DepthObservationsCfg:
-    """Observation specifications for the MDP."""
+# @configclass
+# class DepthObservationsCfg:
+#     """Observation specifications for the MDP."""
 
-    @configclass
-    class DepthCameraPolicyCfg(ObsGroup):
-        """Observations for policy group with depth images."""
+#     @configclass
+#     class DepthCameraPolicyCfg(ObsGroup):
+#         """Observations for policy group with depth images."""
 
-        image1 = ObsTerm(
-            func=mdp.image, params={"sensor_cfg": SceneEntityCfg("tiled_camera1"), "data_type": "distance_to_image_plane"}
-        )
-        image2 = ObsTerm(
-            func=mdp.image, params={"sensor_cfg": SceneEntityCfg("tiled_camera2"), "data_type": "distance_to_image_plane"}
-        )
-        image3 = ObsTerm(
-            func=mdp.image, params={"sensor_cfg": SceneEntityCfg("tiled_camera3"), "data_type": "distance_to_image_plane"}
-        )
-        image4 = ObsTerm(
-            func=mdp.image, params={"sensor_cfg": SceneEntityCfg("tiled_camera4"), "data_type": "distance_to_image_plane"}
-        )
-        image5 = ObsTerm(
-            func=mdp.image, params={"sensor_cfg": SceneEntityCfg("tiled_camera5"), "data_type": "distance_to_image_plane"}
-        )
-        image6 = ObsTerm(
-            func=mdp.image, params={"sensor_cfg": SceneEntityCfg("tiled_camera6"), "data_type": "distance_to_image_plane"}
-        )
-        image7 = ObsTerm(
-            func=mdp.image, params={"sensor_cfg": SceneEntityCfg("tiled_camera7"), "data_type": "distance_to_image_plane"}
-        )
-        image8 = ObsTerm(
-            func=mdp.image, params={"sensor_cfg": SceneEntityCfg("tiled_camera8"), "data_type": "distance_to_image_plane"}
-        )
+#         image1 = ObsTerm(
+#             func=mdp.image, params={"sensor_cfg": SceneEntityCfg("tiled_camera1"), "data_type": "distance_to_image_plane"}
+#         )
+#         image2 = ObsTerm(
+#             func=mdp.image, params={"sensor_cfg": SceneEntityCfg("tiled_camera2"), "data_type": "distance_to_image_plane"}
+#         )
+#         image3 = ObsTerm(
+#             func=mdp.image, params={"sensor_cfg": SceneEntityCfg("tiled_camera3"), "data_type": "distance_to_image_plane"}
+#         )
+#         image4 = ObsTerm(
+#             func=mdp.image, params={"sensor_cfg": SceneEntityCfg("tiled_camera4"), "data_type": "distance_to_image_plane"}
+#         )
+#         image5 = ObsTerm(
+#             func=mdp.image, params={"sensor_cfg": SceneEntityCfg("tiled_camera5"), "data_type": "distance_to_image_plane"}
+#         )
+#         image6 = ObsTerm(
+#             func=mdp.image, params={"sensor_cfg": SceneEntityCfg("tiled_camera6"), "data_type": "distance_to_image_plane"}
+#         )
+#         image7 = ObsTerm(
+#             func=mdp.image, params={"sensor_cfg": SceneEntityCfg("tiled_camera7"), "data_type": "distance_to_image_plane"}
+#         )
+#         image8 = ObsTerm(
+#             func=mdp.image, params={"sensor_cfg": SceneEntityCfg("tiled_camera8"), "data_type": "distance_to_image_plane"}
+#         )
         
-        def __post_init__(self) -> None:
-            self.enable_corruption = False
-            self.concatenate_terms = True
+#         def __post_init__(self) -> None:
+#             self.enable_corruption = False
+#             self.concatenate_terms = True
 
-    policy: ObsGroup = DepthCameraPolicyCfg()
+#     policy: ObsGroup = DepthCameraPolicyCfg()
 
 @configclass
 class EventCfg:
@@ -1006,52 +1003,60 @@ class RewardsCfg:
     )
     
     # (5) Primary task: Keep coverage area at 50%
-    Cam1CoverageAt50 = RewTerm(
-        func = mdp.targetedCoverage,
+    Cam1CoverageSame = RewTerm(
+        func = mdp.AreaCovJointVelRel,
         weight = 2.0,
-        params = {"asset_cfg" : SceneEntityCfg('tiled_camera1'), "heightThreshold" : 1.5}
+        params = {"sensor1_cfg" : SceneEntityCfg('tiled_camera1'),
+                  "sensor2_cfg" : SceneEntityCfg('tiled_camera2')}
     )
     # (6) Primary task: Keep coverage area at 50%
-    Cam2CoverageAt50 = RewTerm(
-        func = mdp.targetedCoverage,
+    Cam2CoverageSame = RewTerm(
+        func = mdp.AreaCovJointVelRel,
         weight = 2.0,
-        params = {"asset_cfg" : SceneEntityCfg('tiled_camera2'), "heightThreshold" : 1.5}
+        params = {"sensor1_cfg" : SceneEntityCfg('tiled_camera2'),
+                  "sensor2_cfg" : SceneEntityCfg('tiled_camera3')}
     )
     # (7) Primary task: Keep coverage area at 50%
-    Cam3CoverageAt50 = RewTerm(
-        func = mdp.targetedCoverage,
+    Cam3CoverageSame = RewTerm(
+        func = mdp.AreaCovJointVelRel,
         weight = 2.0,
-        params = {"asset_cfg" : SceneEntityCfg('tiled_camera3'), "heightThreshold" : 1.5}
+        params = {"sensor1_cfg" : SceneEntityCfg('tiled_camera3'),
+                  "sensor2_cfg" : SceneEntityCfg('tiled_camera4')}
     )
     # (8) Primary task: Keep coverage area at 50%
-    Cam4CoverageAt50 = RewTerm(
-        func = mdp.targetedCoverage,
+    Cam4CoverageSame = RewTerm(
+        func = mdp.AreaCovJointVelRel,
         weight = 2.0,
-        params = {"asset_cfg" : SceneEntityCfg('tiled_camera4'), "heightThreshold" : 1.5}
+        params = {"sensor1_cfg" : SceneEntityCfg('tiled_camera4'),
+                  "sensor2_cfg" : SceneEntityCfg('tiled_camera5')}
     )
     # (9) Primary task: Keep coverage area at 50%
-    Cam5CoverageAt50 = RewTerm(
-        func = mdp.targetedCoverage,
+    Cam5CoverageSame = RewTerm(
+        func = mdp.AreaCovJointVelRel,
         weight = 2.0,
-        params = {"asset_cfg" : SceneEntityCfg('tiled_camera5'), "heightThreshold" : 1.5}
+        params = {"sensor1_cfg" : SceneEntityCfg('tiled_camera5'),
+                  "sensor2_cfg" : SceneEntityCfg('tiled_camera6')}
     )
     # (10) Primary task: Keep coverage area at 50%
-    Cam6CoverageAt50 = RewTerm(
-        func = mdp.targetedCoverage,
+    Cam6CoverageSame = RewTerm(
+        func = mdp.AreaCovJointVelRel,
         weight = 2.0,
-        params = {"asset_cfg" : SceneEntityCfg('tiled_camera6'), "heightThreshold" : 1.5}
+        params = {"sensor1_cfg" : SceneEntityCfg('tiled_camera6'),
+                  "sensor2_cfg" : SceneEntityCfg('tiled_camera7')}
     )
     # (11) Primary task: Keep coverage area at 50%
-    Cam7CoverageAt50 = RewTerm(
-        func = mdp.targetedCoverage,
+    Cam7CoverageSame = RewTerm(
+        func = mdp.AreaCovJointVelRel,
         weight = 2.0,
-        params = {"asset_cfg" : SceneEntityCfg('tiled_camera7'), "heightThreshold" : 1.5}
+        params = {"sensor1_cfg" : SceneEntityCfg('tiled_camera7'),
+                  "sensor2_cfg" : SceneEntityCfg('tiled_camera8')}
     )
     # (12) Primary task: Keep coverage area at 50%
-    Cam8CoverageAt50 = RewTerm(
-        func = mdp.targetedCoverage,
+    Cam8CoverageSame = RewTerm(
+        func = mdp.AreaCovJointVelRel,
         weight = 2.0,
-        params = {"asset_cfg" : SceneEntityCfg('tiled_camera8'), "heightThreshold" : 1.5}
+        params = {"sensor1_cfg" : SceneEntityCfg('tiled_camera8'),
+                  "sensor2_cfg" : SceneEntityCfg('tiled_camera1')}
     )
     
 

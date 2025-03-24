@@ -10,6 +10,7 @@ from math import sqrt
 from typing import TYPE_CHECKING
 
 from isaaclab.assets import Articulation
+from isaaclab.sensors import TiledCamera
 from isaaclab.managers import SceneEntityCfg
 from isaaclab.utils.math import wrap_to_pi
 
@@ -21,18 +22,9 @@ from isaaclab.utils import convert_dict_to_backend
 
 if TYPE_CHECKING:
     from isaaclab.envs import ManagerBasedRLEnv
-
-
-# def joint_pos_target_l2(env: ManagerBasedRLEnv, target: float, asset_cfg: SceneEntityCfg) -> torch.Tensor:
-#     """Penalize joint position deviation from a target value."""
-#     # extract the used quantities (to enable type-hinting)
-#     asset: Articulation = env.scene[asset_cfg.name]
-#     # wrap the joint positions to (-pi, pi)
-#     joint_pos = wrap_to_pi(asset.data.joint_pos[:, asset_cfg.joint_ids])
-#     # compute the reward
-#     return torch.sum(torch.square(joint_pos - target), dim=1)
-
-
+    
+    
+    
 def targetedCoverage(env: ManagerBasedRLEnv, heightThreshold: float, asset_cfg: SceneEntityCfg) -> torch.Tensor:
     
 
@@ -42,21 +34,10 @@ def targetedCoverage(env: ManagerBasedRLEnv, heightThreshold: float, asset_cfg: 
     
     single_cam_data = convert_dict_to_backend(
                 {k: v[0] for k, v in asset.data.output.items()}, backend="numpy")
-
-    # img_gray = cv2.cvtColor(single_cam_data['rgb'], cv2.COLOR_BGR2GRAY)
-    # thr, img_th = cv2.threshold(img_gray, 160, 255, cv2.THRESH_BINARY)
-    # white_pix = cv2.countNonZero(img_th)
-    # coverage = ((100*100 - white_pix)/(100*100))*100
     
     depthImgData = single_cam_data["distance_to_image_plane"]
     depthImgData[depthImgData == inf]= 0
     
-    
-    # normalized_coverage = 1 - sqrt((coverage - target)**2)/100
-    # print(img_gray)
-    # print(depthImgData)
-    # print(white_pix)
-    # print(white_pix, type(white_pix), normalized_coverage, type(normalized_coverage), type(single_cam_data))
     # print(depthImgData[0], type(depthImgData))
     
     # print(np.max(depthImgData))
@@ -66,10 +47,76 @@ def targetedCoverage(env: ManagerBasedRLEnv, heightThreshold: float, asset_cfg: 
         heightThreshold = 1.5 # 1.5m from the camera down to the conveyor
     areaCovered = torch.tensor([np.mean(depthImgData < heightThreshold)],dtype=torch.float32,device=env.device)
     
-    target = 0.5
+    target = 0.3
     diff = abs(areaCovered - target)
     if diff == 0: return areaCovered * 30.0
-    elif diff != 0: return diff * -30.0
+    elif diff != 0: return diff**2 * -30.0
+    
+
+def AreaCovJointVelRel(env: ManagerBasedRLEnv, sensor1_cfg: SceneEntityCfg, sensor2_cfg: SceneEntityCfg, asset_cfg: SceneEntityCfg = SceneEntityCfg("robot")) -> torch.Tensor:
+    
+
+    asset: Articulation = env.scene[asset_cfg.name]
+    
+    # Two adjacent Areas should have the same area of coverage
+    sensor1: TiledCamera = env.scene.sensors[sensor1_cfg.name]
+    sensor2: TiledCamera = env.scene.sensors[sensor2_cfg.name]
+
+    
+    single_cam_data_1 = convert_dict_to_backend(
+                {k: v for k, v in sensor1.data.output.items()}, backend="numpy")
+    
+    single_cam_data_2 = convert_dict_to_backend(
+                {k: v for k, v in sensor2.data.output.items()}, backend="numpy")
+    
+    depthImgData1 = single_cam_data_1["distance_to_image_plane"]
+    depthImgData2 = single_cam_data_2["distance_to_image_plane"]
+    
+    depthImgData1[depthImgData1 == inf]= 0
+    depthImgData2[depthImgData2 == inf]= 0
+    
+    heightThreshold = 1.5 # 1.5m from the camera down to the conveyor
+    
+    areaCovered1 = torch.tensor([np.mean(depthImgData1 < heightThreshold)],dtype=torch.float32,device=env.device)
+    areaCovered2 = torch.tensor([np.mean(depthImgData2 < heightThreshold)],dtype=torch.float32,device=env.device)
+    
+    
+    diff = abs(areaCovered1 - areaCovered2)*100
+    
+    
+    #Inverse relationship between area coverage and jointVel speed
+    currentAction = env.action_manager.action
+    prevAction = env.action_manager.prev_action
+    actionDiff = currentAction - prevAction
+    chunks = torch.chunk(currentAction, chunks=8, dim=1)
+    Spdmeans = torch.stack([chunk.mean(dim=1) for chunk in chunks], dim=1) / 1326
+    # print(Spdmeans)
+    # print(chunks)
+    
+    if sensor1_cfg.name == "tiled_camera1":
+        relationshipReward = (Spdmeans[:,0] + areaCovered1 - 1)*100
+    elif sensor1_cfg.name == "tiled_camera2":
+        relationshipReward = (Spdmeans[:,1] + areaCovered1 - 1)*100
+    elif sensor1_cfg.name == "tiled_camera3":
+        relationshipReward = (Spdmeans[:,2] + areaCovered1 - 1)*100
+    elif sensor1_cfg.name == "tiled_camera4":
+        relationshipReward = (Spdmeans[:,3] + areaCovered1 - 1)*100
+    elif sensor1_cfg.name == "tiled_camera5":
+        relationshipReward = (Spdmeans[:,4] + areaCovered1 - 1)*100
+    elif sensor1_cfg.name == "tiled_camera6":
+        relationshipReward = (Spdmeans[:,5] + areaCovered1 - 1)*100
+    elif sensor1_cfg.name == "tiled_camera7":
+        relationshipReward = (Spdmeans[:,6] + areaCovered1 - 1)*100
+    elif sensor1_cfg.name == "tiled_camera8":
+        relationshipReward = (Spdmeans[:,7] + areaCovered1 - 1)*100
+    
+    relationshipReward = -relationshipReward**2
+    
+    #print(relationshipReward)
+    
+    if diff <= 1: return (areaCovered1*100)**2 * 30.0 + relationshipReward
+    elif diff > 1: return diff**2 * -30.0 + relationshipReward
+
 
 def joint_vel_positive(env: ManagerBasedRLEnv, asset_cfg: SceneEntityCfg = SceneEntityCfg("robot")) -> torch.Tensor:
     """The joint velocities of the asset w.r.t. the default joint velocities.

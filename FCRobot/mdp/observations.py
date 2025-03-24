@@ -9,6 +9,7 @@ import torch
 from typing import TYPE_CHECKING
 
 from isaaclab.assets import Articulation
+from isaaclab.sensors import TiledCamera
 from isaaclab.managers import SceneEntityCfg
 from isaaclab.utils.math import wrap_to_pi
 
@@ -32,9 +33,11 @@ if TYPE_CHECKING:
 #     return torch.sum(torch.square(joint_pos - target), dim=1)
 
 
-def percentageArea_occupied(env: ManagerBasedRLEnv, asset_cfg: SceneEntityCfg) -> torch.Tensor:
+def percentageArea_occupied(env: ManagerBasedRLEnv, sensor_cfg: SceneEntityCfg) -> torch.Tensor:
     
-    asset: Articulation = env.scene[asset_cfg.name]
+    #asset: Articulation = env.scene[asset_cfg.name]
+    
+    sensor: TiledCamera = env.scene.sensors[sensor_cfg.name]
 
     # env.render(recompute=True)
     
@@ -42,7 +45,7 @@ def percentageArea_occupied(env: ManagerBasedRLEnv, asset_cfg: SceneEntityCfg) -
     #             {k: v[0] for k, v in asset.data.output.items()}, backend="numpy")
     
     multi_cam_data = convert_dict_to_backend(
-                {k: v for k, v in asset.data.output.items()}, backend="numpy")
+                {k: v for k, v in sensor.data.output.items()}, backend="numpy")
     #print(multi_cam_data["distance_to_image_plane"], multi_cam_data["distance_to_image_plane"].size)
     
     depthImgData = multi_cam_data["distance_to_image_plane"]
