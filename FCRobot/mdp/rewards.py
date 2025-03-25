@@ -9,7 +9,7 @@ import torch
 from math import sqrt
 from typing import TYPE_CHECKING
 
-from isaaclab.assets import Articulation
+from isaaclab.assets import Articulation, RigidObject
 from isaaclab.sensors import TiledCamera
 from isaaclab.managers import SceneEntityCfg
 from isaaclab.utils.math import wrap_to_pi
@@ -20,9 +20,26 @@ from numpy import inf
 from math import sqrt
 from isaaclab.utils import convert_dict_to_backend
 
+from . import observations as obs
+
 if TYPE_CHECKING:
     from isaaclab.envs import ManagerBasedRLEnv
+
+
+def move_to_target_bonus(
+    env: ManagerBasedRLEnv,
+    threshold: float,
+    target_pos: tuple[float, float, float],
+    asset_cfg: SceneEntityCfg,
+) -> torch.Tensor:
+    """Reward for moving to the target heading."""
     
+    asset : RigidObject = env.scene[asset_cfg.name]
+    
+    heading_proj = obs.base_heading_proj(env, target_pos, asset).squeeze(-1)
+    return torch.where(heading_proj > threshold, 1.0, heading_proj / threshold)
+
+ 
     
     
 def targetedCoverage(env: ManagerBasedRLEnv, heightThreshold: float, asset_cfg: SceneEntityCfg) -> torch.Tensor:
@@ -94,21 +111,21 @@ def AreaCovJointVelRel(env: ManagerBasedRLEnv, sensor1_cfg: SceneEntityCfg, sens
     # print(chunks)
     
     if sensor1_cfg.name == "tiled_camera1":
-        relationshipReward = (Spdmeans[:,0] + areaCovered1 - 1)*100
+        relationshipReward = (Spdmeans[:,0] + areaCovered1 - 1)*10
     elif sensor1_cfg.name == "tiled_camera2":
-        relationshipReward = (Spdmeans[:,1] + areaCovered1 - 1)*100
+        relationshipReward = (Spdmeans[:,1] + areaCovered1 - 1)*10
     elif sensor1_cfg.name == "tiled_camera3":
-        relationshipReward = (Spdmeans[:,2] + areaCovered1 - 1)*100
+        relationshipReward = (Spdmeans[:,2] + areaCovered1 - 1)*10
     elif sensor1_cfg.name == "tiled_camera4":
-        relationshipReward = (Spdmeans[:,3] + areaCovered1 - 1)*100
+        relationshipReward = (Spdmeans[:,3] + areaCovered1 - 1)*10
     elif sensor1_cfg.name == "tiled_camera5":
-        relationshipReward = (Spdmeans[:,4] + areaCovered1 - 1)*100
+        relationshipReward = (Spdmeans[:,4] + areaCovered1 - 1)*10
     elif sensor1_cfg.name == "tiled_camera6":
-        relationshipReward = (Spdmeans[:,5] + areaCovered1 - 1)*100
+        relationshipReward = (Spdmeans[:,5] + areaCovered1 - 1)*10
     elif sensor1_cfg.name == "tiled_camera7":
-        relationshipReward = (Spdmeans[:,6] + areaCovered1 - 1)*100
+        relationshipReward = (Spdmeans[:,6] + areaCovered1 - 1)*10
     elif sensor1_cfg.name == "tiled_camera8":
-        relationshipReward = (Spdmeans[:,7] + areaCovered1 - 1)*100
+        relationshipReward = (Spdmeans[:,7] + areaCovered1 - 1)*10
     
     relationshipReward = -relationshipReward**2
     

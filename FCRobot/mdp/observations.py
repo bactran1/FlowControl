@@ -11,7 +11,7 @@ from typing import TYPE_CHECKING
 from isaaclab.assets import Articulation
 from isaaclab.sensors import TiledCamera
 from isaaclab.managers import SceneEntityCfg
-from isaaclab.utils.math import wrap_to_pi
+import isaaclab.utils.math as math_utils
 
 import cv2
 from math import sqrt
@@ -20,17 +20,26 @@ from numpy import inf
 from isaaclab.utils import convert_dict_to_backend
 
 if TYPE_CHECKING:
-    from isaaclab.envs import ManagerBasedRLEnv
+    from isaaclab.envs import ManagerBasedRLEnv, ManagerBasedEnv
 
 
-# def joint_pos_target_l2(env: ManagerBasedRLEnv, target: float, asset_cfg: SceneEntityCfg) -> torch.Tensor:
-#     """Penalize joint position deviation from a target value."""
-#     # extract the used quantities (to enable type-hinting)
-#     asset: Articulation = env.scene[asset_cfg.name]
-#     # wrap the joint positions to (-pi, pi)
-#     joint_pos = wrap_to_pi(asset.data.joint_pos[:, asset_cfg.joint_ids])
-#     # compute the reward
-#     return torch.sum(torch.square(joint_pos - target), dim=1)
+def base_heading_proj(
+    env: ManagerBasedEnv, target_pos: tuple[float, float, float], asset_cfg: SceneEntityCfg = SceneEntityCfg("robot")
+) -> torch.Tensor:
+    """Projection of the base forward vector onto the world forward vector."""
+    # extract the used quantities (to enable type-hinting)
+    asset: Articulation = env.scene[asset_cfg.name]
+    # compute desired heading direction
+    to_target_pos = torch.tensor(target_pos, device=env.device) - asset.data.root_pos_w[:, :3]
+    to_target_pos[:, 2] = 0.0
+    to_target_dir = math_utils.normalize(to_target_pos)
+    # compute base forward vector
+    heading_vec = math_utils.quat_rotate(asset.data.root_quat_w, asset.data.FORWARD_VEC_B)
+    # compute dot product between heading and target direction
+    heading_proj = torch.bmm(heading_vec.view(env.num_envs, 1, 3), to_target_dir.view(env.num_envs, 3, 1))
+
+    return heading_proj.view(env.num_envs, 1)
+
 
 
 def percentageArea_occupied(env: ManagerBasedRLEnv, sensor_cfg: SceneEntityCfg) -> torch.Tensor:

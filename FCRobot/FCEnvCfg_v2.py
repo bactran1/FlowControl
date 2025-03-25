@@ -987,6 +987,13 @@ class RewardsCfg:
     #     params={"asset_cfg": SceneEntityCfg("robot")},
     #     )
     
+    #box #1 move to target bonus
+    move_to_target = RewTerm(
+        func=mdp.move_to_target_bonus,
+        weight=0.5,
+        params={"asset_cfg": SceneEntityCfg('BoxS1'), "threshold": 0.8, "target_pos": (-20.0, 0.0, 0.0)}
+    )
+    
     positiveJointVel = RewTerm(
         func=mdp.joint_vel_positive,
         weight=3.0
@@ -1119,12 +1126,4 @@ class FlowControlEnvCfg(ManagerBasedRLEnvCfg):
         self.viewer.lookat = (0.0, 0.0, 0.0)
         # simulation settings
         self.sim.render_interval = self.decimation
-        
-        # self.actions.action_manager.action = torch.cat((torch.tile(self.actions.action_manager.action[:, 0].unsqueeze(1), (0, 16)),
-        #                                          torch.tile(self.actions.action_manager.action[:, 16].unsqueeze(1), (0, 16)),
-        #                                          torch.tile(self.actions.action_manager.action[:, 32].unsqueeze(1), (0, 16)),
-        #                                          torch.tile(self.actions.action_manager.action[:, 48].unsqueeze(1), (0, 16)),
-        #                                          torch.tile(self.actions.action_manager.action[:, 64].unsqueeze(1), (0, 16)),
-        #                                          torch.tile(self.actions.action_manager.action[:, 80].unsqueeze(1), (0, 16)),
-        #                                          torch.tile(self.actions.action_manager.action[:, 96].unsqueeze(1), (0, 16)),
-        #                                          torch.tile(self.actions.action_manager.action[:, 112].unsqueeze(1), (0, 16))) ,1)
+    

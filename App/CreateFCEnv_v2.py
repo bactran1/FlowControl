@@ -1004,6 +1004,13 @@ class RewardsCfg:
     #     params={"asset_cfg": SceneEntityCfg("robot")},
     #     )
     
+    #box #1 move to target bonus
+    move_to_target = RewTerm(
+        func=mdp.move_to_target_bonus,
+        weight=0.5,
+        params={"asset_cfg": SceneEntityCfg('BoxS1'), "threshold": 0.8, "target_pos": (-20.0, 0.0, 0.0)}
+    )
+    
     positiveJointVel = RewTerm(
         func=mdp.joint_vel_positive,
         weight=3.0
