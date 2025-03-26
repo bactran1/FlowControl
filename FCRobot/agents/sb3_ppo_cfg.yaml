@@ -10,9 +10,9 @@ batch_size: 256
 gae_lambda: 0.95
 gamma: 0.99
 n_epochs: 20
-ent_coef: 0.01
+ent_coef: 0.07
 learning_rate: !!float 2.5e-4
-clip_range: !!float 0.2
+clip_range: !!float 0.3
 # policy_kwargs: "dict(
 #                   feature_extractor_class=CustomCNN,
 #                   net_arch=dict([64, 64])
@@ -25,8 +25,9 @@ clip_range: !!float 0.2
 
 policy_kwargs: "dict(
                   activation_fn=nn.ReLU,
-                  net_arch=[512, 512],
+                  net_arch=[1024, 1024],
                   squash_output=False,
+                  log_std_init=1.0
                 )"
 vf_coef: 1.0
 max_grad_norm: 1.0
