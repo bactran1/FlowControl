@@ -159,27 +159,6 @@ class FlowControlSceneCfg(InteractiveSceneCfg):
     
     # rigid objects
     
-    # Base
-    # BaseBox: RigidObjectCfg = RigidObjectCfg(
-    #     prim_path="/World/envs/env_.*/BaseBox",
-    #     spawn=sim_utils.MultiAssetSpawnerCfg(
-    #         assets_cfg=[
-    #             sim_utils.CuboidCfg(
-    #                 size=(-12.192, 2.0, 1.5),
-    #                 visual_material=sim_utils.PreviewSurfaceCfg(diffuse_color=(0.1, 0.1, 0.1), metallic=0.2),
-    #                 physics_material=sim_utils.RigidBodyMaterialCfg(restitution=GVL_restitution)
-    #             )
-    #         ],
-    #         random_choice=True,
-    #         rigid_props=sim_utils.RigidBodyPropertiesCfg(
-    #             solver_position_iteration_count=4, solver_velocity_iteration_count=0
-    #         ),
-    #         mass_props=sim_utils.MassPropertiesCfg(mass=20000.0),
-    #         collision_props=sim_utils.CollisionPropertiesCfg(),
-    #     ),
-    #     init_state=RigidObjectCfg.InitialStateCfg(pos=(-6.096, 0.0, 0.75))
-    # )
-    
     BoxS1: RigidObjectCfg = RigidObjectCfg(
         prim_path="/World/envs/env_.*/BoxS1",
         spawn=sim_utils.MultiAssetSpawnerCfg(
@@ -207,7 +186,7 @@ class FlowControlSceneCfg(InteractiveSceneCfg):
             mass_props=sim_utils.MassPropertiesCfg(mass=2.0),
             collision_props=sim_utils.CollisionPropertiesCfg(),
         ),
-        init_state=RigidObjectCfg.InitialStateCfg(pos=(uniform(-1.5, -0.5), uniform(-0.5,0.5), 0.5),ang_vel=(uniform(10,15), uniform(10,15), uniform(10,15)))
+        init_state=RigidObjectCfg.InitialStateCfg(pos=(uniform(-1.5, -0.5), uniform(-0.5,0.5), 0.35),ang_vel=(uniform(10,15), uniform(10,15), uniform(10,15)))
     )
     
     BoxS2: RigidObjectCfg = RigidObjectCfg(
@@ -237,7 +216,7 @@ class FlowControlSceneCfg(InteractiveSceneCfg):
             mass_props=sim_utils.MassPropertiesCfg(mass=2.0),
             collision_props=sim_utils.CollisionPropertiesCfg(),
         ),
-        init_state=RigidObjectCfg.InitialStateCfg(pos=(uniform(-1.5, -0.5), uniform(-0.5,0.5), 0.5),ang_vel=(uniform(10,15), uniform(10,15), uniform(10,15)))
+        init_state=RigidObjectCfg.InitialStateCfg(pos=(uniform(-1.5, -0.5), uniform(-0.5,0.5), 0.35),ang_vel=(uniform(10,15), uniform(10,15), uniform(10,15)))
     )
     
     BoxS3: RigidObjectCfg = RigidObjectCfg(
@@ -267,7 +246,7 @@ class FlowControlSceneCfg(InteractiveSceneCfg):
             mass_props=sim_utils.MassPropertiesCfg(mass=2.0),
             collision_props=sim_utils.CollisionPropertiesCfg(),
         ),
-        init_state=RigidObjectCfg.InitialStateCfg(pos=(uniform(-2.5, -1.5), uniform(-0.5,0.5), 0.5),ang_vel=(uniform(10,15), uniform(10,15), uniform(10,15)))
+        init_state=RigidObjectCfg.InitialStateCfg(pos=(uniform(-2.5, -1.5), uniform(-0.5,0.5), 0.35),ang_vel=(uniform(10,15), uniform(10,15), uniform(10,15)))
     )
     
     BoxS4: RigidObjectCfg = RigidObjectCfg(
@@ -297,7 +276,7 @@ class FlowControlSceneCfg(InteractiveSceneCfg):
             mass_props=sim_utils.MassPropertiesCfg(mass=2.0),
             collision_props=sim_utils.CollisionPropertiesCfg(),
         ),
-        init_state=RigidObjectCfg.InitialStateCfg(pos=(uniform(-2.5, -1.5), uniform(-0.5,0.5), 0.5),ang_vel=(uniform(10,15), uniform(10,15), uniform(10,15)))
+        init_state=RigidObjectCfg.InitialStateCfg(pos=(uniform(-2.5, -1.5), uniform(-0.5,0.5), 0.35),ang_vel=(uniform(10,15), uniform(10,15), uniform(10,15)))
     )
     
     BoxS5: RigidObjectCfg = RigidObjectCfg(
@@ -327,7 +306,7 @@ class FlowControlSceneCfg(InteractiveSceneCfg):
             mass_props=sim_utils.MassPropertiesCfg(mass=2.0),
             collision_props=sim_utils.CollisionPropertiesCfg(),
         ),
-        init_state=RigidObjectCfg.InitialStateCfg(pos=(uniform(-3.5, -2.5), uniform(-0.5,0.5), 0.5),ang_vel=(uniform(10,15), uniform(10,15), uniform(10,15)))
+        init_state=RigidObjectCfg.InitialStateCfg(pos=(uniform(-3.5, -2.5), uniform(-0.5,0.5), 0.35),ang_vel=(uniform(10,15), uniform(10,15), uniform(10,15)))
     )
     
     BoxS6: RigidObjectCfg = RigidObjectCfg(
@@ -357,7 +336,7 @@ class FlowControlSceneCfg(InteractiveSceneCfg):
             mass_props=sim_utils.MassPropertiesCfg(mass=2.0),
             collision_props=sim_utils.CollisionPropertiesCfg(),
         ),
-        init_state=RigidObjectCfg.InitialStateCfg(pos=(uniform(-3.5, -2.5), uniform(-0.5,0.5), 0.5),ang_vel=(uniform(10,15), uniform(10,15), uniform(10,15)))
+        init_state=RigidObjectCfg.InitialStateCfg(pos=(uniform(-3.5, -2.5), uniform(-0.5,0.5), 0.35),ang_vel=(uniform(10,15), uniform(10,15), uniform(10,15)))
     )
     
     BoxS7: RigidObjectCfg = RigidObjectCfg(
@@ -387,7 +366,7 @@ class FlowControlSceneCfg(InteractiveSceneCfg):
             mass_props=sim_utils.MassPropertiesCfg(mass=2.0),
             collision_props=sim_utils.CollisionPropertiesCfg(),
         ),
-        init_state=RigidObjectCfg.InitialStateCfg(pos=(uniform(-4.5, -3.5), uniform(-0.5,0.5), 0.5),ang_vel=(uniform(10,15), uniform(10,15), uniform(10,15)))
+        init_state=RigidObjectCfg.InitialStateCfg(pos=(uniform(-4.5, -3.5), uniform(-0.5,0.5), 0.35),ang_vel=(uniform(10,15), uniform(10,15), uniform(10,15)))
     )
     
     BoxS8: RigidObjectCfg = RigidObjectCfg(
@@ -417,7 +396,7 @@ class FlowControlSceneCfg(InteractiveSceneCfg):
             mass_props=sim_utils.MassPropertiesCfg(mass=2.0),
             collision_props=sim_utils.CollisionPropertiesCfg(),
         ),
-        init_state=RigidObjectCfg.InitialStateCfg(pos=(uniform(-4.5, -3.5), uniform(-0.5,0.5), 0.5),ang_vel=(uniform(10,15), uniform(10,15), uniform(10,15)))
+        init_state=RigidObjectCfg.InitialStateCfg(pos=(uniform(-4.5, -3.5), uniform(-0.5,0.5), 0.35),ang_vel=(uniform(10,15), uniform(10,15), uniform(10,15)))
     )
     
     BoxS9: RigidObjectCfg = RigidObjectCfg(
@@ -447,7 +426,7 @@ class FlowControlSceneCfg(InteractiveSceneCfg):
             mass_props=sim_utils.MassPropertiesCfg(mass=2.0),
             collision_props=sim_utils.CollisionPropertiesCfg(),
         ),
-        init_state=RigidObjectCfg.InitialStateCfg(pos=(uniform(-5.5, -4.5), uniform(-0.5,0.5), 0.5),ang_vel=(uniform(10,15), uniform(10,15), uniform(10,15)))
+        init_state=RigidObjectCfg.InitialStateCfg(pos=(uniform(-5.5, -4.5), uniform(-0.5,0.5), 0.35),ang_vel=(uniform(10,15), uniform(10,15), uniform(10,15)))
     )
     
     BoxS10: RigidObjectCfg = RigidObjectCfg(
@@ -477,7 +456,7 @@ class FlowControlSceneCfg(InteractiveSceneCfg):
             mass_props=sim_utils.MassPropertiesCfg(mass=2.0),
             collision_props=sim_utils.CollisionPropertiesCfg(),
         ),
-        init_state=RigidObjectCfg.InitialStateCfg(pos=(uniform(-5.5, -4.5), uniform(-0.5,0.5), 0.5),ang_vel=(uniform(10,15), uniform(10,15), uniform(10,15)))
+        init_state=RigidObjectCfg.InitialStateCfg(pos=(uniform(-5.5, -4.5), uniform(-0.5,0.5), 0.35),ang_vel=(uniform(10,15), uniform(10,15), uniform(10,15)))
     )
     
     BoxS11: RigidObjectCfg = RigidObjectCfg(
@@ -507,7 +486,7 @@ class FlowControlSceneCfg(InteractiveSceneCfg):
             mass_props=sim_utils.MassPropertiesCfg(mass=2.0),
             collision_props=sim_utils.CollisionPropertiesCfg(),
         ),
-        init_state=RigidObjectCfg.InitialStateCfg(pos=(uniform(-6.5, -5.5), uniform(-0.5,0.5), 0.5),ang_vel=(uniform(10,15), uniform(10,15), uniform(10,15)))
+        init_state=RigidObjectCfg.InitialStateCfg(pos=(uniform(-6.5, -5.5), uniform(-0.5,0.5), 0.35),ang_vel=(uniform(10,15), uniform(10,15), uniform(10,15)))
     )
     
     BoxS12: RigidObjectCfg = RigidObjectCfg(
@@ -537,7 +516,7 @@ class FlowControlSceneCfg(InteractiveSceneCfg):
             mass_props=sim_utils.MassPropertiesCfg(mass=2.0),
             collision_props=sim_utils.CollisionPropertiesCfg(),
         ),
-        init_state=RigidObjectCfg.InitialStateCfg(pos=(uniform(-6.5, -5.5), uniform(-0.5,0.5), 0.5),ang_vel=(uniform(10,15), uniform(10,15), uniform(10,15)))
+        init_state=RigidObjectCfg.InitialStateCfg(pos=(uniform(-6.5, -5.5), uniform(-0.5,0.5), 0.35),ang_vel=(uniform(10,15), uniform(10,15), uniform(10,15)))
     )
     
     BoxS13: RigidObjectCfg = RigidObjectCfg(
@@ -567,7 +546,7 @@ class FlowControlSceneCfg(InteractiveSceneCfg):
             mass_props=sim_utils.MassPropertiesCfg(mass=2.0),
             collision_props=sim_utils.CollisionPropertiesCfg(),
         ),
-        init_state=RigidObjectCfg.InitialStateCfg(pos=(uniform(-7.5, -6.5), uniform(-0.5,0.5), 0.5),ang_vel=(uniform(10,15), uniform(10,15), uniform(10,15)))
+        init_state=RigidObjectCfg.InitialStateCfg(pos=(uniform(-7.5, -6.5), uniform(-0.5,0.5), 0.35),ang_vel=(uniform(10,15), uniform(10,15), uniform(10,15)))
     )
     
     BoxS14: RigidObjectCfg = RigidObjectCfg(
@@ -597,7 +576,7 @@ class FlowControlSceneCfg(InteractiveSceneCfg):
             mass_props=sim_utils.MassPropertiesCfg(mass=2.0),
             collision_props=sim_utils.CollisionPropertiesCfg(),
         ),
-        init_state=RigidObjectCfg.InitialStateCfg(pos=(uniform(-7.5, -6.5), uniform(-0.5,0.5), 0.5),ang_vel=(uniform(10,15), uniform(10,15), uniform(10,15)))
+        init_state=RigidObjectCfg.InitialStateCfg(pos=(uniform(-7.5, -6.5), uniform(-0.5,0.5), 0.35),ang_vel=(uniform(10,15), uniform(10,15), uniform(10,15)))
     )
     
     BoxS15: RigidObjectCfg = RigidObjectCfg(
@@ -627,7 +606,7 @@ class FlowControlSceneCfg(InteractiveSceneCfg):
             mass_props=sim_utils.MassPropertiesCfg(mass=2.0),
             collision_props=sim_utils.CollisionPropertiesCfg(),
         ),
-        init_state=RigidObjectCfg.InitialStateCfg(pos=(uniform(-8.5, -7.5), uniform(-0.5,0.5), 0.5),ang_vel=(uniform(10,15), uniform(10,15), uniform(10,15)))
+        init_state=RigidObjectCfg.InitialStateCfg(pos=(uniform(-8.5, -7.5), uniform(-0.5,0.5), 0.35),ang_vel=(uniform(10,15), uniform(10,15), uniform(10,15)))
     )
     
     BoxS16: RigidObjectCfg = RigidObjectCfg(
@@ -657,7 +636,7 @@ class FlowControlSceneCfg(InteractiveSceneCfg):
             mass_props=sim_utils.MassPropertiesCfg(mass=2.0),
             collision_props=sim_utils.CollisionPropertiesCfg(),
         ),
-        init_state=RigidObjectCfg.InitialStateCfg(pos=(uniform(-9.5, -8.5), uniform(-0.5,0.5), 0.5),ang_vel=(uniform(10,15), uniform(10,15), uniform(10,15)))
+        init_state=RigidObjectCfg.InitialStateCfg(pos=(uniform(-8.5, -7.5), uniform(-0.5,0.5), 0.35),ang_vel=(uniform(10,15), uniform(10,15), uniform(10,15)))
     )
     
     BoxS17: RigidObjectCfg = RigidObjectCfg(
@@ -687,7 +666,7 @@ class FlowControlSceneCfg(InteractiveSceneCfg):
             mass_props=sim_utils.MassPropertiesCfg(mass=2.0),
             collision_props=sim_utils.CollisionPropertiesCfg(),
         ),
-        init_state=RigidObjectCfg.InitialStateCfg(pos=(uniform(-9.5, -8.5), uniform(-0.5,0.5), 0.5),ang_vel=(uniform(10,15), uniform(10,15), uniform(10,15)))
+        init_state=RigidObjectCfg.InitialStateCfg(pos=(uniform(-9.5, -8.5), uniform(-0.5,0.5), 0.35),ang_vel=(uniform(10,15), uniform(10,15), uniform(10,15)))
     )
     
     BoxS18: RigidObjectCfg = RigidObjectCfg(
@@ -717,7 +696,67 @@ class FlowControlSceneCfg(InteractiveSceneCfg):
             mass_props=sim_utils.MassPropertiesCfg(mass=2.0),
             collision_props=sim_utils.CollisionPropertiesCfg(),
         ),
-        init_state=RigidObjectCfg.InitialStateCfg(pos=(uniform(-10.5, -9.5), uniform(-0.5,0.5), 0.5),ang_vel=(uniform(10,15), uniform(10,15), uniform(10,15)))
+        init_state=RigidObjectCfg.InitialStateCfg(pos=(uniform(-9.5, -8.5), uniform(-0.5,0.5), 0.35),ang_vel=(uniform(10,15), uniform(10,15), uniform(10,15)))
+    )
+    
+    BoxS19: RigidObjectCfg = RigidObjectCfg(
+        prim_path="/World/envs/env_.*/BoxS19",
+        spawn=sim_utils.MultiAssetSpawnerCfg(
+            assets_cfg=[
+                sim_utils.CuboidCfg(
+                    size=(0.3, 0.3, 0.3),
+                    visual_material=sim_utils.PreviewSurfaceCfg(diffuse_color=(1.0, 0.0, 0.0), metallic=0.2),
+                    physics_material=sim_utils.RigidBodyMaterialCfg(restitution=GVL_restitution)
+                ),
+                sim_utils.CuboidCfg(
+                    size=(0.3, 0.5, 0.3),
+                    visual_material=sim_utils.PreviewSurfaceCfg(diffuse_color=(0.0, 1.0, 0.0), metallic=0.2),
+                    physics_material=sim_utils.RigidBodyMaterialCfg(restitution=GVL_restitution)
+                ),
+                sim_utils.CuboidCfg(
+                    size=(0.3, 0.3, 0.5),
+                    visual_material=sim_utils.PreviewSurfaceCfg(diffuse_color=(0.0, 0.0, 1.0), metallic=0.2),
+                    physics_material=sim_utils.RigidBodyMaterialCfg(restitution=GVL_restitution)
+                ),
+            ],
+            random_choice=True,
+            rigid_props=sim_utils.RigidBodyPropertiesCfg(
+                solver_position_iteration_count=4, solver_velocity_iteration_count=0
+            ),
+            mass_props=sim_utils.MassPropertiesCfg(mass=2.0),
+            collision_props=sim_utils.CollisionPropertiesCfg(),
+        ),
+        init_state=RigidObjectCfg.InitialStateCfg(pos=(uniform(-10.5, -9.5), uniform(-0.5,0.5), 0.35),ang_vel=(uniform(10,15), uniform(10,15), uniform(10,15)))
+    )
+    
+    BoxS20: RigidObjectCfg = RigidObjectCfg(
+        prim_path="/World/envs/env_.*/BoxS20",
+        spawn=sim_utils.MultiAssetSpawnerCfg(
+            assets_cfg=[
+                sim_utils.CuboidCfg(
+                    size=(0.3, 0.3, 0.3),
+                    visual_material=sim_utils.PreviewSurfaceCfg(diffuse_color=(1.0, 0.0, 0.0), metallic=0.2),
+                    physics_material=sim_utils.RigidBodyMaterialCfg(restitution=GVL_restitution)
+                ),
+                sim_utils.CuboidCfg(
+                    size=(0.3, 0.5, 0.3),
+                    visual_material=sim_utils.PreviewSurfaceCfg(diffuse_color=(0.0, 1.0, 0.0), metallic=0.2),
+                    physics_material=sim_utils.RigidBodyMaterialCfg(restitution=GVL_restitution)
+                ),
+                sim_utils.CuboidCfg(
+                    size=(0.3, 0.3, 0.5),
+                    visual_material=sim_utils.PreviewSurfaceCfg(diffuse_color=(0.0, 0.0, 1.0), metallic=0.2),
+                    physics_material=sim_utils.RigidBodyMaterialCfg(restitution=GVL_restitution)
+                ),
+            ],
+            random_choice=True,
+            rigid_props=sim_utils.RigidBodyPropertiesCfg(
+                solver_position_iteration_count=4, solver_velocity_iteration_count=0
+            ),
+            mass_props=sim_utils.MassPropertiesCfg(mass=2.0),
+            collision_props=sim_utils.CollisionPropertiesCfg(),
+        ),
+        init_state=RigidObjectCfg.InitialStateCfg(pos=(uniform(-10.5, -9.5), uniform(-0.5,0.5), 0.35),ang_vel=(uniform(10,15), uniform(10,15), uniform(10,15)))
     )
     
     
@@ -972,27 +1011,45 @@ class RewardsCfg:
 
     # (1) Constant running reward
     alive = RewTerm(func=mdp.is_alive, weight=1.0)
+    
     # (2) Failure penalty
     terminating = RewTerm(func=mdp.is_terminated, weight=-200.0)
-    # # (3) Primary task: don't cross the torque limit
-    # limitTorque = RewTerm(
-    #     func=mdp.joint_torques_l1,
-    #     weight=-0.01,
-    #     params={"asset_cfg": SceneEntityCfg("robot")},
-    # )
-    # # (4) Primary task: don't cross the speed limit
-    # limitVel = RewTerm(
-    #     func=mdp.joint_vel_l1,
-    #     weight=-0.001,
-    #     params={"asset_cfg": SceneEntityCfg("robot")},
-    #     )
     
     #box #1 move to target bonus
-    move_to_target = RewTerm(
+    move_to_target_box1 = RewTerm(
         func=mdp.move_to_target_bonus,
-        weight=0.5,
-        params={"asset_cfg": SceneEntityCfg('BoxS1'), "threshold": 0.8, "target_pos": (-20.0, 0.0, 0.0)}
+        weight=5.0,
+        params={"asset_cfg": SceneEntityCfg('BoxS1'), "target_pos": (-22.0, 0.0, 0.0)}
     )
+    
+    #box #5 move to target bonus
+    move_to_target_box5 = RewTerm(
+        func=mdp.move_to_target_bonus,
+        weight=5.0,
+        params={"asset_cfg": SceneEntityCfg('BoxS5'), "target_pos": (-22.0, 0.0, 0.0)}
+    )
+    
+    #box #11 move to target bonus
+    move_to_target_box11 = RewTerm(
+        func=mdp.move_to_target_bonus,
+        weight=5.0,
+        params={"asset_cfg": SceneEntityCfg('BoxS11'), "target_pos": (-22.0, 0.0, 0.0)}
+    )
+    
+    #box #16 move to target bonus
+    move_to_target_box16 = RewTerm(
+        func=mdp.move_to_target_bonus,
+        weight=5.0,
+        params={"asset_cfg": SceneEntityCfg('BoxS16'), "target_pos": (-22.0, 0.0, 0.0)}
+    )
+    
+    #box #20 move to target bonus
+    move_to_target_box20 = RewTerm(
+        func=mdp.move_to_target_bonus,
+        weight=5.0,
+        params={"asset_cfg": SceneEntityCfg('BoxS20'), "target_pos": (-22.0, 0.0, 0.0)}
+    )
+    
     
     positiveJointVel = RewTerm(
         func=mdp.joint_vel_positive,
@@ -1011,59 +1068,51 @@ class RewardsCfg:
     
     # (5) Primary task: Keep coverage area at 50%
     Cam1CoverageSame = RewTerm(
-        func = mdp.AreaCovJointVelRel,
+        func = mdp.targetedCoverage,
         weight = 2.0,
-        params = {"sensor1_cfg" : SceneEntityCfg('tiled_camera1'),
-                  "sensor2_cfg" : SceneEntityCfg('tiled_camera2')}
+        params = {"asset_cfg" : SceneEntityCfg('tiled_camera1')}
     )
     # (6) Primary task: Keep coverage area at 50%
     Cam2CoverageSame = RewTerm(
-        func = mdp.AreaCovJointVelRel,
+        func = mdp.targetedCoverage,
         weight = 2.0,
-        params = {"sensor1_cfg" : SceneEntityCfg('tiled_camera2'),
-                  "sensor2_cfg" : SceneEntityCfg('tiled_camera3')}
+        params = {"asset_cfg" : SceneEntityCfg('tiled_camera2')}
     )
     # (7) Primary task: Keep coverage area at 50%
     Cam3CoverageSame = RewTerm(
-        func = mdp.AreaCovJointVelRel,
+        func = mdp.targetedCoverage,
         weight = 2.0,
-        params = {"sensor1_cfg" : SceneEntityCfg('tiled_camera3'),
-                  "sensor2_cfg" : SceneEntityCfg('tiled_camera4')}
+        params = {"asset_cfg" : SceneEntityCfg('tiled_camera3')}
     )
     # (8) Primary task: Keep coverage area at 50%
     Cam4CoverageSame = RewTerm(
-        func = mdp.AreaCovJointVelRel,
+        func = mdp.targetedCoverage,
         weight = 2.0,
-        params = {"sensor1_cfg" : SceneEntityCfg('tiled_camera4'),
-                  "sensor2_cfg" : SceneEntityCfg('tiled_camera5')}
+        params = {"asset_cfg" : SceneEntityCfg('tiled_camera4')}
     )
     # (9) Primary task: Keep coverage area at 50%
     Cam5CoverageSame = RewTerm(
-        func = mdp.AreaCovJointVelRel,
+        func = mdp.targetedCoverage,
         weight = 2.0,
-        params = {"sensor1_cfg" : SceneEntityCfg('tiled_camera5'),
-                  "sensor2_cfg" : SceneEntityCfg('tiled_camera6')}
+        params = {"asset_cfg" : SceneEntityCfg('tiled_camera5')}
     )
     # (10) Primary task: Keep coverage area at 50%
     Cam6CoverageSame = RewTerm(
-        func = mdp.AreaCovJointVelRel,
+        func = mdp.targetedCoverage,
         weight = 2.0,
-        params = {"sensor1_cfg" : SceneEntityCfg('tiled_camera6'),
-                  "sensor2_cfg" : SceneEntityCfg('tiled_camera7')}
+        params = {"asset_cfg" : SceneEntityCfg('tiled_camera6')}
     )
     # (11) Primary task: Keep coverage area at 50%
     Cam7CoverageSame = RewTerm(
-        func = mdp.AreaCovJointVelRel,
+        func = mdp.targetedCoverage,
         weight = 2.0,
-        params = {"sensor1_cfg" : SceneEntityCfg('tiled_camera7'),
-                  "sensor2_cfg" : SceneEntityCfg('tiled_camera8')}
+        params = {"asset_cfg" : SceneEntityCfg('tiled_camera7')}
     )
     # (12) Primary task: Keep coverage area at 50%
     Cam8CoverageSame = RewTerm(
-        func = mdp.AreaCovJointVelRel,
+        func = mdp.targetedCoverage,
         weight = 2.0,
-        params = {"sensor1_cfg" : SceneEntityCfg('tiled_camera8'),
-                  "sensor2_cfg" : SceneEntityCfg('tiled_camera1')}
+        params = {"asset_cfg" : SceneEntityCfg('tiled_camera8')}
     )
     
 
@@ -1126,4 +1175,12 @@ class FlowControlEnvCfg(ManagerBasedRLEnvCfg):
         self.viewer.lookat = (0.0, 0.0, 0.0)
         # simulation settings
         self.sim.render_interval = self.decimation
-    
+        
+        # self.actions.action_manager.action = torch.cat((torch.tile(self.actions.action_manager.action[:, 0].unsqueeze(1), (0, 16)),
+        #                                          torch.tile(self.actions.action_manager.action[:, 16].unsqueeze(1), (0, 16)),
+        #                                          torch.tile(self.actions.action_manager.action[:, 32].unsqueeze(1), (0, 16)),
+        #                                          torch.tile(self.actions.action_manager.action[:, 48].unsqueeze(1), (0, 16)),
+        #                                          torch.tile(self.actions.action_manager.action[:, 64].unsqueeze(1), (0, 16)),
+        #                                          torch.tile(self.actions.action_manager.action[:, 80].unsqueeze(1), (0, 16)),
+        #                                          torch.tile(self.actions.action_manager.action[:, 96].unsqueeze(1), (0, 16)),
+        #                                          torch.tile(self.actions.action_manager.action[:, 112].unsqueeze(1), (0, 16))) ,1)

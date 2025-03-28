@@ -20,29 +20,26 @@ from numpy import inf
 from math import sqrt
 from isaaclab.utils import convert_dict_to_backend
 
-from . import observations as obs
+from .observations import *
 
 if TYPE_CHECKING:
     from isaaclab.envs import ManagerBasedRLEnv
 
 
-def move_to_target_bonus(
-    env: ManagerBasedRLEnv,
-    threshold: float,
-    target_pos: tuple[float, float, float],
-    asset_cfg: SceneEntityCfg,
-) -> torch.Tensor:
-    """Reward for moving to the target heading."""
+def move_to_target_bonus(env: ManagerBasedRLEnv, target_pos: tuple[float, float, float], asset_cfg: SceneEntityCfg) -> torch.Tensor:
     
     asset : RigidObject = env.scene[asset_cfg.name]
     
-    heading_proj = obs.base_heading_proj(env, target_pos, asset).squeeze(-1)
-    return torch.where(heading_proj > threshold, 1.0, heading_proj / threshold)
+    to_target_pos = 1 / ((torch.tensor(target_pos, device=env.device) - asset.data.root_pos_w[:, :3])**2)
+    # print(asset_cfg.name, asset.data.root_pos_w[:, :3])
+    # print("-"*77)
+    # print(to_target_pos[:, 0])
+    return to_target_pos[:,0]
 
  
     
     
-def targetedCoverage(env: ManagerBasedRLEnv, heightThreshold: float, asset_cfg: SceneEntityCfg) -> torch.Tensor:
+def targetedCoverage(env: ManagerBasedRLEnv, asset_cfg: SceneEntityCfg) -> torch.Tensor:
     
 
     asset: Articulation = env.scene[asset_cfg.name]
@@ -60,79 +57,78 @@ def targetedCoverage(env: ManagerBasedRLEnv, heightThreshold: float, asset_cfg: 
     # print(np.max(depthImgData))
     
     # print(np.mean(depthImgData > 1.40)*100)
-    if heightThreshold is None:
-        heightThreshold = 1.5 # 1.5m from the camera down to the conveyor
+    heightThreshold = 1.5 # 1.5m from the camera down to the conveyor
     areaCovered = torch.tensor([np.mean(depthImgData < heightThreshold)],dtype=torch.float32,device=env.device)
     
     target = 0.3
     diff = abs(areaCovered - target)
-    if diff == 0: return areaCovered * 30.0
-    elif diff != 0: return diff**2 * -30.0
+    if diff == 0: return areaCovered**2 * 100.0
+    elif diff != 0: return diff**2 * -100.0
     
 
-def AreaCovJointVelRel(env: ManagerBasedRLEnv, sensor1_cfg: SceneEntityCfg, sensor2_cfg: SceneEntityCfg, asset_cfg: SceneEntityCfg = SceneEntityCfg("robot")) -> torch.Tensor:
+# def AreaCovJointVelRel(env: ManagerBasedRLEnv, sensor1_cfg: SceneEntityCfg, sensor2_cfg: SceneEntityCfg, asset_cfg: SceneEntityCfg = SceneEntityCfg("robot")) -> torch.Tensor:
     
 
-    asset: Articulation = env.scene[asset_cfg.name]
+#     asset: Articulation = env.scene[asset_cfg.name]
     
-    # Two adjacent Areas should have the same area of coverage
-    sensor1: TiledCamera = env.scene.sensors[sensor1_cfg.name]
-    sensor2: TiledCamera = env.scene.sensors[sensor2_cfg.name]
+#     # Two adjacent Areas should have the same area of coverage
+#     sensor1: TiledCamera = env.scene.sensors[sensor1_cfg.name]
+#     sensor2: TiledCamera = env.scene.sensors[sensor2_cfg.name]
 
     
-    single_cam_data_1 = convert_dict_to_backend(
-                {k: v for k, v in sensor1.data.output.items()}, backend="numpy")
+#     single_cam_data_1 = convert_dict_to_backend(
+#                 {k: v for k, v in sensor1.data.output.items()}, backend="numpy")
     
-    single_cam_data_2 = convert_dict_to_backend(
-                {k: v for k, v in sensor2.data.output.items()}, backend="numpy")
+#     single_cam_data_2 = convert_dict_to_backend(
+#                 {k: v for k, v in sensor2.data.output.items()}, backend="numpy")
     
-    depthImgData1 = single_cam_data_1["distance_to_image_plane"]
-    depthImgData2 = single_cam_data_2["distance_to_image_plane"]
+#     depthImgData1 = single_cam_data_1["distance_to_image_plane"]
+#     depthImgData2 = single_cam_data_2["distance_to_image_plane"]
     
-    depthImgData1[depthImgData1 == inf]= 0
-    depthImgData2[depthImgData2 == inf]= 0
+#     depthImgData1[depthImgData1 == inf]= 0
+#     depthImgData2[depthImgData2 == inf]= 0
     
-    heightThreshold = 1.5 # 1.5m from the camera down to the conveyor
+#     heightThreshold = 1.5 # 1.5m from the camera down to the conveyor
     
-    areaCovered1 = torch.tensor([np.mean(depthImgData1 < heightThreshold)],dtype=torch.float32,device=env.device)
-    areaCovered2 = torch.tensor([np.mean(depthImgData2 < heightThreshold)],dtype=torch.float32,device=env.device)
-    
-    
-    diff = abs(areaCovered1 - areaCovered2)*100
+#     areaCovered1 = torch.tensor([np.mean(depthImgData1 < heightThreshold)],dtype=torch.float32,device=env.device)
+#     areaCovered2 = torch.tensor([np.mean(depthImgData2 < heightThreshold)],dtype=torch.float32,device=env.device)
     
     
-    #Inverse relationship between area coverage and jointVel speed
-    currentAction = env.action_manager.action
-    prevAction = env.action_manager.prev_action
-    actionDiff = currentAction - prevAction
-    chunks = torch.chunk(currentAction, chunks=8, dim=1)
-    Spdmeans = torch.stack([chunk.mean(dim=1) for chunk in chunks], dim=1) / 1326
-    # print(Spdmeans)
-    # print(chunks)
+#     diff = abs(areaCovered1 - areaCovered2)*100
     
-    if sensor1_cfg.name == "tiled_camera1":
-        relationshipReward = (Spdmeans[:,0] + areaCovered1 - 1)*10
-    elif sensor1_cfg.name == "tiled_camera2":
-        relationshipReward = (Spdmeans[:,1] + areaCovered1 - 1)*10
-    elif sensor1_cfg.name == "tiled_camera3":
-        relationshipReward = (Spdmeans[:,2] + areaCovered1 - 1)*10
-    elif sensor1_cfg.name == "tiled_camera4":
-        relationshipReward = (Spdmeans[:,3] + areaCovered1 - 1)*10
-    elif sensor1_cfg.name == "tiled_camera5":
-        relationshipReward = (Spdmeans[:,4] + areaCovered1 - 1)*10
-    elif sensor1_cfg.name == "tiled_camera6":
-        relationshipReward = (Spdmeans[:,5] + areaCovered1 - 1)*10
-    elif sensor1_cfg.name == "tiled_camera7":
-        relationshipReward = (Spdmeans[:,6] + areaCovered1 - 1)*10
-    elif sensor1_cfg.name == "tiled_camera8":
-        relationshipReward = (Spdmeans[:,7] + areaCovered1 - 1)*10
     
-    relationshipReward = -relationshipReward**2
+#     #Inverse relationship between area coverage and jointVel speed
+#     currentAction = env.action_manager.action
+#     prevAction = env.action_manager.prev_action
+#     actionDiff = currentAction - prevAction
+#     chunks = torch.chunk(currentAction, chunks=8, dim=1)
+#     Spdmeans = torch.stack([chunk.mean(dim=1) for chunk in chunks], dim=1) / 1326
+#     # print(Spdmeans)
+#     # print(chunks)
     
-    #print(relationshipReward)
+#     if sensor1_cfg.name == "tiled_camera1":
+#         relationshipReward = (Spdmeans[:,0] + areaCovered1 - 1)*10
+#     elif sensor1_cfg.name == "tiled_camera2":
+#         relationshipReward = (Spdmeans[:,1] + areaCovered1 - 1)*10
+#     elif sensor1_cfg.name == "tiled_camera3":
+#         relationshipReward = (Spdmeans[:,2] + areaCovered1 - 1)*10
+#     elif sensor1_cfg.name == "tiled_camera4":
+#         relationshipReward = (Spdmeans[:,3] + areaCovered1 - 1)*10
+#     elif sensor1_cfg.name == "tiled_camera5":
+#         relationshipReward = (Spdmeans[:,4] + areaCovered1 - 1)*10
+#     elif sensor1_cfg.name == "tiled_camera6":
+#         relationshipReward = (Spdmeans[:,5] + areaCovered1 - 1)*10
+#     elif sensor1_cfg.name == "tiled_camera7":
+#         relationshipReward = (Spdmeans[:,6] + areaCovered1 - 1)*10
+#     elif sensor1_cfg.name == "tiled_camera8":
+#         relationshipReward = (Spdmeans[:,7] + areaCovered1 - 1)*10
     
-    if diff <= 1: return (areaCovered1*100)**2 * 30.0 + relationshipReward
-    elif diff > 1: return diff**2 * -30.0 + relationshipReward
+#     relationshipReward = -relationshipReward**2
+    
+#     #print(relationshipReward)
+    
+#     if diff <= 1: return (areaCovered1*100)**2 * 30.0 + relationshipReward
+#     elif diff > 1: return diff**2 * -30.0 + relationshipReward
 
 
 def joint_vel_positive(env: ManagerBasedRLEnv, asset_cfg: SceneEntityCfg = SceneEntityCfg("robot")) -> torch.Tensor:
@@ -160,11 +156,13 @@ def joint_vel_positive(env: ManagerBasedRLEnv, asset_cfg: SceneEntityCfg = Scene
     currentAction = env.action_manager.action
     prevAction = env.action_manager.prev_action
     actionDiff = currentAction - prevAction
+    
+    # progressively encourage to move to positive direction
     baseRew = torch.where(actionDiff > 0, actionDiff*1.0, actionDiff*10.0)
     
+    # directly encourage/discourage the current action
     negVelRew = torch.where(currentAction > 0, currentAction**2 + 10, ((currentAction**2) * -1.0) - 100)
-    #print("SUM ", torch.sum(rew, dim=1))
-    
+
     totalRew = baseRew + negVelRew
     
     return torch.sum(totalRew, dim=1)

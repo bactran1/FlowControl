@@ -8,7 +8,7 @@ from __future__ import annotations
 import torch
 from typing import TYPE_CHECKING
 
-from isaaclab.assets import Articulation
+from isaaclab.assets import Articulation, RigidObject
 from isaaclab.sensors import TiledCamera
 from isaaclab.managers import SceneEntityCfg
 import isaaclab.utils.math as math_utils
@@ -21,24 +21,6 @@ from isaaclab.utils import convert_dict_to_backend
 
 if TYPE_CHECKING:
     from isaaclab.envs import ManagerBasedRLEnv, ManagerBasedEnv
-
-
-def base_heading_proj(
-    env: ManagerBasedEnv, target_pos: tuple[float, float, float], asset_cfg: SceneEntityCfg = SceneEntityCfg("robot")
-) -> torch.Tensor:
-    """Projection of the base forward vector onto the world forward vector."""
-    # extract the used quantities (to enable type-hinting)
-    asset: Articulation = env.scene[asset_cfg.name]
-    # compute desired heading direction
-    to_target_pos = torch.tensor(target_pos, device=env.device) - asset.data.root_pos_w[:, :3]
-    to_target_pos[:, 2] = 0.0
-    to_target_dir = math_utils.normalize(to_target_pos)
-    # compute base forward vector
-    heading_vec = math_utils.quat_rotate(asset.data.root_quat_w, asset.data.FORWARD_VEC_B)
-    # compute dot product between heading and target direction
-    heading_proj = torch.bmm(heading_vec.view(env.num_envs, 1, 3), to_target_dir.view(env.num_envs, 3, 1))
-
-    return heading_proj.view(env.num_envs, 1)
 
 
 
