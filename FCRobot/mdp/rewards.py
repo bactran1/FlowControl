@@ -30,11 +30,11 @@ def move_to_target_bonus(env: ManagerBasedRLEnv, target_pos: tuple[float, float,
     
     asset : RigidObject = env.scene[asset_cfg.name]
     
-    to_target_pos = 1 / ((torch.tensor(target_pos, device=env.device) - asset.data.root_pos_w[:, :3])**2)
+    to_target_pos = 1 / ((asset.data.root_pos_w[:, :3] - torch.tensor(target_pos, device=env.device))*2)
     # print(asset_cfg.name, asset.data.root_pos_w[:, :3])
     # print("-"*77)
-    # print(to_target_pos[:, 0])
-    return to_target_pos[:,0]
+    print(to_target_pos[:, 0]*1000)
+    return to_target_pos[:,0]*1000
 
  
     

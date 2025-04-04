@@ -27,7 +27,7 @@ policy_kwargs: "dict(
                   activation_fn=nn.ReLU,
                   net_arch=[1024, 1024],
                   squash_output=False,
-                  log_std_init=1.0
+                  log_std_init=0.2
                 )"
 vf_coef: 1.0
 max_grad_norm: 1.0
