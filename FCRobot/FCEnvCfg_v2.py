@@ -1019,14 +1019,14 @@ class RewardsCfg:
     move_to_target_box1 = RewTerm(
         func=mdp.move_to_target_bonus,
         weight=5.0,
-        params={"asset_cfg": SceneEntityCfg('BoxS1'), "target_pos": (-22.0, 0.0, 0.0)}
+        params={"asset_cfg": SceneEntityCfg('BoxS2'), "target_pos": (-22.0, 0.0, 0.0)}
     )
     
     #box #5 move to target bonus
-    move_to_target_box5 = RewTerm(
+    move_to_target_box7 = RewTerm(
         func=mdp.move_to_target_bonus,
         weight=5.0,
-        params={"asset_cfg": SceneEntityCfg('BoxS5'), "target_pos": (-22.0, 0.0, 0.0)}
+        params={"asset_cfg": SceneEntityCfg('BoxS7'), "target_pos": (-22.0, 0.0, 0.0)}
     )
     
     #box #11 move to target bonus
@@ -1051,19 +1051,19 @@ class RewardsCfg:
     )
     
     
-    positiveJointVel = RewTerm(
-        func=mdp.joint_vel_positive,
-        weight=3.0
-        )
+    # positiveJointVel = RewTerm(
+    #     func=mdp.joint_vel_positive,
+    #     weight=3.0
+    #     )
     
     reduceJitter = RewTerm(
         func=mdp.action_rate_l2,
-        weight=-1.0
+        weight=-0.1
     )
     
     reduceAcc = RewTerm(
         func=mdp.joint_acc_l2,
-        weight=-1.0
+        weight=-0.3
     )
     
     # (5) Primary task: Keep coverage area at 50%
@@ -1175,12 +1175,3 @@ class FlowControlEnvCfg(ManagerBasedRLEnvCfg):
         self.viewer.lookat = (0.0, 0.0, 0.0)
         # simulation settings
         self.sim.render_interval = self.decimation
-        
-        # self.actions.action_manager.action = torch.cat((torch.tile(self.actions.action_manager.action[:, 0].unsqueeze(1), (0, 16)),
-        #                                          torch.tile(self.actions.action_manager.action[:, 16].unsqueeze(1), (0, 16)),
-        #                                          torch.tile(self.actions.action_manager.action[:, 32].unsqueeze(1), (0, 16)),
-        #                                          torch.tile(self.actions.action_manager.action[:, 48].unsqueeze(1), (0, 16)),
-        #                                          torch.tile(self.actions.action_manager.action[:, 64].unsqueeze(1), (0, 16)),
-        #                                          torch.tile(self.actions.action_manager.action[:, 80].unsqueeze(1), (0, 16)),
-        #                                          torch.tile(self.actions.action_manager.action[:, 96].unsqueeze(1), (0, 16)),
-        #                                          torch.tile(self.actions.action_manager.action[:, 112].unsqueeze(1), (0, 16))) ,1)

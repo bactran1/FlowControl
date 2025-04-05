@@ -161,7 +161,7 @@ def joint_vel_positive(env: ManagerBasedRLEnv, asset_cfg: SceneEntityCfg = Scene
     baseRew = torch.where(actionDiff > 0, actionDiff*1.0, actionDiff*10.0)
     
     # directly encourage/discourage the current action
-    negVelRew = torch.where(currentAction > 0, currentAction**2 + 10, ((currentAction**2) * -1.0) - 100)
+    negVelRew = torch.where(currentAction > 0, currentAction**2*10, ((currentAction**2) * -1.0)*100)
 
     totalRew = baseRew + negVelRew
     
